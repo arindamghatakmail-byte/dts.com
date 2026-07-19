@@ -211,6 +211,78 @@
 
   /* ---------- contact ---------- */
   .contact-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+
+  /* ---------- members only: layout + notice board ---------- */
+  .mo-layout{ display:grid; grid-template-columns:1fr 300px; gap:24px; align-items:start; }
+  .notice-board{
+    background:var(--card); border:1px solid var(--line); border-radius:10px; overflow:hidden;
+    box-shadow:0 1px 2px rgba(32,38,59,0.04), 0 8px 20px rgba(32,38,59,0.06);
+    border-top:3px solid var(--sindoor);
+  }
+  .notice-head{
+    padding:12px 16px; font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:.08em;
+    color:var(--paper); background:var(--indigo); text-transform:uppercase; display:flex; align-items:center; gap:8px;
+  }
+  .notice-dot{ width:6px; height:6px; border-radius:50%; background:var(--marigold); display:inline-block; animation:noticePulse 1.4s ease-in-out infinite; }
+  @keyframes noticePulse{ 0%,100%{ opacity:1; } 50%{ opacity:0.3; } }
+  .notice-scroll-wrap{ height:340px; overflow:hidden; position:relative; padding:4px 0; }
+  .notice-scroll-wrap::after{
+    content:""; position:absolute; left:0; right:0; bottom:0; height:36px; pointer-events:none;
+    background:linear-gradient(to top, var(--card), transparent);
+  }
+  .notice-list{ display:flex; flex-direction:column; animation:noticeScroll 22s linear infinite; }
+  .notice-list:hover{ animation-play-state:paused; }
+  @keyframes noticeScroll{ 0%{ transform:translateY(0); } 100%{ transform:translateY(-50%); } }
+  .notice-item{ padding:12px 16px; border-bottom:1px solid var(--line); position:relative; }
+  .notice-pill{
+    position:absolute; top:10px; right:14px; font-family:'JetBrains Mono',monospace; font-size:9px;
+    background:var(--sindoor); color:var(--paper); padding:2px 7px; border-radius:20px; letter-spacing:.05em;
+  }
+  .notice-date{ font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--clay); text-transform:uppercase; letter-spacing:.04em; }
+  .notice-text{ font-size:13px; color:#3a3628; margin-top:4px; line-height:1.4; }
+  @media(max-width:900px){ .mo-layout{ grid-template-columns:1fr; } .notice-scroll-wrap{ height:220px; } }
+
+  .doc-list{ display:flex; flex-direction:column; gap:10px; }
+  .doc-item{
+    display:flex; align-items:center; gap:12px; padding:12px 14px;
+    border:1px solid var(--line); border-radius:8px; text-decoration:none;
+    background:var(--paper-dim); transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .doc-item:hover{ transform:translateX(3px); box-shadow:0 4px 12px rgba(32,38,59,0.08); }
+  .doc-icon{ font-size:20px; flex-shrink:0; }
+  .doc-info{ display:flex; flex-direction:column; flex-grow:1; }
+  .doc-title{ font-size:13.5px; color:var(--indigo); font-weight:600; }
+  .doc-sub{ font-size:11.5px; color:#7a7260; margin-top:2px; }
+  .doc-dl{ font-size:16px; color:var(--sindoor); flex-shrink:0; }
+
+  /* ---------- join us page ---------- */
+  .join-hero{ max-width:700px; }
+  .join-hero-bn{ font-size:19px; color:var(--indigo); font-family:'Work Sans',sans-serif; }
+  .join-download-card{
+    display:flex; align-items:center; gap:18px; margin-top:26px; padding:22px 26px;
+    background:linear-gradient(135deg, var(--indigo), #26365a); border-radius:14px;
+    box-shadow:0 16px 34px rgba(27,42,74,0.22); flex-wrap:wrap;
+  }
+  .join-download-icon{ font-size:32px; flex-shrink:0; }
+  .join-download-info{ flex-grow:1; min-width:200px; }
+  .join-download-info h3{ color:var(--paper); font-family:'Tiro Bangla',serif; font-weight:400; font-size:18px; }
+  .join-download-info p{ color:rgba(247,241,227,0.7); font-size:12px; margin-top:4px; }
+  .join-download-btn{
+    flex-shrink:0; background:var(--marigold); color:var(--indigo); text-decoration:none;
+    font-family:'JetBrains Mono',monospace; font-size:12.5px; font-weight:600; letter-spacing:.04em;
+    padding:12px 20px; border-radius:8px; transition:transform .15s ease;
+  }
+  .join-download-btn:hover{ transform:translateY(-2px); }
+  .join-steps{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .join-step{ background:var(--card); border:1px solid var(--line); border-radius:10px; padding:20px; position:relative; padding-top:38px; }
+  .join-step-num{
+    position:absolute; top:-14px; left:20px; width:28px; height:28px; border-radius:50%;
+    background:var(--sindoor); color:var(--paper); display:flex; align-items:center; justify-content:center;
+    font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:600;
+  }
+  .join-step h4{ font-family:'Tiro Bangla',serif; font-weight:400; font-size:16px; color:var(--indigo); margin-bottom:8px; }
+  .join-step p{ font-size:12.5px; color:#5c563f; }
+  @media(max-width:820px){ .join-steps{ grid-template-columns:1fr; } }
   .contact-card{ text-align:center; padding:26px 20px; border-top:3px solid var(--marigold); border-radius:10px; transition:transform .2s ease; }
   .contact-card:hover{ transform:translateY(-3px); }
   .contact-card .c-icon{ font-size:22px; color:var(--sindoor); margin-bottom:10px; }
@@ -244,6 +316,7 @@
       <a class="tab-link" data-page="activities" onclick="showPage('activities')">Activities</a>
       <a class="tab-link" data-page="gallery" onclick="showPage('gallery')">Gallery</a>
       <a class="tab-link" data-page="members-only" onclick="showPage('members-only')">Members Only</a>
+      <a class="tab-link" data-page="join" onclick="showPage('join')">Join Us</a>
       <a class="tab-link" data-page="contact" onclick="showPage('contact')">Contact</a>
     </div>
   </div>
@@ -331,7 +404,7 @@
       <div class="aim-item"><h4>Civic &amp; Patriotic Life</h4><p>Marking Republic Day, Independence Day, and Netaji's birthday with flag hoisting and youth participation.</p></div>
       <div class="aim-item"><h4>Public Health &amp; Environment</h4><p>Blood donation camps, tree plantation drives, and local cleanliness campaigns.</p></div>
       <div class="aim-item"><h4>Youth &amp; Education</h4><p>Educational materials, periodicals, and magazines for the youth wing's reading habits.</p></div>
-      <div class="aim-item"><h4>Permanent Infrastructure</h4><p><b>Empowering our society through a future Community Library House in our club premises.</b></p></div>
+      <div class="aim-item"><h4>Permanent Infrastructure</h4><p>Building and maintaining a physical clubhouse as a lasting base for all of the above.</p></div>
     </div>
   </main>
 </div>
@@ -540,7 +613,7 @@
     </div>
     <div class="fy-panel" id="fy25">
       <div class="activity-grid">
-        <div class="activity-card"><div class="cat">Infrastructure</div><p>Long-term resource drive raising contributions toward a permanent Library Building Construction Fund.</p></div>
+        <div class="activity-card"><div class="cat">Infrastructure</div><p>Long-term resource drive raising contributions toward a permanent Building Construction Fund.</p></div>
         <div class="activity-card"><div class="cat">Social Welfare</div><p>Festive food distribution programs for needy families.</p></div>
         <div class="activity-card"><div class="cat">Cultural &amp; Religious</div><p>Flagship Durga Puja, plus Saraswati Puja, Basanta Utsav and Kobi Pronam.</p></div>
         <div class="activity-card"><div class="cat">Environment</div><p>Local cleanliness drives and tree plantation on National Tree Plantation Day.</p></div>
@@ -588,14 +661,125 @@
     </div>
 
     <div id="membersContent" style="display:none;">
-      <div class="section-head"><h2>Meeting Minutes</h2><span class="tag">Members Only</span></div>
-      <div class="card" style="margin-bottom:20px;">
-        <p style="font-size:13.5px; color:#5c563f;">No minutes have been added yet. Send them to the club Secretary or share them with the person maintaining the website, and they'll appear here.</p>
+      <div class="mo-layout">
+        <div class="mo-main">
+          <div class="section-head"><h2>Meeting Minutes</h2><span class="tag">Members Only</span></div>
+          <div class="card" style="margin-bottom:20px;">
+            <p style="font-size:13.5px; color:#5c563f;">No minutes have been added yet. Send them to the club Secretary or share them with the person maintaining the website, and they'll appear here.</p>
+          </div>
+          <div class="section-head"><h2>Internal Photos</h2><span class="tag">Members Only</span></div>
+          <div class="card" style="margin-bottom:20px;">
+            <p style="font-size:13.5px; color:#5c563f;">Reserved for internal photos not meant for the public gallery — e.g. planning meetings, fund collection records.</p>
+          </div>
+
+          <div class="section-head"><h2>Documents</h2><span class="tag">Annual Reports &amp; Audited Statements</span></div>
+          <div class="card">
+            <div class="doc-list">
+              <a class="doc-item" href="documents/annual-report-fy2026.pdf" target="_blank">
+                <span class="doc-icon">📄</span>
+                <span class="doc-info"><span class="doc-title">Annual Report — FY 2025–26</span><span class="doc-sub">Includes audited accounts &amp; auditor's report</span></span>
+                <span class="doc-dl">↓</span>
+              </a>
+              <a class="doc-item" href="documents/annual-report-fy2025.pdf" target="_blank">
+                <span class="doc-icon">📄</span>
+                <span class="doc-info"><span class="doc-title">Annual Report — FY 2024–25</span><span class="doc-sub">Includes audited accounts &amp; auditor's report</span></span>
+                <span class="doc-dl">↓</span>
+              </a>
+              <a class="doc-item" href="documents/annual-report-fy2024.pdf" target="_blank">
+                <span class="doc-icon">📄</span>
+                <span class="doc-info"><span class="doc-title">Annual Report — FY 2023–24</span><span class="doc-sub">Includes audited accounts &amp; auditor's report</span></span>
+                <span class="doc-dl">↓</span>
+              </a>
+              <a class="doc-item" href="documents/annual-report-fy2023.pdf" target="_blank">
+                <span class="doc-icon">📄</span>
+                <span class="doc-info"><span class="doc-title">Annual Report — FY 2022–23</span><span class="doc-sub">Founding year &middot; Includes audited accounts</span></span>
+                <span class="doc-dl">↓</span>
+              </a>
+            </div>
+            <p style="font-size:12px; color:#9a927c; margin-top:14px;">Registration certificate and executive committee resolution documents will appear here once uploaded.</p>
+          </div>
+        </div>
+
+        <div class="mo-side">
+          <div class="notice-board">
+            <div class="notice-head">
+              <span class="notice-dot"></span> NOTICE BOARD
+            </div>
+            <div class="notice-scroll-wrap" id="noticeScrollWrap">
+              <div class="notice-list" id="noticeList">
+                <div class="notice-item">
+                  <span class="notice-pill">NEW</span>
+                  <div class="notice-date">01.04.2026</div>
+                  <div class="notice-text">New elected Executive Committee, w.e.f. 01.04.2026</div>
+                </div>
+                <div class="notice-item">
+                  <div class="notice-date">FY 2025–26</div>
+                  <div class="notice-text">Clubhouse construction phase completed using the Building Fund</div>
+                </div>
+                <div class="notice-item">
+                  <div class="notice-date">2026</div>
+                  <div class="notice-text">Kobi Pronam – 2026 celebrated with a cultural programme</div>
+                </div>
+                <div class="notice-item">
+                  <div class="notice-date">2026</div>
+                  <div class="notice-text">Basanta Utsav 2026 celebrated with colour and music</div>
+                </div>
+                <div class="notice-item">
+                  <div class="notice-date">2025</div>
+                  <div class="notice-text">Organisation successfully celebrated Durga Pujo 2025</div>
+                </div>
+                <div class="notice-item">
+                  <div class="notice-date">2025</div>
+                  <div class="notice-text">Blood Donation Camp organised successfully</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="section-head"><h2>Internal Photos</h2><span class="tag">Members Only</span></div>
-      <div class="card">
-        <p style="font-size:13.5px; color:#5c563f;">Reserved for internal photos not meant for the public gallery — e.g. planning meetings, fund collection records.</p>
+    </div>
+  </main>
+</div>
+
+<!-- ============ JOIN US ============ -->
+<div class="page" id="page-join">
+  <main class="wrap" style="padding-top:40px;">
+    <div class="join-hero">
+      <div class="join-hero-bn">আমাদের সংঘে যোগ দিতে চান?</div>
+      <h2 class="page-title" style="margin-top:6px;">Want to Join Us?</h2>
+      <p class="page-lede" style="max-width:640px;">We'd love to welcome you to Dihibaliharpur Tarun Sangha. Download the membership application form below, fill it in, and submit it in person at the club premises — our committee will review it and get back to you.</p>
+    </div>
+
+    <div class="join-download-card">
+      <div class="join-download-icon">📄</div>
+      <div class="join-download-info">
+        <h3>Membership Application Form</h3>
+        <p>Bilingual (Bengali &amp; English) &middot; PDF &middot; Print and fill by hand</p>
       </div>
+      <a href="documents/membership-application-form.pdf" target="_blank" class="join-download-btn">DOWNLOAD PDF ↓</a>
+    </div>
+
+    <div class="section-head" style="margin-top:36px;"><h2>How It Works</h2></div>
+    <div class="join-steps">
+      <div class="join-step">
+        <div class="join-step-num">1</div>
+        <h4>Download &amp; Fill</h4>
+        <p>Download the form above, print it, and fill in your details by hand — name, age, address, occupation, and why you'd like to join.</p>
+      </div>
+      <div class="join-step">
+        <div class="join-step-num">2</div>
+        <h4>Submit in Person</h4>
+        <p>Bring the completed form to the club premises at Dihibaliharpur and hand it to a committee member.</p>
+      </div>
+      <div class="join-step">
+        <div class="join-step-num">3</div>
+        <h4>Wait for a Decision</h4>
+        <p>Your application will be discussed internally by the committee, and you'll be notified of the outcome.</p>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:30px; max-width:520px;">
+      <p style="font-size:13px; color:#5c563f;">Questions before applying? Reach us at <b>+91 70018 83623</b> or <b>tarunsangha.dihibaliharpur@gmail.com</b>.</p>
     </div>
   </main>
 </div>
@@ -659,6 +843,12 @@
       document.getElementById('membersContent').style.display = 'block';
     });
   }
+  // Notice board — duplicate the list once so the scroll loop is seamless
+  const noticeList = document.getElementById('noticeList');
+  if (noticeList) {
+    noticeList.innerHTML += noticeList.innerHTML;
+  }
+
   function checkMemberPassword(){
     const entered = document.getElementById('memberPassword').value;
     if (entered === MEMBER_PASSWORD) {
@@ -670,29 +860,30 @@
     }
   }
 
-  // Raise a Query form — submit via fetch so we can show a confirmation on the page
-  const queryForm = document.getElementById('queryForm');
-  if (queryForm) {
-    queryForm.addEventListener('submit', async function(e){
+  // Generic handler for any Formspree-backed form: submits via fetch, shows inline confirmation
+  function wireForm(formId, btnId, statusId, successMsg){
+    const form = document.getElementById(formId);
+    if (!form) return;
+    form.addEventListener('submit', async function(e){
       e.preventDefault();
-      const btn = document.getElementById('queryBtn');
-      const status = document.getElementById('queryStatus');
+      const btn = document.getElementById(btnId);
+      const status = document.getElementById(statusId);
       const originalBtnText = btn.textContent;
       btn.textContent = 'SENDING...';
       btn.disabled = true;
       status.style.display = 'none';
       try {
-        const res = await fetch(queryForm.action, {
+        const res = await fetch(form.action, {
           method: 'POST',
-          body: new FormData(queryForm),
+          body: new FormData(form),
           headers: { 'Accept': 'application/json' }
         });
         if (res.ok) {
           status.style.display = 'block';
           status.style.background = 'rgba(51,85,63,0.12)';
           status.style.color = 'var(--leaf)';
-          status.textContent = "Thank you — your query has been sent. We'll get back to you soon.";
-          queryForm.reset();
+          status.textContent = successMsg;
+          form.reset();
         } else {
           throw new Error('Form submission failed');
         }
@@ -707,6 +898,7 @@
       }
     });
   }
+  wireForm('queryForm', 'queryBtn', 'queryStatus', "Thank you — your query has been sent. We'll get back to you soon.");
 
   function showPage(name){
     document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
