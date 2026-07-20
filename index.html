@@ -105,7 +105,8 @@
   .photo-grid .ph:hover::after{ opacity:1; }
   .p1{ grid-column:span 2; grid-row:span 2; } .p2{ grid-column:span 2; grid-row:span 1; } .p3{ grid-column:span 2; grid-row:span 1; }
   .p4{ grid-column:span 2; grid-row:span 1; } .p5{ grid-column:span 2; grid-row:span 2; } .p6{ grid-column:span 2; grid-row:span 1; }
-  @media(max-width:700px){ .photo-grid{ grid-template-columns:repeat(2,1fr); grid-auto-rows:130px; } .p1,.p5{ grid-column:span 2; grid-row:span 2;} .p2,.p3,.p4,.p6{ grid-column:span 1; grid-row:span 1;} }
+  .ph-auto{ grid-column:span 2; grid-row:span 1; }
+  @media(max-width:700px){ .photo-grid{ grid-template-columns:repeat(2,1fr); grid-auto-rows:130px; } .p1,.p5{ grid-column:span 2; grid-row:span 2;} .p2,.p3,.p4,.p6{ grid-column:span 1; grid-row:span 1;} .ph-auto{ grid-column:span 1; grid-row:span 1; } }
 
   /* ---------- gallery page frames ---------- */
   .art-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
@@ -347,13 +348,8 @@
   <main class="wrap">
     <section class="block" style="margin-top:36px;">
       <div class="section-head"><h2>Durga Puja 2024 — Children's Art Corner</h2><span class="tag">Drawn by the children of our village</span></div>
-      <div class="photo-grid">
-        <div class="ph p1" data-cap="Krishna, flute in hand" onclick="openLightbox('krishna')"><img src="images/krishna.jpg" alt="Krishna with flute"></div>
-        <div class="ph p2" data-cap="Chandrayaan-3, National Moon Day" onclick="openLightbox('chandrayaan')"><img src="images/chandrayaan.jpg" alt="Chandrayaan-3 rocket drawing"></div>
-        <div class="ph p3" data-cap="Maa Durga's Trishul" onclick="openLightbox('trishul')"><img src="images/trishul.jpg" alt="Durga's trishul drawing"></div>
-        <div class="ph p4" data-cap="Our Village" onclick="openLightbox('village')"><img src="images/village.jpg" alt="Village landscape drawing"></div>
-        <div class="ph p5" data-cap="Maa Durga" onclick="openLightbox('durgaface')"><img src="images/durgaface.jpg" alt="Durga Maa portrait drawing"></div>
-        <div class="ph p6" data-cap="Ma Durga Pencil Sketch" onclick="openLightbox('portrait')"><img src="images/portrait.jpg" alt="Pencil portrait of Durga Maa"></div>
+      <div class="photo-grid" id="homePhotoGrid">
+        <p style="font-size:12.5px; color:rgba(32,38,59,0.5);">Loading photos…</p>
       </div>
     </section>
 
@@ -635,13 +631,8 @@
   <main class="wrap" style="padding-top:40px;">
     <h2 class="page-title">Durga Puja 2024 — Children's Art</h2>
     <p class="page-lede">Drawn by the children of Dihibaliharpur during Durga Puja 2024 — crayon, oil pastel, and pencil, straight from their sketchbooks.</p>
-    <div class="art-grid">
-      <div class="art-frame" onclick="openLightbox('krishna')"><div class="ph-wrap"><img src="images/krishna.jpg" alt="Krishna with flute"></div><div class="art-cap"><h4>Krishna, Flute in Hand</h4><p>"Dancing beneath a peacock feather sky."</p></div></div>
-      <div class="art-frame" onclick="openLightbox('chandrayaan')"><div class="ph-wrap"><img src="images/chandrayaan.jpg" alt="Chandrayaan-3 rocket drawing"></div><div class="art-cap"><h4>Chandrayaan-3</h4><p>"A rocket bound for the moon, drawn for National Moon Day."</p></div></div>
-      <div class="art-frame" onclick="openLightbox('trishul')"><div class="ph-wrap"><img src="images/trishul.jpg" alt="Durga's trishul drawing"></div><div class="art-cap"><h4>The Trishul of Maa Durga</h4><p>"Finished in a hand-drawn mandala."</p></div></div>
-      <div class="art-frame" onclick="openLightbox('village')"><div class="ph-wrap"><img src="images/village.jpg" alt="Village landscape drawing"></div><div class="art-cap"><h4>Our Village</h4><p>"Home — the huts, the trees, and the path that leads back to them."</p></div></div>
-      <div class="art-frame" onclick="openLightbox('durgaface')"><div class="ph-wrap"><img src="images/durgaface.jpg" alt="Durga Maa portrait drawing"></div><div class="art-cap"><h4>Maa Durga</h4><p>"The fierce, watchful gaze of the goddess."</p></div></div>
-      <div class="art-frame" onclick="openLightbox('portrait')"><div class="ph-wrap"><img src="images/portrait.jpg" alt="Pencil portrait of Durga Maa"></div><div class="art-cap"><h4>A Quiet Study</h4><p>"A graphite portrait, drawn with a steady hand."</p><span class="by">By Arya Shubra Bera</span></div></div>
+    <div class="art-grid" id="galleryArtGrid">
+      <p style="font-size:13px; color:#9a927c;">Loading gallery…</p>
     </div>
   </main>
 </div>
@@ -657,7 +648,7 @@
       <p class="note">Ask the Secretary or Treasurer if you don't have it.</p>
       <input type="password" id="memberPassword" placeholder="Password" onkeydown="if(event.key==='Enter'){checkMemberPassword();}" style="width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:13px; margin-top:6px;">
       <div id="loginError" style="display:none; color:var(--sindoor); font-size:12.5px; margin-top:8px;">Incorrect password — please try again.</div>
-      <button onclick="checkMemberPassword()" style="margin-top:14px; width:100%; padding:10px; background:var(--indigo); color:var(--paper); border:none; border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:13px; cursor:pointer; letter-spacing:.04em;">UNLOCK</button>
+      <button onclick="checkMemberPassword()" style="margin-top:14px; width:100%; padding:10px; background:var(--indigo); color:var(--paper); border:none; border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:13px; cursor:pointer; letter-spacing:.04em;">Log in</button>
     </div>
 
     <div id="membersContent" style="display:none;">
@@ -674,29 +665,10 @@
 
           <div class="section-head"><h2>Documents</h2><span class="tag">Annual Reports &amp; Audited Statements</span></div>
           <div class="card">
-            <div class="doc-list">
-              <a class="doc-item" href="annual-report-fy2026.pdf" target="_blank">
-                <span class="doc-icon">📄</span>
-                <span class="doc-info"><span class="doc-title">Annual Report — FY 2025–26</span><span class="doc-sub">Includes audited accounts &amp; auditor's report</span></span>
-                <span class="doc-dl">↓</span>
-              </a>
-              <a class="doc-item" href="annual-report-fy2025.pdf" target="_blank">
-                <span class="doc-icon">📄</span>
-                <span class="doc-info"><span class="doc-title">Annual Report — FY 2024–25</span><span class="doc-sub">Includes audited accounts &amp; auditor's report</span></span>
-                <span class="doc-dl">↓</span>
-              </a>
-              <a class="doc-item" href="annual-report-fy2024.pdf" target="_blank">
-                <span class="doc-icon">📄</span>
-                <span class="doc-info"><span class="doc-title">Annual Report — FY 2023–24</span><span class="doc-sub">Includes audited accounts &amp; auditor's report</span></span>
-                <span class="doc-dl">↓</span>
-              </a>
-              <a class="doc-item" href="annual-report-fy2023.pdf" target="_blank">
-                <span class="doc-icon">📄</span>
-                <span class="doc-info"><span class="doc-title">Annual Report — FY 2022–23</span><span class="doc-sub">Founding year &middot; Includes audited accounts</span></span>
-                <span class="doc-dl">↓</span>
-              </a>
+            <div class="doc-list" id="docList">
+              <p style="font-size:12.5px; color:#9a927c;">Loading documents…</p>
             </div>
-            <p style="font-size:12px; color:#9a927c; margin-top:14px;">Registration certificate and executive committee resolution documents will appear here once uploaded.</p>
+            <p style="font-size:12px; color:#9a927c; margin-top:14px;">Documents are pulled automatically from the club's document folder — upload a new PDF there and it appears here.</p>
           </div>
         </div>
 
@@ -707,31 +679,7 @@
             </div>
             <div class="notice-scroll-wrap" id="noticeScrollWrap">
               <div class="notice-list" id="noticeList">
-                <div class="notice-item">
-                  <span class="notice-pill">NEW</span>
-                  <div class="notice-date">01.04.2026</div>
-                  <div class="notice-text">New elected Executive Committee, w.e.f. 01.04.2026</div>
-                </div>
-                <div class="notice-item">
-                  <div class="notice-date">FY 2025–26</div>
-                  <div class="notice-text">Clubhouse construction phase completed using the Building Fund</div>
-                </div>
-                <div class="notice-item">
-                  <div class="notice-date">2026</div>
-                  <div class="notice-text">Kobi Pronam – 2026 celebrated with a cultural programme</div>
-                </div>
-                <div class="notice-item">
-                  <div class="notice-date">2026</div>
-                  <div class="notice-text">Basanta Utsav 2026 celebrated with colour and music</div>
-                </div>
-                <div class="notice-item">
-                  <div class="notice-date">2025</div>
-                  <div class="notice-text">Organisation successfully celebrated Durga Pujo 2025</div>
-                </div>
-                <div class="notice-item">
-                  <div class="notice-date">2025</div>
-                  <div class="notice-text">Blood Donation Camp organised successfully</div>
-                </div>
+                <div class="notice-item"><div class="notice-text">Loading notices…</div></div>
               </div>
             </div>
           </div>
@@ -828,12 +776,106 @@
 <div id="lightbox" onclick="closeLightbox()"><img id="lightboxImg" src="" alt=""></div>
 
 <script>
-  const images = {
-    krishna: "images/krishna.jpg", chandrayaan: "images/chandrayaan.jpg", trishul: "images/trishul.jpg",
-    village: "images/village.jpg", durgaface: "images/durgaface.jpg", portrait: "images/portrait.jpg"
+  const GITHUB_OWNER = 'arindamghatakmail-byte';
+  const GITHUB_REPO = 'dts.com';
+  const GITHUB_IMAGES_PATH = 'images';
+
+  // Known captions for existing photos — anything uploaded later without an entry here
+  // falls back to an auto-generated title from its filename.
+  const IMAGE_CAPTIONS = {
+    'krishna.jpg':     { title: 'Krishna, Flute in Hand', quote: 'Dancing beneath a peacock feather sky.' },
+    'chandrayaan.jpg': { title: 'Chandrayaan-3', quote: 'A rocket bound for the moon, drawn for National Moon Day.' },
+    'trishul.jpg':     { title: "The Trishul of Maa Durga", quote: 'Finished in a hand-drawn mandala.' },
+    'village.jpg':     { title: 'Our Village', quote: 'Home — the huts, the trees, and the path that leads back to them.' },
+    'durgaface.jpg':   { title: 'Maa Durga', quote: 'The fierce, watchful gaze of the goddess.' },
+    'portrait.jpg':    { title: 'A Quiet Study', quote: 'A graphite portrait, drawn with a steady hand.', by: 'Anya Sudha Bora' }
   };
-  function openLightbox(key){ document.getElementById('lightboxImg').src = images[key]; document.getElementById('lightbox').classList.add('active'); }
-    function closeLightbox(){ document.getElementById('lightbox').classList.remove('active'); }
+
+  function formatImageTitle(filename){
+    let name = filename.replace(/\.(jpg|jpeg|png|webp|gif)$/i, '').replace(/[-_]+/g, ' ');
+    return name.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
+  }
+
+  let IMAGE_DATA = [];
+
+  function openLightbox(idx){
+    if (!IMAGE_DATA[idx]) return;
+    document.getElementById('lightboxImg').src = IMAGE_DATA[idx].url;
+    document.getElementById('lightbox').classList.add('active');
+  }
+  function closeLightbox(){ document.getElementById('lightbox').classList.remove('active'); }
+
+  async function loadImages(){
+    const homeGrid = document.getElementById('homePhotoGrid');
+    const galleryGrid = document.getElementById('galleryArtGrid');
+    try {
+      const res = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_IMAGES_PATH}`);
+      if (!res.ok) throw new Error('GitHub API request failed');
+      const files = await res.json();
+      const imgFiles = Array.isArray(files) ? files.filter(f => /\.(jpe?g|png|webp|gif)$/i.test(f.name)) : [];
+      if (imgFiles.length === 0) {
+        if (homeGrid) homeGrid.innerHTML = '<p style="font-size:12.5px; color:rgba(32,38,59,0.5);">No photos uploaded yet.</p>';
+        if (galleryGrid) galleryGrid.innerHTML = '<p style="font-size:13px; color:#9a927c;">No photos uploaded yet.</p>';
+        return;
+      }
+      imgFiles.sort((a, b) => a.name.localeCompare(b.name));
+      IMAGE_DATA = imgFiles.map(f => {
+        const known = IMAGE_CAPTIONS[f.name.toLowerCase()];
+        return {
+          url: f.download_url,
+          title: known ? known.title : formatImageTitle(f.name),
+          quote: known ? known.quote : null,
+          by: known ? known.by : null
+        };
+      });
+
+      if (homeGrid) {
+        const preview = IMAGE_DATA.slice(0, 6);
+        homeGrid.innerHTML = preview.map((img, i) => `
+          <div class="ph ph-auto" data-cap="${img.title}" onclick="openLightbox(${i})"><img src="${img.url}" alt="${img.title}"></div>
+        `).join('');
+      }
+      if (galleryGrid) {
+        galleryGrid.innerHTML = IMAGE_DATA.map((img, i) => `
+          <div class="art-frame" onclick="openLightbox(${i})">
+            <div class="ph-wrap"><img src="${img.url}" alt="${img.title}"></div>
+            <div class="art-cap">
+              <h4>${img.title}</h4>
+              ${img.quote ? `<p>"${img.quote}"</p>` : ''}
+              ${img.by ? `<span class="by">By ${img.by}</span>` : ''}
+            </div>
+          </div>
+        `).join('');
+      }
+    } catch (err) {
+      if (homeGrid) homeGrid.innerHTML = '<p style="font-size:12.5px; color:rgba(32,38,59,0.5);">Couldn\'t load photos right now — please refresh.</p>';
+      if (galleryGrid) galleryGrid.innerHTML = '<p style="font-size:13px; color:#9a927c;">Couldn\'t load gallery right now — please refresh.</p>';
+    }
+  }
+  loadImages();
+
+  async function loadNotices(){
+    const container = document.getElementById('noticeList');
+    if (!container) return;
+    try {
+      const res = await fetch('notices.json');
+      if (!res.ok) throw new Error('notices.json request failed');
+      const notices = await res.json();
+      if (!Array.isArray(notices) || notices.length === 0) {
+        container.innerHTML = '<div class="notice-item"><div class="notice-text">No notices yet.</div></div>';
+        return;
+      }
+      const itemsHtml = notices.map((n, i) => `
+        <div class="notice-item">
+          ${i === 0 ? '<span class="notice-pill">NEW</span>' : ''}
+          <div class="notice-date">${n.date}</div>
+          <div class="notice-text">${n.text}</div>
+        </div>`).join('');
+      container.innerHTML = itemsHtml + itemsHtml; // duplicate once for seamless scroll loop
+    } catch (err) {
+      container.innerHTML = '<div class="notice-item"><div class="notice-text">Couldn\'t load notices — please refresh.</div></div>';
+    }
+  }
 
   // Members Only gate — change MEMBER_PASSWORD below to set your own password
   const MEMBER_PASSWORD = "tarunsangha2023";
@@ -841,20 +883,58 @@
     document.addEventListener('DOMContentLoaded', ()=>{
       document.getElementById('loginGate').style.display = 'none';
       document.getElementById('membersContent').style.display = 'block';
+      loadDocuments();
+      loadNotices();
     });
   }
-  // Notice board — duplicate the list once so the scroll loop is seamless
-  const noticeList = document.getElementById('noticeList');
-  if (noticeList) {
-    noticeList.innerHTML += noticeList.innerHTML;
+
+  // Auto-load PDFs from the repo's /documents folder via the GitHub API —
+  // upload a new PDF there and it appears here automatically, no code edits needed.
+  const GITHUB_OWNER = 'arindamghatakmail-byte';
+  const GITHUB_REPO = 'dts.com';
+  const GITHUB_DOCS_PATH = 'documents';
+
+  function formatDocTitle(filename){
+    let name = filename.replace(/\.pdf$/i, '').replace(/[-_]+/g, ' ');
+    name = name.replace(/\b([a-zA-Z]+)(\d{2,4})?\b/g, (match, word, num) => {
+      if (/^fy$/i.test(word) && num) return 'FY ' + num;
+      if (/^fy\d{2,4}$/i.test(word)) return 'FY ' + word.slice(2);
+      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase() + (num || '');
+    });
+    return name;
   }
 
+  async function loadDocuments(){
+    const container = document.getElementById('docList');
+    if (!container) return;
+    try {
+      const res = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_DOCS_PATH}`);
+      if (!res.ok) throw new Error('GitHub API request failed');
+      const files = await res.json();
+      const pdfs = Array.isArray(files) ? files.filter(f => f.name.toLowerCase().endsWith('.pdf')) : [];
+      if (pdfs.length === 0) {
+        container.innerHTML = '<p style="font-size:12.5px; color:#9a927c;">No documents uploaded yet.</p>';
+        return;
+      }
+      pdfs.sort((a, b) => a.name.localeCompare(b.name)).reverse();
+      container.innerHTML = pdfs.map(f => `
+        <a class="doc-item" href="${f.download_url}" target="_blank">
+          <span class="doc-icon">📄</span>
+          <span class="doc-info"><span class="doc-title">${formatDocTitle(f.name)}</span><span class="doc-sub">${(f.size/1024).toFixed(0)} KB &middot; PDF</span></span>
+          <span class="doc-dl">↓</span>
+        </a>`).join('');
+    } catch (err) {
+      container.innerHTML = '<p style="font-size:12.5px; color:#9a927c;">Couldn\'t load documents right now — please refresh the page.</p>';
+    }
+  }
   function checkMemberPassword(){
     const entered = document.getElementById('memberPassword').value;
     if (entered === MEMBER_PASSWORD) {
       document.getElementById('loginGate').style.display = 'none';
       document.getElementById('membersContent').style.display = 'block';
       sessionStorage.setItem('memberUnlocked', 'yes');
+      loadDocuments();
+      loadNotices();
     } else {
       document.getElementById('loginError').style.display = 'block';
     }
