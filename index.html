@@ -217,7 +217,7 @@
   /* ---------- contact ---------- */
   .contact-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
 
-  /* ---------- members only: layout + notice board ---------- */
+  /* ---------- Members Login: layout + notice board ---------- */
   .mo-layout{ display:grid; grid-template-columns:1fr 300px; gap:24px; align-items:start; }
   .notice-board{
     background:var(--card); border:1px solid var(--line); border-radius:10px; overflow:hidden;
@@ -320,7 +320,7 @@
       <a class="tab-link" data-page="events" onclick="showPage('events')">Events</a>
       <a class="tab-link" data-page="activities" onclick="showPage('activities')">Activities</a>
       <a class="tab-link" data-page="gallery" onclick="showPage('gallery')">Gallery</a>
-      <a class="tab-link" data-page="members-only" onclick="showPage('members-only')">Members Only</a>
+      <a class="tab-link" data-page="members-only" onclick="showPage('members-only')">Members Login</a>
       <a class="tab-link" data-page="join" onclick="showPage('join')">Join Us</a>
       <a class="tab-link" data-page="contact" onclick="showPage('contact')">Contact</a>
     </div>
@@ -639,10 +639,10 @@
   </main>
 </div>
 
-<!-- ============ MEMBERS ONLY ============ -->
+<!-- ============ Members Login ============ -->
 <div class="page" id="page-members-only">
   <main class="wrap" style="padding-top:40px;">
-    <h2 class="page-title">Members Only</h2>
+    <h2 class="page-title">Members Login</h2>
     <p class="page-lede">Meeting notes, minutes, and internal photos — for club members.</p>
 
     <div id="loginGate" class="card" style="max-width:380px;">
@@ -656,14 +656,14 @@
     <div id="membersContent" style="display:none;">
       <div class="mo-layout">
         <div class="mo-main">
-          <div class="section-head"><h2>Meeting Minutes</h2><span class="tag">Members Only</span></div>
+          <div class="section-head"><h2>Meeting Minutes</h2><span class="tag">Members Login</span></div>
           <div class="card" style="margin-bottom:20px;">
             <div class="doc-list" id="minutesList">
               <p style="font-size:12.5px; color:#9a927c;">Loading minutes…</p>
             </div>
             <p style="font-size:12px; color:#9a927c; margin-top:14px;">Upload PDFs to the club's <code>minutes</code> folder and they'll appear here automatically.</p>
           </div>
-          <div class="section-head"><h2>Internal Photos</h2><span class="tag">Members Only</span></div>
+          <div class="section-head"><h2>Internal Photos</h2><span class="tag">Members Login</span></div>
           <div class="card" style="margin-bottom:20px;">
             <div class="photo-grid" id="internalPhotosGrid" style="grid-template-columns:repeat(4,1fr); grid-auto-rows:110px;">
               <p style="font-size:12.5px; color:#9a927c;">Loading photos…</p>
@@ -885,8 +885,8 @@
     }
   }
 
-  // Members Only gate — change MEMBER_PASSWORD below to set your own password
-  const MEMBER_PASSWORD = "tarunsangha2023";
+  // Members Login gate — change MEMBER_PASSWORD below to set your own password
+  const MEMBER_PASSWORD = "tarunsangha@2026";
   if (sessionStorage.getItem('memberUnlocked') === 'yes') {
     document.addEventListener('DOMContentLoaded', ()=>{
       document.getElementById('loginGate').style.display = 'none';
