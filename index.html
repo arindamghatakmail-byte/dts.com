@@ -656,11 +656,17 @@
         <div class="mo-main">
           <div class="section-head"><h2>Meeting Minutes</h2><span class="tag">Members Only</span></div>
           <div class="card" style="margin-bottom:20px;">
-            <p style="font-size:13.5px; color:#5c563f;">No minutes have been added yet. Send them to the club Secretary or share them with the person maintaining the website, and they'll appear here.</p>
+            <div class="doc-list" id="minutesList">
+              <p style="font-size:12.5px; color:#9a927c;">Loading minutes…</p>
+            </div>
+            <p style="font-size:12px; color:#9a927c; margin-top:14px;">Upload PDFs to the club's <code>minutes</code> folder and they'll appear here automatically.</p>
           </div>
           <div class="section-head"><h2>Internal Photos</h2><span class="tag">Members Only</span></div>
           <div class="card" style="margin-bottom:20px;">
-            <p style="font-size:13.5px; color:#5c563f;">Reserved for internal photos not meant for the public gallery — e.g. planning meetings, fund collection records.</p>
+            <div class="photo-grid" id="internalPhotosGrid" style="grid-template-columns:repeat(4,1fr); grid-auto-rows:110px;">
+              <p style="font-size:12.5px; color:#9a927c;">Loading photos…</p>
+            </div>
+            <p style="font-size:12px; color:#9a927c; margin-top:14px;">Upload images to the club's <code>internal-photos</code> folder and they'll appear here automatically — kept separate from the public gallery.</p>
           </div>
 
           <div class="section-head"><h2>Documents</h2><span class="tag">Annual Reports &amp; Audited Statements</span></div>
@@ -788,7 +794,7 @@
     'trishul.jpg':     { title: "The Trishul of Maa Durga", quote: 'Finished in a hand-drawn mandala.' },
     'village.jpg':     { title: 'Our Village', quote: 'Home — the huts, the trees, and the path that leads back to them.' },
     'durgaface.jpg':   { title: 'Maa Durga', quote: 'The fierce, watchful gaze of the goddess.' },
-    'portrait.jpg':    { title: 'A Quiet Study', quote: 'A graphite portrait, drawn with a steady hand.', by: 'Arya Subrha Bera' }
+    'portrait.jpg':    { title: 'A Quiet Study', quote: 'A graphite portrait, drawn with a steady hand.', by: 'Anya Sudha Bora' }
   };
 
   function formatImageTitle(filename){
@@ -885,6 +891,8 @@
       document.getElementById('membersContent').style.display = 'block';
       loadDocuments();
       loadNotices();
+      loadMinutes();
+      loadInternalPhotos();
     });
   }
 
@@ -902,16 +910,16 @@
     return name;
   }
 
-  async function loadDocuments(){
-    const container = document.getElementById('docList');
+  async function loadPdfFolder(folderPath, containerId, emptyMsg){
+    const container = document.getElementById(containerId);
     if (!container) return;
     try {
-      const res = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_DOCS_PATH}`);
+      const res = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${folderPath}`);
       if (!res.ok) throw new Error('GitHub API request failed');
       const files = await res.json();
       const pdfs = Array.isArray(files) ? files.filter(f => f.name.toLowerCase().endsWith('.pdf')) : [];
       if (pdfs.length === 0) {
-        container.innerHTML = '<p style="font-size:12.5px; color:#9a927c;">No documents uploaded yet.</p>';
+        container.innerHTML = `<p style="font-size:12.5px; color:#9a927c;">${emptyMsg}</p>`;
         return;
       }
       pdfs.sort((a, b) => a.name.localeCompare(b.name)).reverse();
@@ -922,9 +930,40 @@
           <span class="doc-dl">↓</span>
         </a>`).join('');
     } catch (err) {
-      container.innerHTML = '<p style="font-size:12.5px; color:#9a927c;">Couldn\'t load documents right now — please refresh the page.</p>';
+      container.innerHTML = '<p style="font-size:12.5px; color:#9a927c;">Couldn\'t load right now — please refresh the page.</p>';
     }
   }
+  function loadDocuments(){ return loadPdfFolder(GITHUB_DOCS_PATH, 'docList', 'No documents uploaded yet.'); }
+  function loadMinutes(){ return loadPdfFolder('minutes', 'minutesList', 'No minutes have been added yet.'); }
+
+  let INTERNAL_PHOTO_DATA = [];
+  function openInternalLightbox(idx){
+    if (!INTERNAL_PHOTO_DATA[idx]) return;
+    document.getElementById('lightboxImg').src = INTERNAL_PHOTO_DATA[idx].url;
+    document.getElementById('lightbox').classList.add('active');
+  }
+  async function loadInternalPhotos(){
+    const container = document.getElementById('internalPhotosGrid');
+    if (!container) return;
+    try {
+      const res = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/internal-photos`);
+      if (!res.ok) throw new Error('GitHub API request failed');
+      const files = await res.json();
+      const imgFiles = Array.isArray(files) ? files.filter(f => /\.(jpe?g|png|webp|gif)$/i.test(f.name)) : [];
+      if (imgFiles.length === 0) {
+        container.innerHTML = '<p style="font-size:12.5px; color:#9a927c;">No internal photos uploaded yet.</p>';
+        return;
+      }
+      imgFiles.sort((a, b) => a.name.localeCompare(b.name));
+      INTERNAL_PHOTO_DATA = imgFiles.map(f => ({ url: f.download_url, title: formatImageTitle(f.name) }));
+      container.innerHTML = INTERNAL_PHOTO_DATA.map((img, i) => `
+        <div class="ph ph-auto" data-cap="${img.title}" onclick="openInternalLightbox(${i})"><img src="${img.url}" alt="${img.title}"></div>
+      `).join('');
+    } catch (err) {
+      container.innerHTML = '<p style="font-size:12.5px; color:#9a927c;">Couldn\'t load photos right now — please refresh.</p>';
+    }
+  }
+
   function checkMemberPassword(){
     const entered = document.getElementById('memberPassword').value;
     if (entered === MEMBER_PASSWORD) {
@@ -933,6 +972,8 @@
       sessionStorage.setItem('memberUnlocked', 'yes');
       loadDocuments();
       loadNotices();
+      loadMinutes();
+      loadInternalPhotos();
     } else {
       document.getElementById('loginError').style.display = 'block';
     }
