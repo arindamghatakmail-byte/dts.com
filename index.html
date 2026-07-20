@@ -74,6 +74,10 @@
   .hero-contact a{ display:inline-flex; align-items:center; gap:7px; color:rgba(247,241,227,0.88); text-decoration:none; font-family:'JetBrains Mono',monospace; font-size:12.5px; }
   .hero-contact a:hover{ color:var(--marigold); }
   .hero-contact svg{ flex-shrink:0; color:var(--marigold); }
+  .hero-banner-img{
+    width:100%; max-width:820px; height:auto; border-radius:12px;
+    box-shadow:0 16px 40px rgba(0,0,0,0.35); position:relative; z-index:2;
+  }
 
   main{ padding:40px 0 80px 0; }
   section.block{ margin-bottom:48px; }
@@ -305,7 +309,7 @@
 
 <nav id="siteNav">
   <div class="wrap nav-top">
-    <a class="nav-brand" onclick="showPage('home')">Dihibaliharpur Tarun Sangha <span>Estd. 1990</span></a>
+    <a class="nav-brand" onclick="showPage('home')"><img src="logo.png" alt="DTS logo" style="height:32px; width:auto; margin-right:8px; vertical-align:middle;">Dihibaliharpur Tarun Sangha <span>Estd. 1990</span></a>
   </div>
   <div class="wrap">
     <div class="nav-tabs">
@@ -327,10 +331,8 @@
 <div class="page active" id="page-home">
   <header class="hero">
     <div class="wrap">
-      <div class="eyebrow"><span class="dot"></span>RGST. 2023 &middot; DIHIBALIHARPUR, PASCHIM MEDINIPUR, WEST BENGAL</div>
-      <h1 class="title">ডিহিবলিহারপুর তরুণ সংঘ<br><span class="title-en">Dihibaliharpur Tarun Sangha</span></h1>
-      <div class="tagline">A Forum of Sports and Culture</div>
-      <p class="subtitle">Registered as a society on 1st March 2023, our club has spent four years building community welfare, cultural celebration, and — most recently — a permanent home of its own.</p>
+      <img src="landing-banner.jpg" alt="Dihibaliharpur Tarun Sangha" class="hero-banner-img">
+      <p class="subtitle" style="margin-top:22px;">Registered as a society on 1st March 2023, our club has spent four years building community welfare, cultural celebration, and — most recently — a permanent home of its own.</p>
       <div class="hero-meta">
         <div><div class="num">1990</div><div class="lbl">Established</div></div>
         <div><div class="num">S0034236</div><div class="lbl">Registration No.</div></div>
