@@ -97,7 +97,7 @@
   .hero-contact svg{ flex-shrink:0; color:var(--marigold); }
 
   /* ---------- modern hero ---------- */
-  .hero-grid{ display:grid; grid-template-columns:1.3fr 1fr; gap:20px; align-items:center; position:relative; z-index:2; }
+  .hero-grid{ display:grid; grid-template-columns:1.3fr 1fr; gap:20px; align-items:stretch; position:relative; z-index:2; }
   .hero-modern-wrap{ position:relative; z-index:2; display:flex; flex-direction:column; align-items:flex-start; }
   .hero-logo-wrap{ position:relative; margin-bottom:18px; }
   .hero-glow{
@@ -155,17 +155,19 @@
   .hero-contact-modern svg{ flex-shrink:0; }
 
   /* ---------- hero right side: fixed (static) landing image ---------- */
-  .hero-visual-area{ display:flex; align-items:center; justify-content:center; height:100%; padding:20px 0; position:relative; }
-  .hero-visual-glow{
-    position:absolute; width:70%; height:70%; border-radius:50%;
-    background:radial-gradient(circle, rgba(224,162,51,0.16), transparent 70%);
-    filter:blur(30px); z-index:0;
+  .hero-visual-area{
+    position:relative; align-self:stretch; min-height:340px;
+    border-radius:16px; overflow:hidden;
   }
   .hero-visual-img{
-    position:relative; z-index:1; width:100%; max-width:420px; height:auto;
-    filter:drop-shadow(0 18px 34px rgba(0,0,0,0.45));
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center;
+    filter:saturate(1.05);
   }
-
+  .hero-visual-area::before{
+    content:""; position:absolute; inset:0; z-index:1;
+    background:linear-gradient(100deg, rgba(16,26,51,0.92) 0%, rgba(16,26,51,0.35) 32%, transparent 55%),
+               linear-gradient(0deg, rgba(16,26,51,0.55) 0%, transparent 30%);
+  }
   @media(max-width:900px){ .hero-grid{ grid-template-columns:1fr; } .hero-visual-area{ display:none; } .hero-stats-glass{ grid-template-columns:repeat(2,1fr); } }
 
   main{ padding:40px 0 80px 0; }
@@ -443,8 +445,7 @@
         </div>
 
         <div class="hero-visual-area">
-          <div class="hero-visual-glow"></div>
-          <img src="landing-transparent.png" alt="Dihibaliharpur Tarun Sangha" class="hero-visual-img">
+          <img src="landing-heroic.jpg" alt="Dihibaliharpur Tarun Sangha" class="hero-visual-img">
         </div>
       </div>
     </div>
