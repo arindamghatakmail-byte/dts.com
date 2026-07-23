@@ -152,12 +152,17 @@
   /* ---------- hero right side: fixed (static) landing image ---------- */
   .hero-visual-area{
     position:relative; align-self:stretch; min-height:340px;
-    border-radius:16px; overflow:hidden; display:flex; align-items:center; justify-content:center;
-    background:radial-gradient(ellipse at center, rgba(224,162,51,0.08), transparent 70%);
+    display:flex; align-items:center; justify-content:center;
   }
-  .hero-visual-img{
-    position:relative; width:100%; height:auto; max-height:100%; object-fit:contain; object-position:center;
-    filter:saturate(1.05) drop-shadow(0 20px 40px rgba(0,0,0,0.5));
+  .hero-right-logo-glow{
+    position:absolute; width:60%; height:60%; max-width:320px; max-height:320px; border-radius:50%;
+    background:radial-gradient(circle, rgba(224,162,51,0.4), transparent 70%);
+    filter:blur(26px); animation:glowPulse 4.5s ease-in-out infinite;
+  }
+  .hero-right-logo-img{
+    position:relative; z-index:1; width:60%; max-width:280px; height:auto;
+    filter:drop-shadow(0 20px 40px rgba(0,0,0,0.45));
+    animation:floatLogo 4s ease-in-out infinite;
   }
   @media(max-width:900px){ .hero-grid{ grid-template-columns:1fr; } .hero-visual-area{ display:none; } .hero-stats-glass{ grid-template-columns:repeat(2,1fr); } }
 
@@ -437,7 +442,8 @@
         </div>
 
         <div class="hero-visual-area">
-          <img src="landing-heroic.jpg" alt="Dihibaliharpur Tarun Sangha" class="hero-visual-img">
+          <div class="hero-right-logo-glow"></div>
+          <img src="logo.png" alt="DTS logo" class="hero-right-logo-img">
         </div>
       </div>
     </div>
@@ -991,18 +997,9 @@
     }
   }
 
-  // Members Login gate — change MEMBER_PASSWORD below to set your own password
+  // Members Login gate — change MEMBER_PASSWORD below to set your own password.
+  // No persistence across navigation: leaving this page and coming back always re-locks it.
   const MEMBER_PASSWORD = "tarunsangha@2026";
-  if (sessionStorage.getItem('memberUnlocked') === 'yes') {
-    document.addEventListener('DOMContentLoaded', ()=>{
-      document.getElementById('loginGate').style.display = 'none';
-      document.getElementById('membersContent').style.display = 'block';
-      loadDocuments();
-      loadNotices();
-      loadMinutes();
-      loadInternalPhotos();
-    });
-  }
 
   // Auto-load PDFs from the repo's /documents folder via the GitHub API —
   // upload a new PDF there and it appears here automatically, no code edits needed.
@@ -1077,7 +1074,6 @@
     if (entered === MEMBER_PASSWORD) {
       document.getElementById('loginGate').style.display = 'none';
       document.getElementById('membersContent').style.display = 'block';
-      sessionStorage.setItem('memberUnlocked', 'yes');
       loadDocuments();
       loadNotices();
       loadMinutes();
@@ -1135,6 +1131,13 @@
     window.scrollTo({top:0, behavior:'smooth'});
     closeMobileNav();
     if(name==='finances' && !window.__chartsInit){ initCharts(); window.__chartsInit = true; }
+    if(name==='members-only'){
+      // Always require the password again — never stay unlocked across navigation
+      document.getElementById('loginGate').style.display = 'block';
+      document.getElementById('membersContent').style.display = 'none';
+      document.getElementById('memberPassword').value = '';
+      document.getElementById('loginError').style.display = 'none';
+    }
   }
 
   document.querySelectorAll('.yr-tab').forEach(tab=>{
