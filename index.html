@@ -1112,22 +1112,32 @@
   async function loadNotices(){
     const container = document.getElementById('noticeList');
     if (!container) return;
+    
     try {
-      const res = await fetch('notices.json');
-      if (!res.ok) throw new Error('notices.json request failed');
-      const notices = await res.json();
+      // Fetch notices directly from your Supabase database, newest first
+      const { data: notices, error } = await supabaseClient
+        .from('notices')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+
       if (!Array.isArray(notices) || notices.length === 0) {
         container.innerHTML = '<div class="notice-item"><div class="notice-text">No notices yet.</div></div>';
         return;
       }
+      
       const itemsHtml = notices.map((n, i) => `
         <div class="notice-item">
           ${i === 0 ? '<span class="notice-pill">NEW</span>' : ''}
-          <div class="notice-date">${n.date}</div>
-          <div class="notice-text">${n.text}</div>
+          <div class="notice-date">${escapeHtml(n.date || '')}</div>
+          <div class="notice-text">${escapeHtml(n.text || '')}</div>
         </div>`).join('');
+        
       container.innerHTML = itemsHtml + itemsHtml; // duplicate once for seamless scroll loop
+      
     } catch (err) {
+      console.error(err);
       container.innerHTML = '<div class="notice-item"><div class="notice-text">Couldn\'t load notices — please refresh.</div></div>';
     }
   }
