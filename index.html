@@ -337,6 +337,30 @@
   .doc-sub{ font-size:11.5px; color:#7a7260; margin-top:2px; }
   .doc-dl{ font-size:16px; color:var(--sindoor); flex-shrink:0; }
 
+  /* ---------- Bibhas magazine ---------- */
+  .magazine-list{ display:flex; flex-direction:column; gap:22px; max-width:720px; }
+  .magazine-post{
+    background:var(--card); border:1px solid var(--line); border-radius:12px;
+    padding:26px 30px; box-shadow:0 1px 2px rgba(32,38,59,0.04), 0 8px 20px rgba(32,38,59,0.06);
+    border-top:3px solid var(--marigold);
+  }
+  .magazine-post .mp-meta{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:12px; }
+  .magazine-post .mp-cat{
+    font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:.06em;
+    background:rgba(181,41,46,0.1); color:var(--sindoor); padding:3px 10px; border-radius:20px;
+  }
+  .magazine-post .mp-date{ font-family:'JetBrains Mono',monospace; font-size:11px; color:#9a927c; }
+  .magazine-post h3{ font-family:'Tiro Bangla',serif; font-weight:400; font-size:22px; color:var(--indigo); margin-bottom:6px; }
+  .magazine-post .mp-author{ font-size:12.5px; color:var(--clay); font-style:italic; margin-bottom:14px; }
+  .magazine-post .mp-body{ font-size:14.5px; color:#3a3628; line-height:1.75; white-space:pre-line; }
+
+  .mag-form-row{ margin-bottom:14px; }
+  .mag-form-row label{ font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:#7a7260; display:block; margin-bottom:6px; }
+  .mag-form-row input, .mag-form-row select, .mag-form-row textarea{
+    width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:6px;
+    font-family:'Work Sans',sans-serif; font-size:13.5px; resize:vertical; background:#fff;
+  }
+
   /* ---------- join us page ---------- */
   .join-hero{ max-width:700px; }
   .join-hero-bn{ font-size:19px; color:var(--indigo); font-family:'Work Sans',sans-serif; }
@@ -398,6 +422,7 @@
       <a class="tab-link" data-page="events" onclick="showPage('events')">Events</a>
       <a class="tab-link" data-page="activities" onclick="showPage('activities')">Activities</a>
       <a class="tab-link" data-page="gallery" onclick="showPage('gallery')">Gallery</a>
+      <a class="tab-link" data-page="magazine" onclick="showPage('magazine')">Bibhas</a>
       <a class="tab-link" data-page="members-only" onclick="showPage('members-only')">Members Login</a>
       <a class="tab-link" data-page="join" onclick="showPage('join')">Join Us</a>
       <a class="tab-link" data-page="contact" onclick="showPage('contact')">Contact</a>
@@ -728,6 +753,22 @@
   </main>
 </div>
 
+<!-- ============ Bibhas (MAGAZINE) ============ -->
+<div class="page" id="page-magazine">
+  <main class="wrap" style="padding-top:40px;">
+    <h2 class="page-title">বিভাস <span style="font-family:'Work Sans',sans-serif; font-weight:300; font-size:16px; color:#7a7260;">— Bibhas</span></h2>
+    <p class="page-lede">A space for our members' own writing — poetry, prose, stories, and reflections. Open for everyone to read; open for members to write.</p>
+
+    <div id="magazineList" class="magazine-list">
+      <p style="font-size:13px; color:#9a927c;">Loading posts…</p>
+    </div>
+
+    <div class="card" style="margin-top:30px; max-width:560px;">
+      <p style="font-size:13px; color:#5c563f;">Are you a member with something to share? Log in via <b>Members Login</b> to submit your writing for publication here.</p>
+    </div>
+  </main>
+</div>
+
 <!-- ============ Members Login ============ -->
 <div class="page" id="page-members-only">
   <main class="wrap" style="padding-top:40px;">
@@ -761,11 +802,43 @@
           </div>
 
           <div class="section-head"><h2>Documents</h2><span class="tag">Annual Reports &amp; Audited Statements</span></div>
-          <div class="card">
+          <div class="card" style="margin-bottom:20px;">
             <div class="doc-list" id="docList">
               <p style="font-size:12.5px; color:#9a927c;">Loading documents…</p>
             </div>
             <p style="font-size:12px; color:#9a927c; margin-top:14px;">Documents are pulled automatically from the club's document folder — upload a new PDF there and it appears here.</p>
+          </div>
+
+          <div class="section-head"><h2>Submit to বিভাস</h2><span class="tag">Bibhas Magazine</span></div>
+          <div class="card">
+            <p style="font-size:13px; color:#5c563f; margin-bottom:16px;">Share your poetry, prose, or story. Submissions are reviewed before being published on the public Bibhas page.</p>
+            <form id="magazineForm" action="https://formspree.io/f/xgogkbkr" method="POST">
+              <input type="hidden" name="_subject" value="Bibhas Submission — Dihibaliharpur Tarun Sangha">
+              <div class="mag-form-row">
+                <label>Your Name</label>
+                <input type="text" name="author" required>
+              </div>
+              <div class="mag-form-row">
+                <label>Title of Your Piece</label>
+                <input type="text" name="title" required>
+              </div>
+              <div class="mag-form-row">
+                <label>Category</label>
+                <select name="category" required>
+                  <option value="">Select one</option>
+                  <option value="Poetry">Poetry</option>
+                  <option value="Story">Story</option>
+                  <option value="Prose">Prose</option>
+                  <option value="Essay">Essay</option>
+                </select>
+              </div>
+              <div class="mag-form-row">
+                <label>Your Writing</label>
+                <textarea name="content" rows="8" required></textarea>
+              </div>
+              <button type="submit" id="magazineBtn" class="form-submit-btn" style="padding:10px 22px; background:var(--sindoor); color:var(--paper); border:none; border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:13px; cursor:pointer; letter-spacing:.04em;">SUBMIT FOR REVIEW</button>
+              <div id="magazineStatus" style="display:none; margin-top:14px; padding:12px 14px; border-radius:6px; font-size:13px;"></div>
+            </form>
           </div>
         </div>
 
@@ -983,6 +1056,39 @@
     }
   }
 
+  function escapeHtml(str){
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  async function loadMagazine(){
+    const container = document.getElementById('magazineList');
+    if (!container) return;
+    try {
+      const res = await fetch('magazine.json');
+      if (!res.ok) throw new Error('magazine.json request failed');
+      const posts = await res.json();
+      if (!Array.isArray(posts) || posts.length === 0) {
+        container.innerHTML = '<p style="font-size:13px; color:#9a927c;">No posts published yet — check back soon.</p>';
+        return;
+      }
+      container.innerHTML = posts.map(p => `
+        <div class="magazine-post">
+          <div class="mp-meta">
+            <span class="mp-cat">${escapeHtml(p.category || 'Writing')}</span>
+            <span class="mp-date">${escapeHtml(p.date || '')}</span>
+          </div>
+          <h3>${escapeHtml(p.title || 'Untitled')}</h3>
+          <div class="mp-author">By ${escapeHtml(p.author || 'Anonymous')}</div>
+          <div class="mp-body">${escapeHtml(p.content || '')}</div>
+        </div>
+      `).join('');
+    } catch (err) {
+      container.innerHTML = '<p style="font-size:13px; color:#9a927c;">Couldn\'t load posts right now — please refresh.</p>';
+    }
+  }
+
   // Members Login gate — change MEMBER_PASSWORD below to set your own password.
   // No persistence across navigation: leaving this page and coming back always re-locks it.
   const MEMBER_PASSWORD = "tarunsangha@2026";
@@ -1108,6 +1214,7 @@
     });
   }
   wireForm('queryForm', 'queryBtn', 'queryStatus', "Thank you — your query has been sent. We'll get back to you soon.");
+  wireForm('magazineForm', 'magazineBtn', 'magazineStatus', "Thank you — your submission has been sent for review. We'll be in touch.");
 
   function showPage(name){
     document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
@@ -1117,6 +1224,7 @@
     window.scrollTo({top:0, behavior:'smooth'});
     closeMobileNav();
     if(name==='finances' && !window.__chartsInit){ initCharts(); window.__chartsInit = true; }
+    if(name==='magazine'){ loadMagazine(); }
     if(name==='members-only'){
       // Always require the password again — never stay unlocked across navigation
       document.getElementById('loginGate').style.display = 'block';
