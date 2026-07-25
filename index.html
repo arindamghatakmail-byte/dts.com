@@ -1200,48 +1200,60 @@
   // Members Login gate — change MEMBER_PASSWORD below to set your own password.
   // No persistence across navigation: leaving this page and coming back always re-locks it.
   // Secure Member Login using Supabase
-  async function checkMemberPassword(){
+  async function checkMemberPassword()
+  {
     const email = document.getElementById('memberEmail').value;
     const password = document.getElementById('memberPassword').value;
+    const errorDiv = document.getElementById('loginError');
     
-    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+    // Reset error display
+    errorDiv.style.display = 'none';
     
-    if (error) {
-      document.getElementById('loginError').textContent = 'Incorrect email or password.';
-      document.getElementById('loginError').style.display = 'block';
-    } else {
-      document.getElementById('loginGate').style.display = 'none';
-      document.getElementById('membersContent').style.display = 'block';
-      loadDocuments();
-      loadNotices();
-      loadMinutes();
-      loadInternalPhotos();
+    try {
+      const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+      
+      if (error) {
+        // Show the EXACT error message from Supabase on the screen
+        errorDiv.textContent = "Error: " + error.message;
+        errorDiv.style.display = 'block';
+      } else {
+        document.getElementById('loginGate').style.display = 'none';
+        document.getElementById('membersContent').style.display = 'block';
+        loadDocuments();
+        loadNotices();
+        loadMinutes();
+        loadInternalPhotos();
+      }
+    } catch (err) {
+      errorDiv.textContent = "Code Error: " + err.message;
+      errorDiv.style.display = 'block';
     }
   }
 
   // Secure Admin Login using Supabase
-  async function checkAdminPassword(){
+  async function checkAdminPassword()
+  {
     const email = document.getElementById('adminEmail').value;
     const password = document.getElementById('adminPassword').value;
+    const errorDiv = document.getElementById('adminLoginError');
     
-    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+    // Reset error display
+    errorDiv.style.display = 'none';
     
-    if (error) {
-      document.getElementById('adminLoginError').textContent = 'Incorrect email or password.';
-      document.getElementById('adminLoginError').style.display = 'block';
-    } else {
-      document.getElementById('adminLoginGate').style.display = 'none';
-      document.getElementById('adminContent').style.display = 'block';
-    }
-  }
-
-  function checkAdminPassword(){
-    const entered = document.getElementById('adminPassword').value;
-    if (entered === ADMIN_PASSWORD) {
-      document.getElementById('adminLoginGate').style.display = 'none';
-      document.getElementById('adminContent').style.display = 'block';
-    } else {
-      document.getElementById('adminLoginError').style.display = 'block';
+    try {
+      const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+      
+      if (error) {
+        // Show the EXACT error message from Supabase on the screen
+        errorDiv.textContent = "Error: " + error.message;
+        errorDiv.style.display = 'block';
+      } else {
+        document.getElementById('adminLoginGate').style.display = 'none';
+        document.getElementById('adminContent').style.display = 'block';
+      }
+    } catch (err) {
+      errorDiv.textContent = "Code Error: " + err.message;
+      errorDiv.style.display = 'block';
     }
   }
 
