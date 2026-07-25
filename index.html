@@ -29,7 +29,7 @@
   /* ---------- nav ---------- */
   #siteNav{ position:sticky; top:0; z-index:50; background:rgba(27,42,74,0.95); backdrop-filter:blur(10px); border-bottom:1px solid rgba(224,162,51,0.25); }
   .nav-top{ display:flex; align-items:center; justify-content:space-between; height:56px; }
-  .nav-brand{ font-family:'Tiro Bangla',serif; font-size:16px; color:var(--paper); text-decoration:none; display:flex; align-items:baseline; gap:8px; }
+  .nav-brand{font-family: 'Tiro Bangla', serif;font-size: clamp(2.5rem, 5vw, 3.5rem); */FIX 1: Open up line height so vertical flourishes don't choke */line-height: 1.35; */ FIX 2: Add breathing room between Bengali glyph connections */letter-spacing: 0.03em; */ FIX 3: Force the browser to render high-precision typography details */text-rendering: optimizeLegibility; color:var(--paper); text-decoration:none; display:flex; align-items:baseline; gap:8px; }
   .nav-brand span{ font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:.08em; color:var(--marigold); }
   .nav-tabs{ display:flex; gap:2px; overflow-x:auto; scrollbar-width:none; border-top:1px solid rgba(247,241,227,0.08); }
   .nav-tabs::-webkit-scrollbar{ display:none; }
