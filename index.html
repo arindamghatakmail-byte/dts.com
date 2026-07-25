@@ -1393,24 +1393,71 @@
     document.getElementById('lightboxImg').src = INTERNAL_PHOTO_DATA[idx].url;
     document.getElementById('lightbox').classList.add('active');
   }
-  async function loadInternalPhotos(){
+  async function loadInternalPhotos() 
+  {
     const container = document.getElementById('internalPhotosGrid');
     if (!container) return;
+    
     try {
-      const res = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/internal-photos`);
-      if (!res.ok) throw new Error('GitHub API request failed');
-      const files = await res.json();
-      const imgFiles = Array.isArray(files) ? files.filter(f => /\.(jpe?g|png|webp|gif)$/i.test(f.name)) : [];
-      if (imgFiles.length === 0) {
+      let allPhotos = [];
+
+      // 1. Fetch NEW photos from Supabase
+      try {
+        const { data: sbFiles, error } = await supabaseClient
+          .storage
+          .from('club_files')
+          .list('internal-photos', {
+            limit: 100,
+            offset: 0,
+            sortBy: { column: 'created_at', order: 'desc' }
+          });
+
+        if (!error && sbFiles) {
+          const sbImages = sbFiles.filter(file => file.name.match(/\.(jpeg|jpg|gif|png|webp)$/i));
+          const formattedSb = sbImages.map(img => {
+            const { data: publicUrlData } = supabaseClient
+              .storage
+              .from('club_files')
+              .getPublicUrl('internal-photos/' + img.name);
+            return { url: publicUrlData.publicUrl, title: "Member Upload" };
+          });
+          allPhotos = [...allPhotos, ...formattedSb]; // Add to main list
+        }
+      } catch (sbErr) {
+        console.warn("Could not load from Supabase:", sbErr);
+      }
+
+      // 2. Fetch OLD photos from GitHub
+      try {
+        const res = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/internal-photos`);
+        if (res.ok) {
+          const files = await res.json();
+          const ghImages = Array.isArray(files) ? files.filter(f => /\.(jpe?g|png|webp|gif)$/i.test(f.name)) : [];
+          const formattedGh = ghImages.map(f => ({ url: f.download_url, title: formatImageTitle(f.name) }));
+          allPhotos = [...allPhotos, ...formattedGh]; // Add to main list
+        }
+      } catch (ghErr) {
+        console.warn("Could not load from GitHub:", ghErr);
+      }
+
+      // 3. Check if we have any photos at all
+      if (allPhotos.length === 0) {
         container.innerHTML = '<p style="font-size:12.5px; color:#9a927c;">No internal photos uploaded yet.</p>';
         return;
       }
-      imgFiles.sort((a, b) => a.name.localeCompare(b.name));
-      INTERNAL_PHOTO_DATA = imgFiles.map(f => ({ url: f.download_url, title: formatImageTitle(f.name) }));
-      container.innerHTML = INTERNAL_PHOTO_DATA.map((img, i) => `
-        <div class="ph ph-auto" data-cap="${img.title}" onclick="openInternalLightbox(${i})"><img src="${img.url}" alt="${img.title}"></div>
+
+      // 4. Update the global array for the lightbox clicking
+      INTERNAL_PHOTO_DATA = allPhotos;
+
+      // 5. Inject them all into the HTML grid
+      container.innerHTML = allPhotos.map((img, i) => `
+        <div class="ph ph-auto" data-cap="${img.title}" onclick="openInternalLightbox(${i})">
+          <img src="${img.url}" alt="${img.title}">
+        </div>
       `).join('');
+
     } catch (err) {
+      console.error("Error loading combined photos:", err);
       container.innerHTML = '<p style="font-size:12.5px; color:#9a927c;">Couldn\'t load photos right now — please refresh.</p>';
     }
   }
