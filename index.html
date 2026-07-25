@@ -405,6 +405,9 @@
   #lightbox.active{ display:flex; }
   #lightbox img{ max-width:92vw; max-height:88vh; border-radius:4px; box-shadow:0 20px 60px rgba(0,0,0,0.5); }
 </style>
+  <!-- Quill Rich Text Editor -->
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
 </head>
 <body>
 
@@ -821,8 +824,11 @@
             <p style="font-size:13px; color:#5c563f; margin-bottom:16px;">Share your poetry, prose, or story. Submissions are reviewed before being published on the public Bibhas page.</p>
             <form id="magazineForm" onsubmit="submitMagazinePost(event)">
               <div class="mag-form-row">
-                <label>Your Name</label>
-                <input type="text" name="author" required>
+                <label>Your Writing</label>
+                <!-- This is where the editor will appear -->
+                <div id="quillEditor" style="height: 250px; background: #fff; font-family: 'Work Sans', sans-serif; border-bottom-left-radius: 6px; border-bottom-right-radius: 6px;"></div>
+                <!-- Hidden input to hold the HTML data for Supabase -->
+                <input type="hidden" name="content" id="magazineContent">
               </div>
               <div class="mag-form-row">
                 <label>Title of Your Piece</label>
@@ -1047,6 +1053,26 @@
   const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdueHB0Z2Fhb3hsanlnbmlkandnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ5ODE2MzUsImV4cCI6MjEwMDU1NzYzNX0.FzxWzLiah4gexcvSL43PnN3LLIPWL3E-Fmtwqkb6le8';
   const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+  // --- INITIALIZE QUILL RICH TEXT EDITOR ---
+  var quill;
+  
+  // Wait for the page to load before attaching the editor
+  document.addEventListener("DOMContentLoaded", function() {
+    quill = new Quill('#quillEditor', {
+      theme: 'snow',
+      placeholder: 'Write your story, poem, or essay here...',
+      modules: {
+        toolbar: [
+          [{ 'size': ['small', false, 'large', 'huge'] }],  // Font sizes
+          ['bold', 'italic', 'underline', 'strike'],        // Basic formatting
+          [{ 'color': [] }, { 'background': [] }],          // Text and background colors
+          [{ 'align': [] }],                                // Text alignment
+          ['clean']                                         // Remove formatting button
+        ]
+      }
+    });
+  });
+
   function toggleMobileNav(){
     document.getElementById('navTabs').classList.toggle('open');
     document.getElementById('navHamburger').classList.toggle('open');
@@ -1189,10 +1215,59 @@
     const btn = document.getElementById('magazineBtn');
     const status = document.getElementById('magazineStatus');
 
+    // Get the formatted HTML directly from the Quill editor
+    const richTextContent = quill.root.innerHTML;
+    
+    // Prevent empty submissions (checks if they typed actual text)
+    if (quill.getText().trim().length === 0) {
+      alert("Please write something in the editor before publishing.");
+      return;
+    }
+
     const originalBtnText = btn.textContent;
     btn.textContent = 'PUBLISHING...';
     btn.disabled = true;
     status.style.display = 'none';
+
+    // Get today's date
+    const today = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+
+    try {
+      const { error } = await supabaseClient
+        .from('magazine_posts')
+        .insert([{ 
+          author: form.author.value, 
+          title: form.title.value, 
+          category: form.category.value, 
+          content: richTextContent, // Saves the formatting tags!
+          date: today
+        }]);
+
+      if (error) throw error;
+
+      status.style.display = 'block';
+      status.style.background = 'rgba(51,85,63,0.12)';
+      status.style.color = 'var(--leaf)';
+      status.textContent = "Successfully published! Check the Bibhas tab.";
+      
+      // Reset the form fields AND clear the Quill editor box
+      form.reset();
+      quill.setContents([]); 
+      
+      // Instantly reload the magazine so the new post shows up
+      loadMagazine(); 
+      
+    } catch (err) {
+      console.error(err);
+      status.style.display = 'block';
+      status.style.background = 'rgba(181,41,46,0.12)';
+      status.style.color = 'var(--sindoor)';
+      status.textContent = "Error publishing post. Please check your database permissions.";
+    } finally {
+      btn.textContent = originalBtnText;
+      btn.disabled = false;
+    }
+  }
 
     // Get the current date in "DD MMM YYYY" format
     const today = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
@@ -1273,6 +1348,7 @@
         return;
       }
       
+      // 4. Inject into HTML (Notice that p.content no longer has escapeHtml)
       container.innerHTML = allPosts.map(p => `
         <div class="magazine-post">
           <div class="mp-meta">
@@ -1281,7 +1357,10 @@
           </div>
           <h3>${escapeHtml(p.title || 'Untitled')}</h3>
           <div class="mp-author">By ${escapeHtml(p.author || 'Anonymous')}</div>
-          <div class="mp-body">${escapeHtml(p.content || '')}</div>
+          
+          <!-- This is the crucial change: rendering raw HTML for the body -->
+          <div class="mp-body" style="font-family:'Work Sans',sans-serif;">${p.content || ''}</div>
+          
         </div>
       `).join('');
       
