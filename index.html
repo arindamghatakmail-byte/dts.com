@@ -1122,19 +1122,18 @@
 
       if (error) throw error;
 
-      // 2. Fetch old historical notices from notices.json
-      let localNotices = [];
-      try {
-        const res = await fetch('notices.json');
-        if (res.ok) {
-          localNotices = await res.json();
-        }
-      } catch (localErr) {
-        console.warn("Could not load local notices.json", localErr);
-      }
+      // 2. Hardcode your old historical notices here
+      const oldNotices = [
+        { date: "04.07.2026", text: "New Elected Executive Committee, w.e.f. 04.07.2026" },
+        { date: "FY 2025–26", text: "Clubhouse wants to raise a Library Building Fund" },
+        { date: "2026", text: "Kobi Pronam – 2026 celebrated with a cultural programme" },
+        { date: "2026", text: "Basanta Utsav 2026 celebrated with colour and music" },
+        { date: "2025", text: "Organisation successfully celebrated Durga Pujo 2025" },
+        { date: "2025", text: "Blood Donation Camp organised successfully" }
+      ];
 
-      // 3. Combine them (Database notices first, then local JSON notices)
-      const allNotices = [...(dbNotices || []), ...localNotices];
+      // 3. Combine them (Database notices first, then old hardcoded notices)
+      const allNotices = [...(dbNotices || []), ...oldNotices];
 
       // 4. Render the combined list
       if (!Array.isArray(allNotices) || allNotices.length === 0) {
@@ -1156,22 +1155,6 @@
       container.innerHTML = '<div class="notice-item"><div class="notice-text">Couldn\'t load notices — please refresh.</div></div>';
     }
   }
-      
-      const itemsHtml = notices.map((n, i) => `
-        <div class="notice-item">
-          ${i === 0 ? '<span class="notice-pill">NEW</span>' : ''}
-          <div class="notice-date">${escapeHtml(n.date || '')}</div>
-          <div class="notice-text">${escapeHtml(n.text || '')}</div>
-        </div>`).join('');
-        
-      container.innerHTML = itemsHtml + itemsHtml; // duplicate once for seamless scroll loop
-      
-    } catch (err) {
-      console.error(err);
-      container.innerHTML = '<div class="notice-item"><div class="notice-text">Couldn\'t load notices — please refresh.</div></div>';
-    }
-  }
-
   function escapeHtml(str){
     const div = document.createElement('div');
     div.textContent = str;
