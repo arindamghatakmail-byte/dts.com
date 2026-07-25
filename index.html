@@ -819,8 +819,7 @@
           <div class="section-head"><h2>Submit to বিভাস</h2><span class="tag">Bibhas Magazine</span></div>
           <div class="card">
             <p style="font-size:13px; color:#5c563f; margin-bottom:16px;">Share your poetry, prose, or story. Submissions are reviewed before being published on the public Bibhas page.</p>
-            <form id="magazineForm" action="https://formspree.io/f/xgogkbkr" method="POST">
-              <input type="hidden" name="_subject" value="Bibhas Submission — Dihibaliharpur Tarun Sangha">
+            <form id="magazineForm" onsubmit="submitMagazinePost(event)">
               <div class="mag-form-row">
                 <label>Your Name</label>
                 <input type="text" name="author" required>
@@ -837,7 +836,7 @@
                   <option value="Story">Story</option>
                   <option value="Prose">Prose</option>
                   <option value="Essay">Essay</option>
-                  <option value="Essay">President's/Secretary's Corner</option>
+                  <option value="President's/Secretary's Corner">President's/Secretary's Corner</option>
                 </select>
               </div>
               <div class="mag-form-row">
@@ -854,7 +853,7 @@
                 <label>Your Writing</label>
                 <textarea name="content" rows="8" required></textarea>
               </div>
-              <button type="submit" id="magazineBtn" class="form-submit-btn" style="padding:10px 22px; background:var(--sindoor); color:var(--paper); border:none; border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:13px; cursor:pointer; letter-spacing:.04em;">SUBMIT FOR REVIEW</button>
+              <button type="submit" id="magazineBtn" class="form-submit-btn" style="padding:10px 22px; background:var(--sindoor); color:var(--paper); border:none; border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:13px; cursor:pointer; letter-spacing:.04em;">PUBLISH TO BIBHAS</button>
               <div id="magazineStatus" style="display:none; margin-top:14px; padding:12px 14px; border-radius:6px; font-size:13px;"></div>
             </form>
           </div>
@@ -1183,18 +1182,98 @@
     return div.innerHTML;
   }
 
-  async function loadMagazine(){
+  // --- SUBMIT MAGAZINE POST TO SUPABASE ---
+  async function submitMagazinePost(event) {
+    event.preventDefault();
+    const form = event.target;
+    const btn = document.getElementById('magazineBtn');
+    const status = document.getElementById('magazineStatus');
+
+    const originalBtnText = btn.textContent;
+    btn.textContent = 'PUBLISHING...';
+    btn.disabled = true;
+    status.style.display = 'none';
+
+    // Get the current date in "DD MMM YYYY" format
+    const today = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+
+    try {
+      const { error } = await supabaseClient
+        .from('magazine_posts')
+        .insert([{ 
+          author: form.author.value, 
+          title: form.title.value, 
+          category: form.category.value, 
+          content: form.content.value,
+          date: today
+        }]);
+
+      if (error) throw error;
+
+      status.style.display = 'block';
+      status.style.background = 'rgba(51,85,63,0.12)';
+      status.style.color = 'var(--leaf)';
+      status.textContent = "Successfully published! Check the Bibhas tab.";
+      form.reset();
+      
+      // Instantly reload the magazine so the new post shows up without refreshing
+      loadMagazine(); 
+      
+    } catch (err) {
+      console.error(err);
+      status.style.display = 'block';
+      status.style.background = 'rgba(181,41,46,0.12)';
+      status.style.color = 'var(--sindoor)';
+      status.textContent = "Error publishing post. Please check your database permissions.";
+    } finally {
+      btn.textContent = originalBtnText;
+      btn.disabled = false;
+    }
+  }
+
+  // --- FETCH MAGAZINE POSTS FROM SUPABASE & GITHUB ---
+  async function loadMagazine()
+  {
     const container = document.getElementById('magazineList');
     if (!container) return;
+    
     try {
-      const res = await fetch('magazine.json');
-      if (!res.ok) throw new Error('magazine.json request failed');
-      const posts = await res.json();
-      if (!Array.isArray(posts) || posts.length === 0) {
+      let allPosts = [];
+
+      // 1. Fetch NEW posts from Supabase
+      try {
+        const { data: sbPosts, error } = await supabaseClient
+          .from('magazine_posts')
+          .select('*')
+          .order('created_at', { ascending: false }); // Newest first
+
+        if (!error && sbPosts) {
+          allPosts = [...allPosts, ...sbPosts];
+        }
+      } catch (sbErr) {
+        console.warn("Could not load magazine posts from Supabase:", sbErr);
+      }
+
+      // 2. Fetch OLD posts from GitHub (magazine.json)
+      try {
+        const res = await fetch('magazine.json');
+        if (res.ok) {
+          const ghPosts = await res.json();
+          if (Array.isArray(ghPosts)) {
+            allPosts = [...allPosts, ...ghPosts];
+          }
+        }
+      } catch (ghErr) {
+        console.warn("Could not load magazine posts from GitHub:", ghErr);
+      }
+
+      // 3. Render the combined list
+      if (allPosts.length === 0) {
         container.innerHTML = '<p style="font-size:13px; color:#9a927c;">No posts published yet — check back soon.</p>';
         return;
       }
-      container.innerHTML = posts.map(p => `
+      
+      container.innerHTML = allPosts.map(p => `
         <div class="magazine-post">
           <div class="mp-meta">
             <span class="mp-cat">${escapeHtml(p.category || 'Writing')}</span>
@@ -1205,7 +1284,9 @@
           <div class="mp-body">${escapeHtml(p.content || '')}</div>
         </div>
       `).join('');
+      
     } catch (err) {
+      console.error("Error loading combined magazine posts:", err);
       container.innerHTML = '<p style="font-size:13px; color:#9a927c;">Couldn\'t load posts right now — please refresh.</p>';
     }
   }
@@ -1501,7 +1582,6 @@
     });
   }
   wireForm('queryForm', 'queryBtn', 'queryStatus', "Thank you — your query has been sent. We'll get back to you soon.");
-  wireForm('magazineForm', 'magazineBtn', 'magazineStatus', "Thank you — your submission has been sent for review. We'll be in touch.");
 
   function showPage(name){
     document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
