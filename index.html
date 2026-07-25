@@ -422,7 +422,7 @@
       <a class="tab-link" data-page="events" onclick="showPage('events')">Events</a>
       <a class="tab-link" data-page="activities" onclick="showPage('activities')">Activities</a>
       <a class="tab-link" data-page="gallery" onclick="showPage('gallery')">Gallery</a>
-      <a class="tab-link" data-page="magazine" onclick="showPage('magazine')">Magazine</a>
+      <a class="tab-link" data-page="magazine" onclick="showPage('magazine')">Bibhas</a>
       <a class="tab-link" data-page="members-only" onclick="showPage('members-only')">Members Login</a>
       <a class="tab-link" data-page="join" onclick="showPage('join')">Join Us</a>
       <a class="tab-link" data-page="contact" onclick="showPage('contact')">Contact</a>
@@ -444,7 +444,7 @@
           <h1 class="title-modern">ডিহিবলিহারপুর তরুণ সংঘ</h1>
           <div class="eyebrow"><span class="dot"></span>RGST. 2023 &middot; DIHIBALIHARPUR, PASCHIM MEDINIPUR, WEST BENGAL</div>
           <div class="tagline-glass"><span class="tg-dot"></span>A Forum of Sports and Culture</div>
-          <p class="subtitle" style="margin-top:20px;">Registered as a Govt. society on 1st March 2023, Empowering our community through local heritage, sports, social initiatives, and cultural harmony since 1990.</p>
+          <p class="subtitle" style="margin-top:20px;">Registered as a society on 1st March 2023, our club has spent four years building community welfare, cultural celebration, and — most recently — a permanent home of its own.</p>
           <div class="hero-stats-glass">
             <div class="stat-glass"><div class="num">1990</div><div class="lbl">Established</div></div>
             <div class="stat-glass"><div class="num">S0034236</div><div class="lbl">Registration No.</div></div>
@@ -811,9 +811,9 @@
 
           <div class="section-head"><h2>Submit to বিভাস</h2><span class="tag">Bibhas Magazine</span></div>
           <div class="card">
-            <p style="font-size:13px; color:#5c563f; margin-bottom:16px;">Share your poetry, prose, or story. Submissions are reviewed before being published on the public Bibhas page.</p>
-            <form id="magazineForm" action="https://formspree.io/f/xgogkbkr" method="POST">
-              <input type="hidden" name="_subject" value="Bibhas Submission — Dihibaliharpur Tarun Sangha">
+            <p style="font-size:13px; color:#5c563f; margin-bottom:16px;">Share your poetry, prose, or story. Clean submissions are published automatically within a couple of minutes; anything flagged by our filter is held for manual review.</p>
+            <form id="magazineForm">
+              <input type="text" name="website" id="magWebsite" style="position:absolute; left:-9999px;" tabindex="-1" autocomplete="off">
               <div class="mag-form-row">
                 <label>Your Name</label>
                 <input type="text" name="author" required>
@@ -836,7 +836,7 @@
                 <label>Your Writing</label>
                 <textarea name="content" rows="8" required></textarea>
               </div>
-              <button type="submit" id="magazineBtn" class="form-submit-btn" style="padding:10px 22px; background:var(--sindoor); color:var(--paper); border:none; border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:13px; cursor:pointer; letter-spacing:.04em;">SUBMIT FOR REVIEW</button>
+              <button type="submit" id="magazineBtn" class="form-submit-btn" style="padding:10px 22px; background:var(--sindoor); color:var(--paper); border:none; border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:13px; cursor:pointer; letter-spacing:.04em;">SUBMIT</button>
               <div id="magazineStatus" style="display:none; margin-top:14px; padding:12px 14px; border-radius:6px; font-size:13px;"></div>
             </form>
           </div>
@@ -1214,7 +1214,56 @@
     });
   }
   wireForm('queryForm', 'queryBtn', 'queryStatus', "Thank you — your query has been sent. We'll get back to you soon.");
-  wireForm('magazineForm', 'magazineBtn', 'magazineStatus', "Thank you — your submission has been sent for review. We'll be in touch.");
+  // Bibhas magazine submission — goes through a Cloudflare Worker (not Formspree),
+  // which securely creates a GitHub Issue that a GitHub Action then auto-publishes or holds for review.
+  // Replace this with your actual deployed Worker URL after setup.
+  const MAGAZINE_WORKER_URL = "https://REPLACE-WITH-YOUR-WORKER.workers.dev";
+
+  const magazineForm = document.getElementById('magazineForm');
+  if (magazineForm) {
+    magazineForm.addEventListener('submit', async function(e){
+      e.preventDefault();
+      const btn = document.getElementById('magazineBtn');
+      const status = document.getElementById('magazineStatus');
+      const originalBtnText = btn.textContent;
+      btn.textContent = 'SUBMITTING...';
+      btn.disabled = true;
+      status.style.display = 'none';
+      try {
+        const formData = new FormData(magazineForm);
+        const payload = {
+          author: formData.get('author'),
+          title: formData.get('title'),
+          category: formData.get('category'),
+          content: formData.get('content'),
+          website: formData.get('website') // honeypot — real users leave this empty
+        };
+        const res = await fetch(MAGAZINE_WORKER_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const result = await res.json();
+        if (res.ok && result.success) {
+          status.style.display = 'block';
+          status.style.background = 'rgba(51,85,63,0.12)';
+          status.style.color = 'var(--leaf)';
+          status.textContent = "Thank you — your piece has been submitted. Clean submissions go live within a couple of minutes; flagged ones are held for review.";
+          magazineForm.reset();
+        } else {
+          throw new Error(result.error || 'Submission failed');
+        }
+      } catch (err) {
+        status.style.display = 'block';
+        status.style.background = 'rgba(181,41,46,0.12)';
+        status.style.color = 'var(--sindoor)';
+        status.textContent = "Something went wrong — please try again in a moment.";
+      } finally {
+        btn.textContent = originalBtnText;
+        btn.disabled = false;
+      }
+    });
+  }
 
   function showPage(name){
     document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
