@@ -1200,7 +1200,8 @@
   }
 
   // --- SECURE MEMBER LOGIN (EMAIL + PASSWORD) ---
-  async function checkMemberPassword() {
+  async function checkMemberPassword() 
+  {
     const email = document.getElementById('memberEmail').value.trim();
     const password = document.getElementById('memberPassword').value;
     const errorDiv = document.getElementById('loginError');
