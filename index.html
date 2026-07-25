@@ -777,19 +777,23 @@
     <p class="page-lede">Meeting notes, minutes, and internal photos — for club members.</p>
 
     <div id="loginGate" class="card" style="max-width:380px;">
-      <div id="loginGate" class="card" style="max-width:380px;">
       <h3>Members Login</h3>
-      <p class="note">Ask the Secretary if you don't have the login details.</p>
-      <input type="email" id="memberEmail" placeholder="Member Email" style="width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:13px; margin-top:6px;">
-      <input type="password" id="memberPassword" placeholder="Password" onkeydown="if(event.key==='Enter'){checkMemberPassword();}" style="width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:13px; margin-top:6px;">
-      <div id="loginError" style="display:none; color:var(--sindoor); font-size:12.5px; margin-top:8px;">Incorrect credentials.</div>
-      <button onclick="checkMemberPassword()" style="margin-top:14px; width:100%; padding:10px; background:var(--indigo); color:var(--paper); border:none; border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:13px; cursor:pointer; letter-spacing:.04em;">Log in</button>
-    </div>
-      <h3>Enter Password</h3>
-      <p class="note">Ask the Secretary or Treasurer if you don't have it.</p>
-      <input type="password" id="memberPassword" placeholder="Password" onkeydown="if(event.key==='Enter'){checkMemberPassword();}" style="width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:13px; margin-top:6px;">
-      <div id="loginError" style="display:none; color:var(--sindoor); font-size:12.5px; margin-top:8px;">Incorrect password — please try again.</div>
-      <button onclick="checkMemberPassword()" style="margin-top:14px; width:100%; padding:10px; background:var(--indigo); color:var(--paper); border:none; border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:13px; cursor:pointer; letter-spacing:.04em;">Log in</button>
+      <p class="note">Enter your email to receive a secure, one-time login code.</p>
+      
+      <!-- Step 1: Ask for Email -->
+      <div id="otpStep1">
+        <input type="email" id="memberEmail" placeholder="Your Email Address" style="width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:13px; margin-top:6px;">
+        <div id="otpError1" style="display:none; color:var(--sindoor); font-size:12.5px; margin-top:8px;"></div>
+        <button onclick="sendMemberOTP()" id="btnSendOTP" style="margin-top:14px; width:100%; padding:10px; background:var(--indigo); color:var(--paper); border:none; border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:13px; cursor:pointer; letter-spacing:.04em;">Send Code</button>
+      </div>
+
+      <!-- Step 2: Ask for the 6-Digit Code (Hidden at first) -->
+      <div id="otpStep2" style="display:none;">
+        <p style="font-size:12.5px; color:var(--leaf); margin-top:10px; font-weight:600;">✓ Code sent! Please check your inbox (and spam folder).</p>
+        <input type="text" id="memberOTP" placeholder="Enter 6-digit code" style="width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:16px; margin-top:10px; text-align:center; letter-spacing:.2em;">
+        <div id="otpError2" style="display:none; color:var(--sindoor); font-size:12.5px; margin-top:8px;"></div>
+        <button onclick="verifyMemberOTP()" id="btnVerifyOTP" style="margin-top:14px; width:100%; padding:10px; background:var(--marigold); color:var(--indigo); border:none; border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:13px; cursor:pointer; letter-spacing:.04em; font-weight:600;">Verify & Log in</button>
+      </div>
     </div>
 
     <div id="membersContent" style="display:none;">
@@ -877,9 +881,13 @@
     <div id="adminLoginGate" class="card" style="max-width:380px;">
       <h3>Admin Access</h3>
       <p class="note">Authorized personnel only.</p>
-      <input type="email" id="adminEmail" placeholder="Admin Email" style="width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:13px; margin-top:6px;">
-      <input type="password" id="adminPassword" placeholder="Admin Password" onkeydown="if(event.key==='Enter'){checkAdminPassword();}" style="width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:13px; margin-top:6px;">
-      <div id="adminLoginError" style="display:none; color:var(--sindoor); font-size:12.5px; margin-top:8px;">Incorrect credentials.</div>
+      
+      <!-- The email is hardcoded and set to readonly -->
+      <input type="email" id="adminEmail" value="tarunsangha.dihibaliharpur@gmail.com" readonly style="width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:13px; margin-top:6px; background:rgba(32,38,59,0.05); color:#7a7260; cursor:not-allowed;">
+      
+      <input type="password" id="adminPassword" placeholder="Admin Password" onkeydown="if(event.key==='Enter'){checkAdminPassword();}" style="width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:13px; margin-top:12px;">
+      
+      <div id="adminLoginError" style="display:none; color:var(--sindoor); font-size:12.5px; margin-top:8px;"></div>
       <button onclick="checkAdminPassword()" style="margin-top:14px; width:100%; padding:10px; background:var(--indigo); color:var(--paper); border:none; border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:13px; cursor:pointer; letter-spacing:.04em;">Log in</button>
     </div>
 
@@ -1197,39 +1205,84 @@
     }
   }
 
-  // Members Login gate — change MEMBER_PASSWORD below to set your own password.
-  // No persistence across navigation: leaving this page and coming back always re-locks it.
-  // Secure Member Login using Supabase
-  async function checkMemberPassword()
-  {
+  // --- SECURE MEMBER LOGIN (OTP) ---
+  
+  // 1. Trigger Supabase to send the email
+  async function sendMemberOTP() {
     const email = document.getElementById('memberEmail').value;
-    const password = document.getElementById('memberPassword').value;
-    const errorDiv = document.getElementById('loginError');
+    const errorDiv = document.getElementById('otpError1');
+    const btn = document.getElementById('btnSendOTP');
     
-    // Reset error display
+    if (!email) {
+      errorDiv.textContent = 'Please enter a valid email address.';
+      errorDiv.style.display = 'block';
+      return;
+    }
+    
     errorDiv.style.display = 'none';
+    btn.textContent = 'SENDING...';
+    btn.disabled = true;
     
     try {
-      const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+      const { data, error } = await supabaseClient.auth.signInWithOtp({ email: email });
       
-      if (error) {
-        // Show the EXACT error message from Supabase on the screen
-        errorDiv.textContent = "Error: " + error.message;
-        errorDiv.style.display = 'block';
-      } else {
-        document.getElementById('loginGate').style.display = 'none';
-        document.getElementById('membersContent').style.display = 'block';
-        loadDocuments();
-        loadNotices();
-        loadMinutes();
-        loadInternalPhotos();
-      }
+      if (error) throw error;
+      
+      // Success! Hide step 1 and show step 2
+      document.getElementById('otpStep1').style.display = 'none';
+      document.getElementById('otpStep2').style.display = 'block';
+      
     } catch (err) {
-      errorDiv.textContent = "Code Error: " + err.message;
+      errorDiv.textContent = "Error: " + err.message;
       errorDiv.style.display = 'block';
+    } finally {
+      btn.textContent = 'Send Code';
+      btn.disabled = false;
     }
   }
 
+  // 2. Verify the 6-digit code the user typed in
+  async function verifyMemberOTP() {
+    const email = document.getElementById('memberEmail').value;
+    const token = document.getElementById('memberOTP').value;
+    const errorDiv = document.getElementById('otpError2');
+    const btn = document.getElementById('btnVerifyOTP');
+    
+    if (!token) {
+      errorDiv.textContent = 'Please enter the 6-digit code.';
+      errorDiv.style.display = 'block';
+      return;
+    }
+    
+    errorDiv.style.display = 'none';
+    btn.textContent = 'VERIFYING...';
+    btn.disabled = true;
+    
+    try {
+      const { data, error } = await supabaseClient.auth.verifyOtp({ 
+        email: email, 
+        token: token, 
+        type: 'email' 
+      });
+      
+      if (error) throw error;
+      
+      // Success! Unlock the dashboard
+      document.getElementById('loginGate').style.display = 'none';
+      document.getElementById('membersContent').style.display = 'block';
+      loadDocuments();
+      loadNotices();
+      loadMinutes();
+      loadInternalPhotos();
+      
+    } catch (err) {
+      errorDiv.textContent = "Error: " + err.message;
+      errorDiv.style.display = 'block';
+    } finally {
+      btn.textContent = 'Verify & Log in';
+      btn.disabled = false;
+    }
+  }
   // Secure Admin Login using Supabase
   async function checkAdminPassword()
   {
