@@ -7,6 +7,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&family=Work+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<!-- Quill Rich Text Editor CSS & JS -->
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
 <style>
   :root{
     --paper:#F7F1E3; --paper-dim:#EFE6D1; --ink:#20263B; --indigo:#1B2A4A;
@@ -309,7 +312,7 @@
   @keyframes noticePulse{ 0%,100%{ opacity:1; } 50%{ opacity:0.3; } }
   .notice-scroll-wrap{ height:340px; overflow:hidden; position:relative; padding:4px 0; }
   .notice-scroll-wrap::after{
-    content:""; position:absolute; left:0; right:0; bottom:0; height:36px; pointer-events:none;
+    content:"absolute"; position:absolute; left:0; right:0; bottom:0; height:36px; pointer-events:none;
     background:linear-gradient(to top, var(--card), transparent);
   }
   .notice-list{ display:flex; flex-direction:column; animation:noticeScroll 22s linear infinite; }
@@ -405,9 +408,6 @@
   #lightbox.active{ display:flex; }
   #lightbox img{ max-width:92vw; max-height:88vh; border-radius:4px; box-shadow:0 20px 60px rgba(0,0,0,0.5); }
 </style>
-  <!-- Quill Rich Text Editor -->
-<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-<script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
 </head>
 <body>
 
@@ -824,11 +824,8 @@
             <p style="font-size:13px; color:#5c563f; margin-bottom:16px;">Share your poetry, prose, or story. Submissions are reviewed before being published on the public Bibhas page.</p>
             <form id="magazineForm" onsubmit="submitMagazinePost(event)">
               <div class="mag-form-row">
-                <label>Your Writing</label>
-                <!-- This is where the editor will appear -->
-                <div id="quillEditor" style="height: 250px; background: #fff; font-family: 'Work Sans', sans-serif; border-bottom-left-radius: 6px; border-bottom-right-radius: 6px;"></div>
-                <!-- Hidden input to hold the HTML data for Supabase -->
-                <input type="hidden" name="content" id="magazineContent">
+                <label>Your Name</label>
+                <input type="text" name="author" required>
               </div>
               <div class="mag-form-row">
                 <label>Title of Your Piece</label>
@@ -857,7 +854,10 @@
               </div>
               <div class="mag-form-row">
                 <label>Your Writing</label>
-                <textarea name="content" rows="8" required></textarea>
+                <!-- This is where the editor will appear -->
+                <div id="quillEditor" style="height: 250px; background: #fff; font-family: 'Work Sans', sans-serif; border-bottom-left-radius: 6px; border-bottom-right-radius: 6px;"></div>
+                <!-- Hidden input to hold the HTML data for Supabase -->
+                <input type="hidden" name="content" id="magazineContent">
               </div>
               <button type="submit" id="magazineBtn" class="form-submit-btn" style="padding:10px 22px; background:var(--sindoor); color:var(--paper); border:none; border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:13px; cursor:pointer; letter-spacing:.04em;">PUBLISH TO BIBHAS</button>
               <div id="magazineStatus" style="display:none; margin-top:14px; padding:12px 14px; border-radius:6px; font-size:13px;"></div>
@@ -1055,24 +1055,25 @@
 
   // --- INITIALIZE QUILL RICH TEXT EDITOR ---
   var quill;
-  
-  // Wait for the page to load before attaching the editor
   document.addEventListener("DOMContentLoaded", function() {
-    quill = new Quill('#quillEditor', {
-      theme: 'snow',
-      placeholder: 'Write your story, poem, or essay here...',
-      modules: {
-        toolbar: [
-          [{ 'size': ['small', false, 'large', 'huge'] }],  // Font sizes
-          ['bold', 'italic', 'underline', 'strike'],        // Basic formatting
-          [{ 'color': [] }, { 'background': [] }],          // Text and background colors
-          [{ 'align': [] }],                                // Text alignment
-          ['clean']                                         // Remove formatting button
-        ]
-      }
-    });
+    if (document.getElementById('quillEditor')) {
+      quill = new Quill('#quillEditor', {
+        theme: 'snow',
+        placeholder: 'Write your story, poem, or essay here...',
+        modules: {
+          toolbar: [
+            [{ 'size': ['small', false, 'large', 'huge'] }],
+            ['bold', 'italic', 'underline', 'strike'],
+            [{ 'color': [] }, { 'background': [] }],
+            [{ 'align': [] }],
+            ['clean']
+          ]
+        }
+      });
+    }
   });
 
+  // --- NAVIGATION ---
   function toggleMobileNav(){
     document.getElementById('navTabs').classList.toggle('open');
     document.getElementById('navHamburger').classList.toggle('open');
@@ -1082,8 +1083,34 @@
     document.getElementById('navHamburger').classList.remove('open');
   }
 
-  // Known captions for existing photos — anything uploaded later without an entry here
-  // falls back to an auto-generated title from its filename.
+  function showPage(name){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    const target = document.getElementById('page-'+name);
+    if (target) target.classList.add('active');
+
+    document.querySelectorAll('.tab-link').forEach(t=>t.classList.remove('active'));
+    document.querySelector('.tab-link[data-page="'+name+'"]')?.classList.add('active');
+    
+    window.scrollTo({top:0, behavior:'smooth'});
+    closeMobileNav();
+
+    if(name==='finances' && !window.__chartsInit){ initCharts(); window.__chartsInit = true; }
+    if(name==='magazine'){ loadMagazine(); }
+    if(name==='members-only'){
+      document.getElementById('loginGate').style.display = 'block';
+      document.getElementById('membersContent').style.display = 'none';
+      document.getElementById('memberPassword').value = '';
+      document.getElementById('loginError').style.display = 'none';
+    }
+    if(name==='admin'){
+      document.getElementById('adminLoginGate').style.display = 'block';
+      document.getElementById('adminContent').style.display = 'none';
+      document.getElementById('adminPassword').value = '';
+      document.getElementById('adminLoginError').style.display = 'none';
+    }
+  }
+
+  // --- IMAGE CAPTIONS & GALLERY ---
   const IMAGE_CAPTIONS = {
     'krishna.jpg':     { title: 'Krishna, Flute in Hand', quote: 'Dancing beneath a peacock feather sky.' },
     'chandrayaan.jpg': { title: 'Chandrayaan-3', quote: 'A rocket bound for the moon, drawn for National Moon Day.' },
@@ -1156,12 +1183,11 @@
   }
   loadImages();
 
+  // --- NOTICES ---
   async function loadNotices(){
     const container = document.getElementById('noticeList');
     if (!container) return;
-    
     try {
-      // 1. Fetch new notices from Supabase
       const { data: dbNotices, error } = await supabaseClient
         .from('notices')
         .select('*')
@@ -1169,7 +1195,6 @@
 
       if (error) throw error;
 
-      // 2. Hardcode your old historical notices here
       const oldNotices = [
         { date: "04.07.2026", text: "New Elected Executive Committee, w.e.f. 04.07.2026" },
         { date: "FY 2025–26", text: "Clubhouse wants to raise a Library Building Fund" },
@@ -1179,10 +1204,8 @@
         { date: "2025", text: "Blood Donation Camp organised successfully" }
       ];
 
-      // 3. Combine them (Database notices first, then old hardcoded notices)
       const allNotices = [...(dbNotices || []), ...oldNotices];
 
-      // 4. Render the combined list
       if (!Array.isArray(allNotices) || allNotices.length === 0) {
         container.innerHTML = '<div class="notice-item"><div class="notice-text">No notices yet.</div></div>';
         return;
@@ -1195,132 +1218,31 @@
           <div class="notice-text">${escapeHtml(n.text || '')}</div>
         </div>`).join('');
         
-      container.innerHTML = itemsHtml + itemsHtml; // duplicate once for seamless scroll loop
-      
+      container.innerHTML = itemsHtml + itemsHtml;
     } catch (err) {
       console.error(err);
       container.innerHTML = '<div class="notice-item"><div class="notice-text">Couldn\'t load notices — please refresh.</div></div>';
     }
   }
+
   function escapeHtml(str){
     const div = document.createElement('div');
     div.textContent = str;
     return div.innerHTML;
   }
 
-  // --- SUBMIT MAGAZINE POST TO SUPABASE ---
-  async function submitMagazinePost(event) {
-    event.preventDefault();
-    const form = event.target;
-    const btn = document.getElementById('magazineBtn');
-    const status = document.getElementById('magazineStatus');
-
-    // Get the formatted HTML directly from the Quill editor
-    const richTextContent = quill.root.innerHTML;
-    
-    // Prevent empty submissions (checks if they typed actual text)
-    if (quill.getText().trim().length === 0) {
-      alert("Please write something in the editor before publishing.");
-      return;
-    }
-
-    const originalBtnText = btn.textContent;
-    btn.textContent = 'PUBLISHING...';
-    btn.disabled = true;
-    status.style.display = 'none';
-
-    // Get today's date
-    const today = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
-
-    try {
-      const { error } = await supabaseClient
-        .from('magazine_posts')
-        .insert([{ 
-          author: form.author.value, 
-          title: form.title.value, 
-          category: form.category.value, 
-          content: richTextContent, // Saves the formatting tags!
-          date: today
-        }]);
-
-      if (error) throw error;
-
-      status.style.display = 'block';
-      status.style.background = 'rgba(51,85,63,0.12)';
-      status.style.color = 'var(--leaf)';
-      status.textContent = "Successfully published! Check the Bibhas tab.";
-      
-      // Reset the form fields AND clear the Quill editor box
-      form.reset();
-      quill.setContents([]); 
-      
-      // Instantly reload the magazine so the new post shows up
-      loadMagazine(); 
-      
-    } catch (err) {
-      console.error(err);
-      status.style.display = 'block';
-      status.style.background = 'rgba(181,41,46,0.12)';
-      status.style.color = 'var(--sindoor)';
-      status.textContent = "Error publishing post. Please check your database permissions.";
-    } finally {
-      btn.textContent = originalBtnText;
-      btn.disabled = false;
-    }
-  }
-
-    // Get the current date in "DD MMM YYYY" format
-    const today = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
-
-    try {
-      const { error } = await supabaseClient
-        .from('magazine_posts')
-        .insert([{ 
-          author: form.author.value, 
-          title: form.title.value, 
-          category: form.category.value, 
-          content: form.content.value,
-          date: today
-        }]);
-
-      if (error) throw error;
-
-      status.style.display = 'block';
-      status.style.background = 'rgba(51,85,63,0.12)';
-      status.style.color = 'var(--leaf)';
-      status.textContent = "Successfully published! Check the Bibhas tab.";
-      form.reset();
-      
-      // Instantly reload the magazine so the new post shows up without refreshing
-      loadMagazine(); 
-      
-    } catch (err) {
-      console.error(err);
-      status.style.display = 'block';
-      status.style.background = 'rgba(181,41,46,0.12)';
-      status.style.color = 'var(--sindoor)';
-      status.textContent = "Error publishing post. Please check your database permissions.";
-    } finally {
-      btn.textContent = originalBtnText;
-      btn.disabled = false;
-    }
-  }
-
-  // --- FETCH MAGAZINE POSTS FROM SUPABASE & GITHUB ---
-  async function loadMagazine()
-  {
+  // --- MAGAZINE (BIBHAS) SUPABASE & GITHUB COMBINED ---
+  async function loadMagazine(){
     const container = document.getElementById('magazineList');
     if (!container) return;
-    
     try {
       let allPosts = [];
 
-      // 1. Fetch NEW posts from Supabase
       try {
         const { data: sbPosts, error } = await supabaseClient
           .from('magazine_posts')
           .select('*')
-          .order('created_at', { ascending: false }); // Newest first
+          .order('created_at', { ascending: false });
 
         if (!error && sbPosts) {
           allPosts = [...allPosts, ...sbPosts];
@@ -1329,7 +1251,6 @@
         console.warn("Could not load magazine posts from Supabase:", sbErr);
       }
 
-      // 2. Fetch OLD posts from GitHub (magazine.json)
       try {
         const res = await fetch('magazine.json');
         if (res.ok) {
@@ -1342,13 +1263,11 @@
         console.warn("Could not load magazine posts from GitHub:", ghErr);
       }
 
-      // 3. Render the combined list
       if (allPosts.length === 0) {
         container.innerHTML = '<p style="font-size:13px; color:#9a927c;">No posts published yet — check back soon.</p>';
         return;
       }
       
-      // 4. Inject into HTML (Notice that p.content no longer has escapeHtml)
       container.innerHTML = allPosts.map(p => `
         <div class="magazine-post">
           <div class="mp-meta">
@@ -1357,28 +1276,77 @@
           </div>
           <h3>${escapeHtml(p.title || 'Untitled')}</h3>
           <div class="mp-author">By ${escapeHtml(p.author || 'Anonymous')}</div>
-          
-          <!-- This is the crucial change: rendering raw HTML for the body -->
           <div class="mp-body" style="font-family:'Work Sans',sans-serif;">${p.content || ''}</div>
-          
         </div>
       `).join('');
-      
     } catch (err) {
       console.error("Error loading combined magazine posts:", err);
       container.innerHTML = '<p style="font-size:13px; color:#9a927c;">Couldn\'t load posts right now — please refresh.</p>';
     }
   }
 
-  // --- SECURE MEMBER LOGIN (EMAIL + PASSWORD) ---
-  async function checkMemberPassword() 
-  {
+  // --- SUBMIT MAGAZINE POST TO SUPABASE ---
+  async function submitMagazinePost(event) {
+    event.preventDefault();
+    const form = event.target;
+    const btn = document.getElementById('magazineBtn');
+    const status = document.getElementById('magazineStatus');
+
+    const richTextContent = quill ? quill.root.innerHTML : form.content.value;
+    
+    if (quill && quill.getText().trim().length === 0) {
+      alert("Please write something in the editor before publishing.");
+      return;
+    }
+
+    const originalBtnText = btn.textContent;
+    btn.textContent = 'PUBLISHING...';
+    btn.disabled = true;
+    status.style.display = 'none';
+
+    const today = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+
+    try {
+      const { error } = await supabaseClient
+        .from('magazine_posts')
+        .insert([{ 
+          author: form.author.value, 
+          title: form.title.value, 
+          category: form.category.value, 
+          content: richTextContent,
+          date: today
+        }]);
+
+      if (error) throw error;
+
+      status.style.display = 'block';
+      status.style.background = 'rgba(51,85,63,0.12)';
+      status.style.color = 'var(--leaf)';
+      status.textContent = "Successfully published! Check the Bibhas tab.";
+      
+      form.reset();
+      if (quill) quill.setContents([]); 
+      
+      loadMagazine(); 
+    } catch (err) {
+      console.error(err);
+      status.style.display = 'block';
+      status.style.background = 'rgba(181,41,46,0.12)';
+      status.style.color = 'var(--sindoor)';
+      status.textContent = "Error publishing post. Please check your database permissions.";
+    } finally {
+      btn.textContent = originalBtnText;
+      btn.disabled = false;
+    }
+  }
+
+  // --- AUTHENTICATION ---
+  async function checkMemberPassword() {
     const email = document.getElementById('memberEmail').value.trim();
     const password = document.getElementById('memberPassword').value;
     const errorDiv = document.getElementById('loginError');
     const btn = document.querySelector('#loginGate button');
     
-    // Reset error display
     errorDiv.style.display = 'none';
     
     if (!password) {
@@ -1392,21 +1360,15 @@
     btn.disabled = true;
     
     try {
-      const { data, error } = await supabaseClient.auth.signInWithPassword({ 
-        email: email, 
-        password: password 
-      });
-      
+      const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
       if (error) throw error;
       
-      // Success! Unlock the dashboard
       document.getElementById('loginGate').style.display = 'none';
       document.getElementById('membersContent').style.display = 'block';
       loadDocuments();
       loadNotices();
       loadMinutes();
       loadInternalPhotos();
-      
     } catch (err) {
       errorDiv.textContent = "Error: " + err.message;
       errorDiv.style.display = 'block';
@@ -1416,21 +1378,16 @@
     }
   }
   
-  // Secure Admin Login using Supabase
-  async function checkAdminPassword()
-  {
+  async function checkAdminPassword() {
     const email = document.getElementById('adminEmail').value;
     const password = document.getElementById('adminPassword').value;
     const errorDiv = document.getElementById('adminLoginError');
     
-    // Reset error display
     errorDiv.style.display = 'none';
     
     try {
       const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
-      
       if (error) {
-        // Show the EXACT error message from Supabase on the screen
         errorDiv.textContent = "Error: " + error.message;
         errorDiv.style.display = 'block';
       } else {
@@ -1446,8 +1403,6 @@
   // --- ADMIN UPLOAD HANDLER ---
   async function handleAdminUpload(event, type) {
     event.preventDefault();
-    
-    // UI feedback: change button text while uploading
     const btn = event.target.querySelector('button');
     const originalBtnText = btn.textContent;
     btn.textContent = 'UPLOADING...';
@@ -1456,11 +1411,8 @@
     try {
       if (type === 'notice') {
         const text = document.getElementById('noticeText').value;
-        
-        // Format today's date like "DD MMM YYYY" to match your design
         const today = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
         
-        // Insert into the 'notices' table
         const { error } = await supabaseClient
           .from('notices')
           .insert([{ text: text, date: today }]);
@@ -1468,23 +1420,18 @@
         if (error) throw error;
         alert('Notice posted successfully to the member board!');
       } 
-      
       else if (type === 'document' || type === 'image') {
         const fileInput = type === 'document' ? document.getElementById('adminDoc') : document.getElementById('adminImg');
         const file = fileInput.files[0];
         
         if (!file) throw new Error("No file selected.");
 
-        // Create a unique file name so uploads don't overwrite each other
         const fileExt = file.name.split('.').pop();
         const safeName = file.name.replace(/[^a-zA-Z0-9]/g, '_');
         const fileName = `${Date.now()}_${safeName}.${fileExt}`;
-        
-        // Organize into folders inside your bucket (e.g., 'documents/filename.pdf')
         const folderPath = type === 'document' ? 'documents/' : 'internal-photos/';
         const filePath = `${folderPath}${fileName}`;
 
-        // Upload to the 'club_files' bucket
         const { error } = await supabaseClient
           .storage
           .from('club_files')
@@ -1494,21 +1441,17 @@
         alert(`${type === 'document' ? 'PDF' : 'Image'} uploaded successfully!`);
       }
 
-      // Clear the form after a successful upload
       event.target.reset(); 
-
     } catch (err) {
       console.error(err);
       alert(`Upload failed: ${err.message}`);
     } finally {
-      // Restore button state
       btn.textContent = originalBtnText;
       btn.disabled = false;
     }
   }
 
-  // Auto-load PDFs from the repo's /documents folder via the GitHub API —
-  // upload a new PDF there and it appears here automatically, no code edits needed.
+  // --- DOCUMENTS & MINUTES ---
   const GITHUB_DOCS_PATH = 'documents';
 
   function formatDocTitle(filename){
@@ -1547,82 +1490,69 @@
   function loadDocuments(){ return loadPdfFolder(GITHUB_DOCS_PATH, 'docList', 'No documents uploaded yet.'); }
   function loadMinutes(){ return loadPdfFolder('minutes', 'minutesList', 'No minutes have been added yet.'); }
 
+  // --- INTERNAL PHOTOS (COMBINED SUPABASE + GITHUB) ---
   let INTERNAL_PHOTO_DATA = [];
   function openInternalLightbox(idx){
     if (!INTERNAL_PHOTO_DATA[idx]) return;
     document.getElementById('lightboxImg').src = INTERNAL_PHOTO_DATA[idx].url;
     document.getElementById('lightbox').classList.add('active');
   }
-  async function loadInternalPhotos() 
-  {
+
+  async function loadInternalPhotos(){
     const container = document.getElementById('internalPhotosGrid');
     if (!container) return;
     
     try {
       let allPhotos = [];
 
-      // 1. Fetch NEW photos from Supabase
       try {
         const { data: sbFiles, error } = await supabaseClient
           .storage
           .from('club_files')
-          .list('internal-photos', {
-            limit: 100,
-            offset: 0,
-            sortBy: { column: 'created_at', order: 'desc' }
-          });
+          .list('internal-photos', { limit: 100, offset: 0, sortBy: { column: 'created_at', order: 'desc' } });
 
         if (!error && sbFiles) {
           const sbImages = sbFiles.filter(file => file.name.match(/\.(jpeg|jpg|gif|png|webp)$/i));
           const formattedSb = sbImages.map(img => {
-            const { data: publicUrlData } = supabaseClient
-              .storage
-              .from('club_files')
-              .getPublicUrl('internal-photos/' + img.name);
+            const { data: publicUrlData } = supabaseClient.storage.from('club_files').getPublicUrl('internal-photos/' + img.name);
             return { url: publicUrlData.publicUrl, title: "Member Upload" };
           });
-          allPhotos = [...allPhotos, ...formattedSb]; // Add to main list
+          allPhotos = [...allPhotos, ...formattedSb];
         }
       } catch (sbErr) {
         console.warn("Could not load from Supabase:", sbErr);
       }
 
-      // 2. Fetch OLD photos from GitHub
       try {
         const res = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/internal-photos`);
         if (res.ok) {
           const files = await res.json();
           const ghImages = Array.isArray(files) ? files.filter(f => /\.(jpe?g|png|webp|gif)$/i.test(f.name)) : [];
           const formattedGh = ghImages.map(f => ({ url: f.download_url, title: formatImageTitle(f.name) }));
-          allPhotos = [...allPhotos, ...formattedGh]; // Add to main list
+          allPhotos = [...allPhotos, ...formattedGh];
         }
       } catch (ghErr) {
         console.warn("Could not load from GitHub:", ghErr);
       }
 
-      // 3. Check if we have any photos at all
       if (allPhotos.length === 0) {
         container.innerHTML = '<p style="font-size:12.5px; color:#9a927c;">No internal photos uploaded yet.</p>';
         return;
       }
 
-      // 4. Update the global array for the lightbox clicking
       INTERNAL_PHOTO_DATA = allPhotos;
-
-      // 5. Inject them all into the HTML grid
       container.innerHTML = allPhotos.map((img, i) => `
         <div class="ph ph-auto" data-cap="${img.title}" onclick="openInternalLightbox(${i})">
           <img src="${img.url}" alt="${img.title}">
         </div>
       `).join('');
-
     } catch (err) {
       console.error("Error loading combined photos:", err);
       container.innerHTML = '<p style="font-size:12.5px; color:#9a927c;">Couldn\'t load photos right now — please refresh.</p>';
     }
   }
 
-  // Generic handler for any Formspree-backed form: submits via fetch, shows inline confirmation
+  // --- FORMSPREE WIREUP ---
   function wireForm(formId, btnId, statusId, successMsg){
     const form = document.getElementById(formId);
     if (!form) return;
@@ -1662,30 +1592,7 @@
   }
   wireForm('queryForm', 'queryBtn', 'queryStatus', "Thank you — your query has been sent. We'll get back to you soon.");
 
-  function showPage(name){
-    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-    document.getElementById('page-'+name).classList.add('active');
-    document.querySelectorAll('.tab-link').forEach(t=>t.classList.remove('active'));
-    document.querySelector('.tab-link[data-page="'+name+'"]')?.classList.add('active');
-    window.scrollTo({top:0, behavior:'smooth'});
-    closeMobileNav();
-    if(name==='finances' && !window.__chartsInit){ initCharts(); window.__chartsInit = true; }
-    if(name==='magazine'){ loadMagazine(); }
-    if(name==='members-only'){
-      // Always require the password again — never stay unlocked across navigation
-      document.getElementById('loginGate').style.display = 'block';
-      document.getElementById('membersContent').style.display = 'none';
-      document.getElementById('memberPassword').value = '';
-      document.getElementById('loginError').style.display = 'none';
-    }
-    if(name==='admin'){
-      document.getElementById('adminLoginGate').style.display = 'block';
-      document.getElementById('adminContent').style.display = 'none';
-      document.getElementById('adminPassword').value = '';
-      document.getElementById('adminLoginError').style.display = 'none';
-    }
-  }
-
+  // --- TAB LISTENER ---
   document.querySelectorAll('.yr-tab').forEach(tab=>{
     tab.addEventListener('click', ()=>{
       document.querySelectorAll('.yr-tab').forEach(t=>t.classList.remove('active'));
@@ -1695,6 +1602,7 @@
     });
   });
 
+  // --- CHARTS ---
   function initCharts(){
     const sindoor='#B5292E', marigold='#E0A233', leaf='#33553F', clay='#9C4E2C', indigo='#1B2A4A';
     Chart.defaults.font.family = "'Work Sans', sans-serif";
