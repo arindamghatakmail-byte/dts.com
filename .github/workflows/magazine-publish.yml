@@ -1,0 +1,124 @@
+name: Publish Magazine Submission
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  process:
+    if: contains(github.event.issue.labels.*.name, 'magazine-submission')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Parse issue and run auto-filter
+        id: parse
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const body = context.payload.issue.body || '';
+
+            const authorMatch = body.match(/\*\*Author:\*\*\s*(.+)/);
+            const categoryMatch = body.match(/\*\*Category:\*\*\s*(.+)/);
+            const author = authorMatch ? authorMatch[1].trim() : 'Anonymous';
+            const category = categoryMatch ? categoryMatch[1].trim() : 'Writing';
+            const title = context.payload.issue.title.replace(/^\[Magazine\]\s*/, '').trim();
+
+            const afterCategory = body.split(/\*\*Category:\*\*.*\n/)[1] || body;
+            const content = afterCategory.trim();
+
+            let blocklist = [];
+            try {
+              blocklist = JSON.parse(fs.readFileSync('magazine-blocklist.json', 'utf8'));
+            } catch (e) {
+              blocklist = [];
+            }
+            const haystack = (title + ' ' + content).toLowerCase();
+            const flagged = blocklist.some(w => haystack.includes(String(w).toLowerCase()));
+
+            core.setOutput('flagged', flagged ? 'true' : 'false');
+            core.setOutput('author_b64', Buffer.from(author, 'utf8').toString('base64'));
+            core.setOutput('title_b64', Buffer.from(title, 'utf8').toString('base64'));
+            core.setOutput('category_b64', Buffer.from(category, 'utf8').toString('base64'));
+            core.setOutput('content_b64', Buffer.from(content, 'utf8').toString('base64'));
+
+      - name: Flag for manual review
+        if: steps.parse.outputs.flagged == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              labels: ['needs-review']
+            });
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: 'This submission was flagged by the automatic filter and has **not** been published. An admin will review it manually — to publish it anyway, add it to `magazine.json` by hand and close this issue.'
+            });
+
+      - name: Append to magazine.json
+        if: steps.parse.outputs.flagged == 'false'
+        env:
+          POST_AUTHOR_B64: ${{ steps.parse.outputs.author_b64 }}
+          POST_TITLE_B64: ${{ steps.parse.outputs.title_b64 }}
+          POST_CATEGORY_B64: ${{ steps.parse.outputs.category_b64 }}
+          POST_CONTENT_B64: ${{ steps.parse.outputs.content_b64 }}
+        run: |
+          python3 - <<'PYEOF'
+          import json, base64, datetime, os
+
+          def d(key):
+              return base64.b64decode(os.environ[key]).decode('utf-8')
+
+          with open('magazine.json', 'r', encoding='utf-8') as f:
+              posts = json.load(f)
+
+          today = datetime.datetime.now().strftime('%d.%m.%Y')
+
+          posts.insert(0, {
+              "author": d('POST_AUTHOR_B64'),
+              "title": d('POST_TITLE_B64'),
+              "category": d('POST_CATEGORY_B64'),
+              "date": today,
+              "content": d('POST_CONTENT_B64')
+          })
+
+          with open('magazine.json', 'w', encoding='utf-8') as f:
+              json.dump(posts, f, ensure_ascii=False, indent=2)
+          PYEOF
+
+      - name: Commit and push
+        if: steps.parse.outputs.flagged == 'false'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add magazine.json
+          git commit -m "Publish magazine submission from issue #${{ github.event.issue.number }}"
+          git push
+
+      - name: Close issue and confirm
+        if: steps.parse.outputs.flagged == 'false'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: 'Published! Your piece is now live on the Tarun Kotha page.'
+            });
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              state: 'closed'
+            });
