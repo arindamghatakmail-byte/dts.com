@@ -1232,7 +1232,8 @@
   }
 
   // --- MAGAZINE (BIBHAS) SUPABASE & GITHUB COMBINED ---
-  async function loadMagazine(){
+  async function loadMagazine()
+  {
     const container = document.getElementById('magazineList');
     if (!container) return;
     try {
@@ -1268,17 +1269,25 @@
         return;
       }
       
-      container.innerHTML = allPosts.map(p => `
-        <div class="magazine-post">
-          <div class="mp-meta">
-            <span class="mp-cat">${escapeHtml(p.category || 'Writing')}</span>
-            <span class="mp-date">${escapeHtml(p.date || '')}</span>
+      container.innerHTML = allPosts.map(p => {
+        // Format the author line to include the designation if it exists
+        let authorText = escapeHtml(p.author || 'Anonymous');
+        if (p.designation && p.designation.trim() !== '') {
+          authorText += `, ${escapeHtml(p.designation)}`;
+        }
+
+        return `
+          <div class="magazine-post">
+            <div class="mp-meta">
+              <span class="mp-cat">${escapeHtml(p.category || 'Writing')}</span>
+              <span class="mp-date">${escapeHtml(p.date || '')}</span>
+            </div>
+            <h3>${escapeHtml(p.title || 'Untitled')}</h3>
+            <div class="mp-author">By ${authorText}</div>
+            <div class="mp-body" style="font-family:'Work Sans',sans-serif;">${p.content || ''}</div>
           </div>
-          <h3>${escapeHtml(p.title || 'Untitled')}</h3>
-          <div class="mp-author">By ${escapeHtml(p.author || 'Anonymous')}</div>
-          <div class="mp-body" style="font-family:'Work Sans',sans-serif;">${p.content || ''}</div>
-        </div>
-      `).join('');
+        `;
+      }).join('');
     } catch (err) {
       console.error("Error loading combined magazine posts:", err);
       container.innerHTML = '<p style="font-size:13px; color:#9a927c;">Couldn\'t load posts right now — please refresh.</p>';
@@ -1312,7 +1321,8 @@
         .insert([{ 
           author: form.author.value, 
           title: form.title.value, 
-          category: form.category.value, 
+          category: form.category.value,
+          designation: form.designation.value, // Added designation here!
           content: richTextContent,
           date: today
         }]);
@@ -1339,7 +1349,6 @@
       btn.disabled = false;
     }
   }
-
   // --- AUTHENTICATION ---
   async function checkMemberPassword() {
     const email = document.getElementById('memberEmail').value.trim();
