@@ -1404,20 +1404,6 @@
     }
   }
 
-  function checkMemberPassword(){
-    const entered = document.getElementById('memberPassword').value;
-    if (entered === MEMBER_PASSWORD) {
-      document.getElementById('loginGate').style.display = 'none';
-      document.getElementById('membersContent').style.display = 'block';
-      loadDocuments();
-      loadNotices();
-      loadMinutes();
-      loadInternalPhotos();
-    } else {
-      document.getElementById('loginError').style.display = 'block';
-    }
-  }
-
   // Generic handler for any Formspree-backed form: submits via fetch, shows inline confirmation
   function wireForm(formId, btnId, statusId, successMsg){
     const form = document.getElementById(formId);
