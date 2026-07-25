@@ -337,7 +337,7 @@
   .doc-sub{ font-size:11.5px; color:#7a7260; margin-top:2px; }
   .doc-dl{ font-size:16px; color:var(--sindoor); flex-shrink:0; }
 
-  /* ---------- Bibhas magazine ---------- */
+  /* ---------- Tarun Kotha magazine ---------- */
   .magazine-list{ display:flex; flex-direction:column; gap:22px; max-width:720px; }
   .magazine-post{
     background:var(--card); border:1px solid var(--line); border-radius:12px;
@@ -422,7 +422,7 @@
       <a class="tab-link" data-page="events" onclick="showPage('events')">Events</a>
       <a class="tab-link" data-page="activities" onclick="showPage('activities')">Activities</a>
       <a class="tab-link" data-page="gallery" onclick="showPage('gallery')">Gallery</a>
-      <a class="tab-link" data-page="magazine" onclick="showPage('magazine')">Magazine</a>
+      <a class="tab-link" data-page="magazine" onclick="showPage('magazine')">Tarun Kotha</a>
       <a class="tab-link" data-page="members-only" onclick="showPage('members-only')">Members Login</a>
       <a class="tab-link" data-page="join" onclick="showPage('join')">Join Us</a>
       <a class="tab-link" data-page="contact" onclick="showPage('contact')">Contact</a>
@@ -753,10 +753,10 @@
   </main>
 </div>
 
-<!-- ============ Bibhas (MAGAZINE) ============ -->
+<!-- ============ TARUN KOTHA (MAGAZINE) ============ -->
 <div class="page" id="page-magazine">
   <main class="wrap" style="padding-top:40px;">
-    <h2 class="page-title">বিভাস <span style="font-family:'Work Sans',sans-serif; font-weight:300; font-size:16px; color:#7a7260;">— Bibhas</span></h2>
+    <h2 class="page-title">তরুণ কথা <span style="font-family:'Work Sans',sans-serif; font-weight:300; font-size:16px; color:#7a7260;">— Tarun Kotha</span></h2>
     <p class="page-lede">A space for our members' own writing — poetry, prose, stories, and reflections. Open for everyone to read; open for members to write.</p>
 
     <div id="magazineList" class="magazine-list">
@@ -809,7 +809,7 @@
             <p style="font-size:12px; color:#9a927c; margin-top:14px;">Documents are pulled automatically from the club's document folder — upload a new PDF there and it appears here.</p>
           </div>
 
-          <div class="section-head"><h2>Submit to বিভাস</h2><span class="tag">Bibhas Magazine</span></div>
+          <div class="section-head"><h2>Submit to তরুণ কথা</h2><span class="tag">Tarun Kotha Magazine</span></div>
           <div class="card">
             <p style="font-size:13px; color:#5c563f; margin-bottom:16px;">Share your poetry, prose, or story. Clean submissions are published automatically within a couple of minutes; anything flagged by our filter is held for manual review.</p>
             <form id="magazineForm">
@@ -830,7 +830,6 @@
                   <option value="Story">Story</option>
                   <option value="Prose">Prose</option>
                   <option value="Essay">Essay</option>
-                  <option value="Essay">President/Secretary Corner</option>
                 </select>
               </div>
               <div class="mag-form-row">
@@ -1215,7 +1214,7 @@
     });
   }
   wireForm('queryForm', 'queryBtn', 'queryStatus', "Thank you — your query has been sent. We'll get back to you soon.");
-  // Bibhas magazine submission — goes through a Cloudflare Worker (not Formspree),
+  // Tarun Kotha magazine submission — goes through a Cloudflare Worker (not Formspree),
   // which securely creates a GitHub Issue that a GitHub Action then auto-publishes or holds for review.
   // Replace this with your actual deployed Worker URL after setup.
   const MAGAZINE_WORKER_URL = "https://REPLACE-WITH-YOUR-WORKER.workers.dev";
