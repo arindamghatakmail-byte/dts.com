@@ -424,6 +424,7 @@
       <a class="tab-link" data-page="gallery" onclick="showPage('gallery')">Gallery</a>
       <a class="tab-link" data-page="magazine" onclick="showPage('magazine')">Magazine</a>
       <a class="tab-link" data-page="members-only" onclick="showPage('members-only')">Members Login</a>
+      <a class="tab-link" data-page="admin" onclick="showPage('admin')">Admin</a>
       <a class="tab-link" data-page="join" onclick="showPage('join')">Join Us</a>
       <a class="tab-link" data-page="contact" onclick="showPage('contact')">Contact</a>
     </div>
@@ -858,7 +859,74 @@
     </div>
   </main>
 </div>
+<!-- ============ Admin Login & Dashboard ============ -->
+<div class="page" id="page-admin">
+  <main class="wrap" style="padding-top:40px;">
+    <h2 class="page-title">Admin Dashboard</h2>
+    <p class="page-lede">Upload notices, documents, and images directly to the member board.</p>
 
+    <!-- Admin Login Gate -->
+    <div id="adminLoginGate" class="card" style="max-width:380px;">
+      <h3>Admin Access</h3>
+      <p class="note">Authorized personnel only.</p>
+      <input type="password" id="adminPassword" placeholder="Admin Password" onkeydown="if(event.key==='Enter'){checkAdminPassword();}" style="width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:13px; margin-top:6px;">
+      <div id="adminLoginError" style="display:none; color:var(--sindoor); font-size:12.5px; margin-top:8px;">Incorrect password — please try again.</div>
+      <button onclick="checkAdminPassword()" style="margin-top:14px; width:100%; padding:10px; background:var(--indigo); color:var(--paper); border:none; border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:13px; cursor:pointer; letter-spacing:.04em;">Log in</button>
+    </div>
+
+    <!-- Admin Dashboard (Hidden by default) -->
+    <div id="adminContent" style="display:none;">
+      <div class="mo-layout">
+        
+        <div class="mo-main">
+          <!-- Upload Notice -->
+          <div class="section-head"><h2>Post a Notice</h2><span class="tag">Text Alert</span></div>
+          <div class="card" style="margin-bottom:20px;">
+            <form onsubmit="handleAdminUpload(event, 'notice')">
+              <div class="mag-form-row">
+                <label>Notice Content</label>
+                <textarea id="noticeText" rows="3" required placeholder="Type the notice here..."></textarea>
+              </div>
+              <button type="submit" class="form-submit-btn" style="padding:10px 22px; background:var(--sindoor); color:var(--paper); border:none; border-radius:6px; cursor:pointer;">POST NOTICE</button>
+            </form>
+          </div>
+
+          <!-- Upload Document -->
+          <div class="section-head"><h2>Upload Document</h2><span class="tag">PDFs Only</span></div>
+          <div class="card" style="margin-bottom:20px;">
+            <form onsubmit="handleAdminUpload(event, 'document')">
+              <div class="mag-form-row">
+                <label>Select PDF File</label>
+                <input type="file" id="adminDoc" accept="application/pdf" required>
+              </div>
+              <button type="submit" class="form-submit-btn" style="padding:10px 22px; background:var(--marigold); color:var(--indigo); border:none; border-radius:6px; cursor:pointer; font-weight:600;">UPLOAD PDF</button>
+            </form>
+          </div>
+
+          <!-- Upload Image -->
+          <div class="section-head"><h2>Upload Internal Photo</h2><span class="tag">JPG, PNG</span></div>
+          <div class="card" style="margin-bottom:20px;">
+            <form onsubmit="handleAdminUpload(event, 'image')">
+              <div class="mag-form-row">
+                <label>Select Image File</label>
+                <input type="file" id="adminImg" accept="image/png, image/jpeg" required>
+              </div>
+              <button type="submit" class="form-submit-btn" style="padding:10px 22px; background:var(--leaf); color:var(--paper); border:none; border-radius:6px; cursor:pointer;">UPLOAD IMAGE</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="mo-side">
+          <div class="card" style="border-top:3px solid var(--marigold);">
+            <h3>System Status</h3>
+            <p style="font-size:12.5px; color:#5c563f; margin-top:8px;"><strong>Note:</strong> Because this site is statically hosted, uploads require a backend configuration (e.g., Firebase or Decap CMS) to permanently save to the server.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+</div>
 <!-- ============ JOIN US ============ -->
 <div class="page" id="page-join">
   <main class="wrap" style="padding-top:40px;">
@@ -1092,6 +1160,25 @@
   // Members Login gate — change MEMBER_PASSWORD below to set your own password.
   // No persistence across navigation: leaving this page and coming back always re-locks it.
   const MEMBER_PASSWORD = "tarunsangha@2026";
+  // Admin Login gate — change ADMIN_PASSWORD below to set your own password.
+  const ADMIN_PASSWORD = "Admin@tarunsangha"; 
+
+  function checkAdminPassword(){
+    const entered = document.getElementById('adminPassword').value;
+    if (entered === ADMIN_PASSWORD) {
+      document.getElementById('adminLoginGate').style.display = 'none';
+      document.getElementById('adminContent').style.display = 'block';
+    } else {
+      document.getElementById('adminLoginError').style.display = 'block';
+    }
+  }
+
+  // Placeholder function for backend integration
+  function handleAdminUpload(event, type) {
+    event.preventDefault();
+    alert(`Backend integration required.\n\nTo complete the ${type} upload, connect this form to a backend service like Firebase, Supabase, or a custom Node.js server.`);
+    event.target.reset(); // Reset the form after "uploading"
+  }
 
   // Auto-load PDFs from the repo's /documents folder via the GitHub API —
   // upload a new PDF there and it appears here automatically, no code edits needed.
@@ -1231,6 +1318,12 @@
       document.getElementById('membersContent').style.display = 'none';
       document.getElementById('memberPassword').value = '';
       document.getElementById('loginError').style.display = 'none';
+    }
+    if(name==='admin'){
+      document.getElementById('adminLoginGate').style.display = 'block';
+      document.getElementById('adminContent').style.display = 'none';
+      document.getElementById('adminPassword').value = '';
+      document.getElementById('adminLoginError').style.display = 'none';
     }
   }
 
