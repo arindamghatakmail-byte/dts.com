@@ -1013,12 +1013,18 @@
 
 <div id="lightbox" onclick="closeLightbox()"><img id="lightboxImg" src="" alt=""></div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  
+<!-- LOAD SUPABASE LIBRARY HERE (Must be before your main script) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
   const GITHUB_OWNER = 'arindamghatakmail-byte';
   const GITHUB_REPO = 'dts.com';
   const GITHUB_IMAGES_PATH = 'images';
+
+  // --- SUPABASE CONFIGURATION ---
+  const SUPABASE_URL = 'https://gnxptgaaoxljygnidjwg.supabase.co'; 
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdueHB0Z2Fhb3hsanlnbmlkandnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ5ODE2MzUsImV4cCI6MjEwMDU1NzYzNX0.FzxWzLiah4gexcvSL43PnN3LLIPWL3E-Fmtwqkb6le8';
+  const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
   function toggleMobileNav(){
     document.getElementById('navTabs').classList.toggle('open');
@@ -1174,14 +1180,6 @@
       document.getElementById('adminLoginError').style.display = 'block';
     }
   }
-
-  // --- SUPABASE CONFIGURATION ---
-  // Replace these two strings with the ones you copied from your Supabase dashboard
-  const SUPABASE_URL = 'https://gnxptgaaoxljygnidjwg.supabase.co'; 
-  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdueHB0Z2Fhb3hsanlnbmlkandnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ5ODE2MzUsImV4cCI6MjEwMDU1NzYzNX0.FzxWzLiah4gexcvSL43PnN3LLIPWL3E-Fmtwqkb6le8';
-  
-  // Initialize the Supabase client
-  const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
   // --- ADMIN UPLOAD HANDLER ---
   async function handleAdminUpload(event, type) {
@@ -1445,6 +1443,5 @@
     });
   }
 </script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </body>
 </html>
