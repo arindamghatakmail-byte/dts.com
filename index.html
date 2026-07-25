@@ -1173,11 +1173,76 @@
     }
   }
 
-  // Placeholder function for backend integration
-  function handleAdminUpload(event, type) {
+  // --- SUPABASE CONFIGURATION ---
+  // Replace these two strings with the ones you copied from your Supabase dashboard
+  const SUPABASE_URL = 'https://gnxptgaaoxljygnidjwg.supabase.co'; 
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdueHB0Z2Fhb3hsanlnbmlkandnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ5ODE2MzUsImV4cCI6MjEwMDU1NzYzNX0.FzxWzLiah4gexcvSL43PnN3LLIPWL3E-Fmtwqkb6le8';
+  
+  // Initialize the Supabase client
+  const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  // --- ADMIN UPLOAD HANDLER ---
+  async function handleAdminUpload(event, type) {
     event.preventDefault();
-    alert(`Backend integration required.\n\nTo complete the ${type} upload, connect this form to a backend service like Firebase, Supabase, or a custom Node.js server.`);
-    event.target.reset(); // Reset the form after "uploading"
+    
+    // UI feedback: change button text while uploading
+    const btn = event.target.querySelector('button');
+    const originalBtnText = btn.textContent;
+    btn.textContent = 'UPLOADING...';
+    btn.disabled = true;
+
+    try {
+      if (type === 'notice') {
+        const text = document.getElementById('noticeText').value;
+        
+        // Format today's date like "DD MMM YYYY" to match your design
+        const today = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+        
+        // Insert into the 'notices' table
+        const { error } = await supabaseClient
+          .from('notices')
+          .insert([{ text: text, date: today }]);
+
+        if (error) throw error;
+        alert('Notice posted successfully to the member board!');
+      } 
+      
+      else if (type === 'document' || type === 'image') {
+        const fileInput = type === 'document' ? document.getElementById('adminDoc') : document.getElementById('adminImg');
+        const file = fileInput.files[0];
+        
+        if (!file) throw new Error("No file selected.");
+
+        // Create a unique file name so uploads don't overwrite each other
+        const fileExt = file.name.split('.').pop();
+        const safeName = file.name.replace(/[^a-zA-Z0-9]/g, '_');
+        const fileName = `${Date.now()}_${safeName}.${fileExt}`;
+        
+        // Organize into folders inside your bucket (e.g., 'documents/filename.pdf')
+        const folderPath = type === 'document' ? 'documents/' : 'internal-photos/';
+        const filePath = `${folderPath}${fileName}`;
+
+        // Upload to the 'club_files' bucket
+        const { error } = await supabaseClient
+          .storage
+          .from('club_files')
+          .upload(filePath, file);
+
+        if (error) throw error;
+        alert(`${type === 'document' ? 'PDF' : 'Image'} uploaded successfully!`);
+      }
+
+      // Clear the form after a successful upload
+      event.target.reset(); 
+
+    } catch (err) {
+      console.error(err);
+      alert(`Upload failed: ${err.message}`);
+    } finally {
+      // Restore button state
+      btn.textContent = originalBtnText;
+      btn.disabled = false;
+    }
   }
 
   // Auto-load PDFs from the repo's /documents folder via the GitHub API —
@@ -1378,6 +1443,6 @@
     });
   }
 </script>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </body>
 </html>
