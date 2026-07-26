@@ -1083,7 +1083,9 @@
     document.getElementById('navHamburger').classList.remove('open');
   }
 
-  function showPage(name){
+  // --- NAVIGATION WITH MOBILE BACK BUTTON SUPPORT ---
+  function showPage(name, pushToHistory = true)
+  {
     document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
     const target = document.getElementById('page-'+name);
     if (target) target.classList.add('active');
@@ -1108,7 +1110,24 @@
       document.getElementById('adminPassword').value = '';
       document.getElementById('adminLoginError').style.display = 'none';
     }
+
+    // Tell the browser history that we changed pages!
+    if (pushToHistory) {
+      window.history.pushState({ page: name }, "", "#" + name);
+    }
   }
+
+  // Listen for the phone's hardware back button being pressed
+  window.addEventListener('popstate', function(event) {
+    if (event.state && event.state.page) {
+      showPage(event.state.page, false); // Load previous tab without adding to history again
+    } else {
+      showPage('home', false); // Default to home if no history is left
+    }
+  });
+
+  // Save 'home' as the starting point when the site first loads
+  window.history.replaceState({ page: 'home' }, "", window.location.pathname);
 
   // --- IMAGE CAPTIONS & GALLERY ---
   const IMAGE_CAPTIONS = {
