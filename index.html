@@ -763,15 +763,27 @@
   <main class="wrap" style="padding-top:40px;">
     <h2 class="page-title">Glimpses of Tarun Sangha — Memories & Milestones</h2>
     <p class="page-lede">A visual journey through our community festivals, social welfare drives, and everyday moments at the Sangha.</p>
-
+    
+    <!-- This is the container that was likely missing! -->
+    <div class="art-grid" id="galleryArtGrid">
+      <p style="font-size:13px; color:#9a927c;">Loading gallery…</p>
+    </div>
+    
+  </main>
+</div>
 <!-- ============ Bibhas (MAGAZINE) ============ -->
 <div class="page" id="page-magazine">
   <main class="wrap" style="padding-top:40px;">
     
-    <!-- The Custom Magazine Image Logo -->
-    <img src="bibhas-logo.png" alt="Bibhas Magazine" class="bibhas-image-logo">
+    <div style="display: flex; align-items: center; gap: 24px; margin-bottom: 12px;">
+      <h2 class="page-title" style="margin-bottom: 0;">বিভাস</h2>
+      <!-- The logo will automatically stay hidden until you upload the file to your repository -->
+      <img src="bibhas-logo.png" alt="Bibhas Magazine Logo" class="bibhas-image-logo" style="margin-bottom: 0;" onerror="this.style.display='none'">
+    </div>
+
     <p class="page-lede">A space for our members' own writing — poetry, prose, stories, and reflections. Open for everyone to read; open for members to write.</p>
 
+    <!-- THIS IS THE CRITICAL PART: The container where the posts actually load -->
     <div id="magazineList" class="magazine-list">
       <p style="font-size:13px; color:#9a927c;">Loading posts…</p>
     </div>
