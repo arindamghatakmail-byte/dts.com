@@ -209,8 +209,8 @@
   .slide:hover img { opacity: 1; }
   .slide-cap { position: absolute; bottom: 0; left: 0; right: 0; padding: 40px 20px 20px; background: linear-gradient(to top, rgba(0,0,0,0.85), transparent); color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 13.5px; pointer-events: none; }
   
-  .slide-arrow { cursor: pointer; position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; color: white; font-size: 20px; font-weight: bold; transition: 0.2s ease; background-color: rgba(32,38,59,0.4); border-radius: 50%; user-select: none; z-index: 10; text-decoration: none; }
-  .slide-arrow:hover { background-color: var(--marigold); color: var(--indigo); text-decoration: none; }
+  .slide-arrow { cursor: pointer; position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; color: white; font-size: 20px; font-weight: bold; transition: 0.2s ease; background-color: rgba(32,38,59,0.4); border-radius: 50%; user-select: none; z-index: 10; text-decoration: none !important; }
+  .slide-arrow:hover { background-color: var(--marigold); color: var(--indigo); text-decoration: none !important; }
   .slide-arrow.prev { left: 16px; }
   .slide-arrow.next { right: 16px; }
   
@@ -361,8 +361,8 @@
     background:var(--paper-dim); color:var(--ink) !important; transition:transform .15s ease, box-shadow .15s ease;
   }
   .doc-item:hover{ transform:translateX(3px); box-shadow:0 4px 12px rgba(32,38,59,0.08); text-decoration:none !important; color:var(--indigo) !important; }
-  .doc-icon{ font-size:20px; flex-shrink:0; }
-  .doc-info{ display:flex; flex-direction:column; flex-grow:1; }
+  .doc-icon{ font-size:20px; flex-shrink:0; text-decoration:none !important; }
+  .doc-info{ display:flex; flex-direction:column; flex-grow:1; text-decoration:none !important; }
   .doc-title{ font-size:13.5px; color:var(--indigo); font-weight:600; text-decoration:none !important; }
   .doc-sub{ font-size:11.5px; color:#7a7260; margin-top:2px; text-decoration:none !important; }
   .doc-dl{ font-size:16px; color:var(--sindoor); flex-shrink:0; text-decoration:none !important; }
@@ -475,18 +475,18 @@
   </div>
   <div class="wrap" style="position:relative;">
     <div class="nav-tabs" id="navTabs" style="gap:0px;">
-      <a class="tab-link active" data-page="home" onclick="showPage('home')" style="padding:12px 12px;">Home</a>
-      <a class="tab-link" data-page="aim" onclick="showPage('aim')" style="padding:12px 12px;">Aim</a>
-      <a class="tab-link" data-page="members" onclick="showPage('members')" style="padding:12px 12px;">Members</a>
-      <a class="tab-link" data-page="finances" onclick="showPage('finances')" style="padding:12px 12px;">Financial Report</a>
-      <a class="tab-link" data-page="events" onclick="showPage('events')" style="padding:12px 12px;">Events</a>
-      <a class="tab-link" data-page="activities" onclick="showPage('activities')" style="padding:12px 12px;">Activities</a>
-      <a class="tab-link" data-page="gallery" onclick="showPage('gallery')" style="padding:12px 12px;">Gallery</a>
-      <a class="tab-link" data-page="magazine" onclick="showPage('magazine')" style="padding:12px 12px;">Magazine</a>
-      <a class="tab-link" data-page="members-only" onclick="showPage('members-only')" style="padding:12px 12px;">Members Login</a>
-      <a class="tab-link" data-page="admin" onclick="showPage('admin')" style="padding:12px 12px;">Admin</a>
-      <a class="tab-link" data-page="join" onclick="showPage('join')" style="padding:12px 12px;">Join Us</a>
-      <a class="tab-link" data-page="contact" onclick="showPage('contact')" style="padding:12px 12px;">Contact</a>
+      <a class="tab-link active" data-page="home" onclick="showPage('home')" style="padding:12px 12px; text-decoration:none !important;">Home</a>
+      <a class="tab-link" data-page="aim" onclick="showPage('aim')" style="padding:12px 12px; text-decoration:none !important;">Aim</a>
+      <a class="tab-link" data-page="members" onclick="showPage('members')" style="padding:12px 12px; text-decoration:none !important;">Members</a>
+      <a class="tab-link" data-page="finances" onclick="showPage('finances')" style="padding:12px 12px; text-decoration:none !important;">Financial Report</a>
+      <a class="tab-link" data-page="events" onclick="showPage('events')" style="padding:12px 12px; text-decoration:none !important;">Events</a>
+      <a class="tab-link" data-page="activities" onclick="showPage('activities')" style="padding:12px 12px; text-decoration:none !important;">Activities</a>
+      <a class="tab-link" data-page="gallery" onclick="showPage('gallery')" style="padding:12px 12px; text-decoration:none !important;">Gallery</a>
+      <a class="tab-link" data-page="magazine" onclick="showPage('magazine')" style="padding:12px 12px; text-decoration:none !important;">Magazine</a>
+      <a class="tab-link" data-page="members-only" onclick="showPage('members-only')" style="padding:12px 12px; text-decoration:none !important;">Members Login</a>
+      <a class="tab-link" data-page="admin" onclick="showPage('admin')" style="padding:12px 12px; text-decoration:none !important;">Admin</a>
+      <a class="tab-link" data-page="join" onclick="showPage('join')" style="padding:12px 12px; text-decoration:none !important;">Join Us</a>
+      <a class="tab-link" data-page="contact" onclick="showPage('contact')" style="padding:12px 12px; text-decoration:none !important;">Contact</a>
     </div>
   </div>
 </nav>
@@ -503,7 +503,7 @@
 
         <div class="hero-modern-wrap">
           <h1 class="title-modern">ডিহিবলিহারপুর তরুণ সংঘ</h1>
-          <div class="eyebrow"><span class="dot"></span>RGST. 2023 &middot; DIHIBALIHARPUR, PASCHIM MEDINIPUR, WEST BENGAL</div>
+          <div class="eyebrow"><span class="dot"></span>RGST. 2023 &middot; DIHIBALIHARPUR, DASPUR, PASCHIM MEDINIPUR, WEST BENGAL</div>
           <div class="tagline-glass"><span class="tg-dot"></span>A Forum of Sports and Culture</div>
           <p class="subtitle" style="margin-top:20px;">For Over Three Decades, We Have Been The Heartbeat of Our Village—Uniting Dihibaliharpur Through Grassroots Social Work, Vibrant Cultural Festivals, and Local Sports. We Are a Forum Built "By the Village, For the Village"; Registered as a Govt. society in 2023.</p>
           
@@ -1094,7 +1094,7 @@
                 </div>
                 <div class="mag-form-row">
                   <label>Date of Birth (Optional)</label>
-                  <input type="text" id="memberDob" placeholder="YYYY-MM-DD">
+                  <input type="date" id="memberDob">
                 </div>
                 <div class="mag-form-row">
                   <label>Contact Number (Optional)</label>
@@ -1342,7 +1342,7 @@
       Website: <b>https://arindamghatakmail-byte.github.io/dts.com/</b>
     </div>
     <div style="margin-top:6px;">
-      Facebook <a href="https://www.facebook.com/share/1Cz53TYhQg/" target="_blank" style="display:inline-block; vertical-align:middle; margin-left:2px;"><img src="https://www.thebengalclub.com/wp-content/themes/tbc/images/f.png" alt="Facebook" style="width:16px; height:16px;"></a>
+      Facebook <a href="https://www.facebook.com/share/1Cz53TYhQg/" target="_blank" style="display:inline-block; vertical-align:middle; margin-left:2px; text-decoration:none !important;"><img src="https://www.thebengalclub.com/wp-content/themes/tbc/images/f.png" alt="Facebook" style="width:16px; height:16px;"></a>
     </div>
     <div style="display:flex; justify-content:center; align-items:center; gap:20px; font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:.08em; color:rgba(247,241,227,0.5); width:100%; margin-top:10px; flex-wrap:wrap;">
       <span>Total Visitors: <b id="visitorCount" style="color:var(--marigold); font-size:12px;">...</b></span>
