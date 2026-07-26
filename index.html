@@ -585,7 +585,7 @@
     <p class="page-lede">Continuity and change across four years — the same core team steered the club through its first three years, with a new body elected for FY 2025–26.</p>
     <div class="gb-grid">
       <div class="card">
-        <h3>FY 2022–23 to FY 2025–26 <span class="pill">4 Years Unchanged</span></h3>
+        <h3>FY 2022–23 to FY 2024–25 <span class="pill">3 years unchanged</span></h3>
         <table class="gb-table">
           <tr><th>Role</th><th>Office bearer</th></tr>
           <tr><td class="role">President</td><td>Mr. Chandan Roy</td></tr>
@@ -597,7 +597,7 @@
         </table>
       </div>
       <div class="card">
-        <h3>FY 2026–27 <span class="pill">New Body Elected</span></h3>
+        <h3>FY 2025–26 <span class="pill">new body elected</span></h3>
         <table class="gb-table">
           <tr><th>Role</th><th>Office bearer</th></tr>
           <tr><td class="role">President</td><td class="changed">Mr. Ranjit Bag</td></tr>
@@ -1078,8 +1078,8 @@
           <div class="mo-side">
             <div class="notice-board">
               <div class="notice-head"><span class="notice-dot"></span> NOTICE BOARD</div>
-              <div class="notice-scroll-wrap" id="noticeScrollWrap">
-                <div class="notice-list" id="noticeList">
+              <div class="notice-scroll-wrap">
+                <div class="notice-list" id="adminNoticeList">
                   <div class="notice-item"><div class="notice-text">Loading notices…</div></div>
                 </div>
               </div>
@@ -1285,6 +1285,7 @@
     }
 
     loadPublicMembers();
+    loadNotices();
 
     fetch('https://api.counterapi.dev/v1/dts_tarun_sangha/homepage_visits/up')
       .then(res => res.json())
@@ -1631,8 +1632,7 @@
   }
 
   async function loadNotices(){
-    const container = document.getElementById('noticeList');
-    if (!container) return;
+    const containers = [document.getElementById('noticeList'), document.getElementById('adminNoticeList')];
     try {
       const { data: dbNotices, error } = await supabaseClient
         .from('notices')
@@ -1651,21 +1651,27 @@
       ];
 
       const allNotices = [...(dbNotices || []), ...oldNotices];
-      if (!Array.isArray(allNotices) || allNotices.length === 0) {
-        container.innerHTML = '<div class="notice-item"><div class="notice-text">No notices yet.</div></div>';
-        return;
-      }
       
-      const itemsHtml = allNotices.map((n, i) => `
-        <div class="notice-item">
-          ${i === 0 ? '<span class="notice-pill">NEW</span>' : ''}
-          <div class="notice-date">${escapeHtml(n.date || '')}</div>
-          <div class="notice-text">${escapeHtml(n.text || '')}</div>
-        </div>`).join('');
+      containers.forEach(container => {
+        if (!container) return;
+        if (!Array.isArray(allNotices) || allNotices.length === 0) {
+          container.innerHTML = '<div class="notice-item"><div class="notice-text">No notices yet.</div></div>';
+          return;
+        }
         
-      container.innerHTML = itemsHtml + itemsHtml;
+        const itemsHtml = allNotices.map((n, i) => `
+          <div class="notice-item">
+            ${i === 0 ? '<span class="notice-pill">NEW</span>' : ''}
+            <div class="notice-date">${escapeHtml(n.date || '')}</div>
+            <div class="notice-text">${escapeHtml(n.text || '')}</div>
+          </div>`).join('');
+          
+        container.innerHTML = itemsHtml + itemsHtml;
+      });
     } catch (err) {
-      container.innerHTML = '<div class="notice-item"><div class="notice-text">Couldn\'t load notices — please refresh.</div></div>';
+      containers.forEach(container => {
+        if (container) container.innerHTML = '<div class="notice-item"><div class="notice-text">Couldn\'t load notices — please refresh.</div></div>';
+      });
     }
   }
 
