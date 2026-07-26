@@ -28,16 +28,23 @@
   .wrap{ max-width:1180px; margin:0 auto; padding:0 28px; }
   img{ max-width:100%; display:block; }
 
-  /* ---------- Professional Club Top Utility Bar ---------- */
-  .hbtno{ background:#101a33; color:rgba(247,241,227,0.8); font-size:12px; padding:8px 0; border-bottom:1px solid rgba(224,162,51,0.2); font-family:'JetBrains Mono',monospace; }
+  /* ---------- Fully Responsive Professional Club Top Utility Bar ---------- */
+  .hbtno{ background:#101a33; color:rgba(247,241,227,0.8); font-size:11.5px; padding:7px 0; border-bottom:1px solid rgba(224,162,51,0.2); font-family:'JetBrains Mono',monospace; }
   .hbtno a{ color:rgba(247,241,227,0.85); text-decoration:none; transition:color 0.2s; }
   .hbtno a:hover{ color:var(--marigold); }
-  .hphone, .hemail, .usac{ display:inline-block; margin-right:18px; }
-  .usac{ float:right; }
-  .so_out{ display:inline-block; margin-left:10px; }
-  .sico{ display:inline-block; margin-right:6px; }
-  .sico img{ width:16px; height:16px; opacity:0.8; }
-  @media(max-width:768px){ .usac{ float:none; display:block; margin-top:6px; } }
+  .hbtno-wrap{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; }
+  .hbtno-left, .usac{ display:flex; align-items:center; flex-wrap:wrap; gap:14px; }
+  .hphone, .hemail{ display:inline-flex; align-items:center; gap:5px; }
+  .so_out{ display:inline-flex; align-items:center; gap:6px; margin-left:6px; }
+  .sico{ display:inline-flex; align-items:center; }
+  .sico img{ width:16px; height:16px; opacity:0.85; transition:opacity 0.2s; }
+  .sico img:hover{ opacity:1; }
+
+  @media(max-width:768px){
+    .hbtno-wrap{ flex-direction:column; align-items:center; text-align:center; gap:6px; padding:4px 10px; }
+    .hbtno-left, .usac{ justify-content:center; gap:10px; }
+    .hphone, .hemail, .usac{ margin-right:0; }
+  }
 
   /* ---------- alpona rule ---------- */
   .alpona-rule{ height:20px; width:100%; background-repeat:repeat-x; background-size:44px 20px; background-position:center; opacity:0.6; }
@@ -452,20 +459,21 @@
 </head>
 <body>
 
-<!-- Professional Club Top Bar -->
+<!-- Professional Club Top Bar (Fully Responsive) -->
 <div class="hbtno">
-  <div class="wrap" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;">
-    <div>
+  <div class="wrap hbtno-wrap">
+    <div class="hbtno-left">
       <div class="hphone"><i style="color:var(--marigold);" class="fas fa-phone-alt"></i> <a href="tel:+917001883623">+91 70018 83623</a></div>
       <div class="hemail"><i style="color:var(--marigold);" class="fas fa-envelope"></i> <a href="mailto:tarunsangha.dihibaliharpur@gmail.com">tarunsangha.dihibaliharpur@gmail.com</a></div>
       <div class="so_out">
-        <div class="sico"><a href="https://www.facebook.com" target="_blank"><img src="https://www.thebengalclub.com/wp-content/themes/tbc/images/f.png" alt="Facebook"></a></div>
-        <div class="sico"><a href="https://www.youtube.com" target="_blank"><img src="https://www.thebengalclub.com/wp-content/themes/tbc/images/y.png" alt="YouTube"></a></div>
+        <!-- Update the href below with your actual Facebook page link -->
+        <div class="sico"><a href="https://www.facebook.com/share/18F12R6a4f/" target="_blank" aria-label="Facebook Page"><img src="https://www.facebook.com/share/1Cz53TYhQg/" alt="Facebook"></a></div>
+        <div class="sico"><a href="https://www.youtube.com" target="_blank" aria-label="YouTube Channel"><img src="https://www.youtube.com/" alt="YouTube"></a></div>
       </div>
     </div>
-    <div class="usac" style="float:none;">
-      <i style="color:var(--marigold);" class="fas fa-home"></i> <a onclick="showPage('home')" style="cursor:pointer; margin-right: 14px;">Home</a>
-      <i style="color:var(--marigold);" class="fas fa-map-marker-alt"></i> <a onclick="showPage('contact')" style="cursor:pointer; margin-right: 14px;">Contact</a>
+    <div class="usac">
+      <i style="color:var(--marigold);" class="fas fa-home"></i> <a onclick="showPage('home')" style="cursor:pointer; margin-right: 10px;">Home</a>
+      <i style="color:var(--marigold);" class="fas fa-map-marker-alt"></i> <a onclick="showPage('contact')" style="cursor:pointer; margin-right: 10px;">Contact</a>
       <i style="color:var(--marigold);" class="fas fa-user"></i> <a onclick="showPage('members-only')" style="cursor:pointer;">Member Login</a>
     </div>
   </div>
@@ -633,10 +641,10 @@
 <div class="page" id="page-members">
   <main class="wrap" style="padding-top:40px;">
     <h2 class="page-title">Governing Body</h2>
-    <p class="page-lede">Continuity and change across four years — the same core team steered the club through its first three years, with a new body elected for FY 2025–26.</p>
+    <p class="page-lede">Continuity and change across four years — the same core team steered the club through its first four years, with a new body elected for FY 2025–26.</p>
     <div class="gb-grid">
       <div class="card">
-        <h3>FY 2022–23 to FY 2024–25 <span class="pill">3 years unchanged</span></h3>
+        <h3>FY 2022–23 to FY 2025–26 <span class="pill">4 years unchanged</span></h3>
         <table class="gb-table">
           <tr><th>Role</th><th>Office bearer</th></tr>
           <tr><td class="role">President</td><td>Mr. Chandan Roy</td></tr>
@@ -648,7 +656,7 @@
         </table>
       </div>
       <div class="card">
-        <h3>FY 2025–26 <span class="pill">new body elected</span></h3>
+        <h3>FY 2026–27 <span class="pill">new body elected</span></h3>
         <table class="gb-table">
           <tr><th>Role</th><th>Office bearer</th></tr>
           <tr><td class="role">President</td><td class="changed">Mr. Ranjit Bag</td></tr>
