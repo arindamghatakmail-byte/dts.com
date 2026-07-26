@@ -856,7 +856,7 @@
 <div class="page" id="page-members-only">
   <main class="wrap" style="padding-top:40px;">
     <h2 class="page-title">Members Login</h2>
-    <p class="page-lede">Meeting notes, minutes, and internal photos — for club members.</p>
+    <p class="page-lede">Meeting notes, minutes, internal photos, and Bibhas Magazine management portal — for club members.</p>
 
     <div id="loginGate" class="card" style="max-width:380px;">
       <h3>Members Login</h3>
@@ -870,88 +870,109 @@
     </div>
 
     <div id="membersContent" style="display:none;">
-      <div class="mo-layout">
-        <div class="mo-main">
-          <div class="section-head"><h2>Meeting Minutes</h2><span class="tag">Members Login</span></div>
-          <div class="card" style="margin-bottom:20px;">
-            <div class="doc-list" id="minutesList">
-              <p style="font-size:12.5px; color:#9a927c;">Loading minutes…</p>
+      <!-- Member Portal Sub-tabs -->
+      <div class="yr-tabs" style="margin-bottom:24px;">
+        <div class="yr-tab active" onclick="switchMemberTab('portal-docs', event)">Documents & Media</div>
+        <div class="yr-tab" onclick="switchMemberTab('portal-magazine', event)">Bibhas Magazine Portal</div>
+      </div>
+
+      <!-- Tab 1: Documents & Media -->
+      <div id="portal-docs" class="member-portal-panel">
+        <div class="mo-layout">
+          <div class="mo-main">
+            <div class="section-head"><h2>Meeting Minutes</h2><span class="tag">Members Login</span></div>
+            <div class="card" style="margin-bottom:20px;">
+              <div class="doc-list" id="minutesList">
+                <p style="font-size:12.5px; color:#9a927c;">Loading minutes…</p>
+              </div>
+              <p style="font-size:12px; color:#9a927c; margin-top:14px;">Upload PDFs to the club's <code>minutes</code> folder and they'll appear here automatically.</p>
             </div>
-            <p style="font-size:12px; color:#9a927c; margin-top:14px;">Upload PDFs to the club's <code>minutes</code> folder and they'll appear here automatically.</p>
-          </div>
-          <div class="section-head"><h2>Internal Photos</h2><span class="tag">Members Login</span></div>
-          <div class="card" style="margin-bottom:20px;">
-            <div class="photo-grid" id="internalPhotosGrid" style="grid-template-columns:repeat(4,1fr); grid-auto-rows:110px;">
-              <p style="font-size:12.5px; color:#9a927c;">Loading photos…</p>
+            <div class="section-head"><h2>Internal Photos</h2><span class="tag">Members Login</span></div>
+            <div class="card" style="margin-bottom:20px;">
+              <div class="photo-grid" id="internalPhotosGrid" style="grid-template-columns:repeat(4,1fr); grid-auto-rows:110px;">
+                <p style="font-size:12.5px; color:#9a927c;">Loading photos…</p>
+              </div>
+              <p style="font-size:12px; color:#9a927c; margin-top:14px;">Upload images to the club's <code>internal-photos</code> folder and they'll appear here automatically — kept separate from the public gallery.</p>
             </div>
-            <p style="font-size:12px; color:#9a927c; margin-top:14px;">Upload images to the club's <code>internal-photos</code> folder and they'll appear here automatically — kept separate from the public gallery.</p>
+
+            <div class="section-head"><h2>Documents</h2><span class="tag">Annual Reports &amp; Audited Statements</span></div>
+            <div class="card" style="margin-bottom:20px;">
+              <div class="doc-list" id="docList">
+                <p style="font-size:12.5px; color:#9a927c;">Loading documents…</p>
+              </div>
+              <p style="font-size:12px; color:#9a927c; margin-top:14px;">Documents are pulled automatically from the club's document folder — upload a new PDF there and it appears here.</p>
+            </div>
           </div>
 
-          <div class="section-head"><h2>Documents</h2><span class="tag">Annual Reports &amp; Audited Statements</span></div>
-          <div class="card" style="margin-bottom:20px;">
-            <div class="doc-list" id="docList">
-              <p style="font-size:12.5px; color:#9a927c;">Loading documents…</p>
-            </div>
-            <p style="font-size:12px; color:#9a927c; margin-top:14px;">Documents are pulled automatically from the club's document folder — upload a new PDF there and it appears here.</p>
-          </div>
-
-          <div class="section-head"><h2>Submit to বিভাস</h2><span class="tag">Bibhas Magazine</span></div>
-          <div class="card">
-            <p style="font-size:13px; color:#5c563f; margin-bottom:16px;">Share your poetry, prose, or story. Submissions are reviewed before being published on the public Bibhas page.</p>
-            <form id="magazineForm" onsubmit="submitMagazinePost(event)">
-              <div class="mag-form-row">
-                <label>Your Name</label>
-                <input type="text" name="author" required>
+          <div class="mo-side">
+            <div class="notice-board">
+              <div class="notice-head">
+                <span class="notice-dot"></span> NOTICE BOARD
               </div>
-              <div class="mag-form-row">
-                <label>Title of Your Piece</label>
-                <input type="text" name="title" required>
-              </div>
-              <div class="mag-form-row">
-                <label>Category</label>
-                <select name="category" required>
-                  <option value="">Select one</option>
-                  <option value="Poetry">Poetry</option>
-                  <option value="Story">Story</option>
-                  <option value="Prose">Prose</option>
-                  <option value="Essay">Essay</option>
-                  <option value="President's/Secretary's Corner">President's/Secretary's Corner</option>
-                </select>
-              </div>
-              <div class="mag-form-row">
-                <label>Designation</label>
-                <select name="designation" required>
-                  <option value="">Select one</option>
-                  <option value="President">President</option>
-                  <option value="Secretary">Secretary</option>
-                  <option value="Treasurer">Treasurer</option>
-                  <option value="Member">Member</option>
-                </select>
-              </div>
-              <div class="mag-form-row">
-                <label>Your Writing</label>
-                <div id="quillEditor" style="height: 250px; background: #fff; font-family: 'Work Sans', sans-serif; border-bottom-left-radius: 6px; border-bottom-right-radius: 6px;"></div>
-                <input type="hidden" name="content" id="magazineContent">
-              </div>
-              <button type="submit" id="magazineBtn" class="form-submit-btn" style="padding:10px 22px; background:var(--sindoor); color:var(--paper); border:none; border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:13px; cursor:pointer; letter-spacing:.04em;">PUBLISH TO BIBHAS</button>
-              <div id="magazineStatus" style="display:none; margin-top:14px; padding:12px 14px; border-radius:6px; font-size:13px;"></div>
-            </form>
-          </div>
-        </div>
-
-        <div class="mo-side">
-          <div class="notice-board">
-            <div class="notice-head">
-              <span class="notice-dot"></span> NOTICE BOARD
-            </div>
-            <div class="notice-scroll-wrap" id="noticeScrollWrap">
-              <div class="notice-list" id="noticeList">
-                <div class="notice-item"><div class="notice-text">Loading notices…</div></div>
+              <div class="notice-scroll-wrap" id="noticeScrollWrap">
+                <div class="notice-list" id="noticeList">
+                  <div class="notice-item"><div class="notice-text">Loading notices…</div></div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- Tab 2: Bibhas Magazine Portal -->
+      <div id="portal-magazine" class="member-portal-panel" style="display:none;">
+        <div class="section-head"><h2>Bibhas Magazine Submissions</h2><span class="tag">Manage & Write</span></div>
+        
+        <div class="card" style="margin-bottom:30px;">
+          <h3 style="margin-bottom:12px; font-family:'Tiro Bangla',serif; color:var(--indigo);">Published Magazine Posts</h3>
+          <div id="memberMagazineManagerList" style="display:flex; flex-direction:column; gap:12px;">
+            <p style="font-size:13px; color:#9a927c;">Loading magazine posts…</p>
+          </div>
+        </div>
+
+        <div class="card" style="max-width:720px;">
+          <h3 style="margin-bottom:16px; font-family:'Tiro Bangla',serif; color:var(--indigo);">Submit New Piece to বিভাস</h3>
+          <form id="magazineForm" onsubmit="submitMagazinePost(event)">
+            <div class="mag-form-row">
+              <label>Your Name</label>
+              <input type="text" name="author" required>
+            </div>
+            <div class="mag-form-row">
+              <label>Title of Your Piece</label>
+              <input type="text" name="title" required>
+            </div>
+            <div class="mag-form-row">
+              <label>Category</label>
+              <select name="category" required>
+                <option value="">Select one</option>
+                <option value="Poetry">Poetry</option>
+                <option value="Story">Story</option>
+                <option value="Prose">Prose</option>
+                <option value="Essay">Essay</option>
+                <option value="President's/Secretary's Corner">President's/Secretary's Corner</option>
+              </select>
+            </div>
+            <div class="mag-form-row">
+              <label>Designation</label>
+              <select name="designation" required>
+                <option value="">Select one</option>
+                <option value="President">President</option>
+                <option value="Secretary">Secretary</option>
+                <option value="Treasurer">Treasurer</option>
+                <option value="Member">Member</option>
+              </select>
+            </div>
+            <div class="mag-form-row">
+              <label>Your Writing</label>
+              <div id="quillEditor" style="height: 250px; background: #fff; font-family: 'Work Sans', sans-serif; border-bottom-left-radius: 6px; border-bottom-right-radius: 6px;"></div>
+              <input type="hidden" name="content" id="magazineContent">
+            </div>
+            <button type="submit" id="magazineBtn" class="form-submit-btn" style="padding:10px 22px; background:var(--sindoor); color:var(--paper); border:none; border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:13px; cursor:pointer; letter-spacing:.04em;">PUBLISH TO BIBHAS</button>
+            <div id="magazineStatus" style="display:none; margin-top:14px; padding:12px 14px; border-radius:6px; font-size:13px;"></div>
+          </form>
+        </div>
+      </div>
+
     </div>
   </main>
 </div>
@@ -960,114 +981,148 @@
 <div class="page" id="page-admin">
   <main class="wrap" style="padding-top:40px;">
     <h2 class="page-title">Admin Dashboard</h2>
-    <p class="page-lede">Upload notices, documents, and manage member directory records.</p>
+    <p class="page-lede">Manage notices, documents, images, and club member directory.</p>
 
     <div id="adminLoginGate" class="card" style="max-width:380px;">
       <h3>Admin Access</h3>
       <p class="note">Authorized personnel only.</p>
       
       <input type="email" id="adminEmail" value="tarunsangha.dihibaliharpur@gmail.com" readonly style="width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:13px; margin-top:6px; background:rgba(32,38,59,0.05); color:#7a7260; cursor:not-allowed;">
-      
       <input type="password" id="adminPassword" placeholder="Admin Password" onkeydown="if(event.key==='Enter'){checkAdminPassword();}" style="width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:13px; margin-top:12px;">
       
       <div id="adminLoginError" style="display:none; color:var(--sindoor); font-size:12.5px; margin-top:8px;"></div>
-      
       <button onclick="checkAdminPassword()" style="margin-top:14px; width:100%; padding:10px; background:var(--indigo); color:var(--paper); border:none; border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:13px; cursor:pointer; letter-spacing:.04em;">Log in</button>
     </div>
 
     <div id="adminContent" style="display:none;">
-      <div class="mo-layout">
-        <div class="mo-main">
-          
-          <!-- Add / Edit Member Form -->
-          <div class="section-head"><h2>Manage Club Members</h2><span class="tag">Directory Control</span></div>
-          <div class="card" style="margin-bottom:20px;">
-            <p style="font-size:13px; color:#5c563f; margin-bottom:12px;">Add a new member or update existing records in the public directory.</p>
-            <form onsubmit="handleMemberSave(event)">
-              <input type="hidden" id="editMemberId">
-              <div class="mag-form-row">
-                <label>Full Name</label>
-                <input type="text" id="memberName" required placeholder="e.g. Mr. Ranjit Bag">
-              </div>
-              <div class="mag-form-row">
-                <label>Designation</label>
-                <input type="text" id="memberDesignation" required placeholder="e.g. Member / Secretary">
-              </div>
-              <div class="mag-form-row">
-                <label>Address</label>
-                <input type="text" id="memberAddress" required placeholder="e.g. Dihibaliharpur">
-              </div>
-              <div class="mag-form-row">
-                <label>Occupation</label>
-                <input type="text" id="memberOccupation" required placeholder="e.g. Service / Business">
-              </div>
-              <div class="mag-form-row">
-                <label>Date of Birth (DOB)</label>
-                <input type="date" id="memberDob" required>
-              </div>
-              <div class="mag-form-row">
-                <label>Contact Number</label>
-                <input type="text" id="memberPhone" required placeholder="e.g. 7001883623">
-              </div>
-              <button type="submit" id="memberSaveBtn" class="form-submit-btn" style="padding:10px 22px; background:var(--leaf); color:var(--paper); border:none; border-radius:6px; cursor:pointer;">SAVE MEMBER</button>
-              <button type="button" id="memberCancelBtn" onclick="resetMemberForm()" style="display:none; padding:10px 22px; background:#7a7260; color:#fff; border:none; border-radius:6px; cursor:pointer; margin-left:8px;">CANCEL</button>
-            </form>
-          </div>
+      <!-- Admin Portal Sub-tabs -->
+      <div class="yr-tabs" style="margin-bottom:24px;">
+        <div class="yr-tab active" onclick="switchAdminTab('admin-tab-members', event)">Manage Members</div>
+        <div class="yr-tab" onclick="switchAdminTab('admin-tab-notices', event)">Post Notice</div>
+        <div class="yr-tab" onclick="switchAdminTab('admin-tab-media', event)">Upload Docs & Images</div>
+      </div>
 
-          <!-- Existing Members List for Editing/Deleting -->
-          <div class="section-head"><h2>Existing Members List</h2><span class="tag">Edit / Delete</span></div>
-          <div class="card" style="margin-bottom:20px; overflow-x:auto;">
-            <table class="gb-table">
-              <thead>
-                <tr><th>Name</th><th>Designation</th><th>Actions</th></tr>
-              </thead>
-              <tbody id="adminMembersTableBody">
-                <tr><td colspan="3">Loading members...</td></tr>
-              </tbody>
-            </table>
-          </div>
+      <!-- Admin Tab 1: Manage Members -->
+      <div id="admin-tab-members" class="admin-portal-panel">
+        <div class="mo-layout">
+          <div class="mo-main">
+            <div class="section-head"><h2>Add / Edit Member</h2><span class="tag">Directory Control</span></div>
+            <div class="card" style="margin-bottom:20px;">
+              <form onsubmit="handleMemberSave(event)">
+                <input type="hidden" id="editMemberId">
+                <div class="mag-form-row">
+                  <label>Full Name</label>
+                  <input type="text" id="memberName" required placeholder="e.g. Mr. Ranjit Bag">
+                </div>
+                <div class="mag-form-row">
+                  <label>Designation</label>
+                  <input type="text" id="memberDesignation" required placeholder="e.g. Member / Secretary">
+                </div>
+                <div class="mag-form-row">
+                  <label>Address</label>
+                  <input type="text" id="memberAddress" required placeholder="e.g. Dihibaliharpur">
+                </div>
+                <div class="mag-form-row">
+                  <label>Occupation</label>
+                  <input type="text" id="memberOccupation" required placeholder="e.g. Service / Business">
+                </div>
+                <div class="mag-form-row">
+                  <label>Date of Birth (DOB)</label>
+                  <input type="date" id="memberDob" required>
+                </div>
+                <div class="mag-form-row">
+                  <label>Contact Number</label>
+                  <input type="text" id="memberPhone" required placeholder="e.g. 7001883623">
+                </div>
+                <button type="submit" id="memberSaveBtn" class="form-submit-btn" style="padding:10px 22px; background:var(--leaf); color:var(--paper); border:none; border-radius:6px; cursor:pointer;">SAVE MEMBER</button>
+                <button type="button" id="memberCancelBtn" onclick="resetMemberForm()" style="display:none; padding:10px 22px; background:#7a7260; color:#fff; border:none; border-radius:6px; cursor:pointer; margin-left:8px;">CANCEL</button>
+              </form>
+            </div>
 
-          <div class="section-head"><h2>Post a Notice</h2><span class="tag">Text Alert</span></div>
-          <div class="card" style="margin-bottom:20px;">
-            <form onsubmit="handleAdminUpload(event, 'notice')">
-              <div class="mag-form-row">
-                <label>Notice Content</label>
-                <textarea id="noticeText" rows="3" required placeholder="Type the notice here..."></textarea>
-              </div>
-              <button type="submit" class="form-submit-btn" style="padding:10px 22px; background:var(--sindoor); color:var(--paper); border:none; border-radius:6px; cursor:pointer;">POST NOTICE</button>
-            </form>
+            <div class="section-head"><h2>Existing Members List</h2><span class="tag">Edit / Delete</span></div>
+            <div class="card" style="margin-bottom:20px; overflow-x:auto;">
+              <table class="gb-table">
+                <thead>
+                  <tr><th>Name</th><th>Designation</th><th>Actions</th></tr>
+                </thead>
+                <tbody id="adminMembersTableBody">
+                  <tr><td colspan="3">Loading members...</td></tr>
+                </tbody>
+              </table>
+            </div>
           </div>
-
-          <div class="section-head"><h2>Upload Document</h2><span class="tag">PDFs Only</span></div>
-          <div class="card" style="margin-bottom:20px;">
-            <form onsubmit="handleAdminUpload(event, 'document')">
-              <div class="mag-form-row">
-                <label>Select PDF File</label>
-                <input type="file" id="adminDoc" accept="application/pdf" required>
-              </div>
-              <button type="submit" class="form-submit-btn" style="padding:10px 22px; background:var(--marigold); color:var(--indigo); border:none; border-radius:6px; cursor:pointer; font-weight:600;">UPLOAD PDF</button>
-            </form>
-          </div>
-
-          <div class="section-head"><h2>Upload Internal Photo</h2><span class="tag">JPG, PNG</span></div>
-          <div class="card" style="margin-bottom:20px;">
-            <form onsubmit="handleAdminUpload(event, 'image')">
-              <div class="mag-form-row">
-                <label>Select Image File</label>
-                <input type="file" id="adminImg" accept="image/png, image/jpeg" required>
-              </div>
-              <button type="submit" class="form-submit-btn" style="padding:10px 22px; background:var(--leaf); color:var(--paper); border:none; border-radius:6px; cursor:pointer;">UPLOAD IMAGE</button>
-            </form>
-          </div>
-        </div>
-
-        <div class="mo-side">
-          <div class="card" style="border-top:3px solid var(--marigold);">
-            <h3>System Status</h3>
-            <p style="font-size:12.5px; color:#5c563f; margin-top:8px;"><strong>Note:</strong> Static hosting connected to Supabase backend.</p>
+          <div class="mo-side">
+            <div class="card" style="border-top:3px solid var(--marigold);">
+              <h3>Member Directory Help</h3>
+              <p style="font-size:12.5px; color:#5c563f; margin-top:8px;">Add all active members here. Their information will automatically appear on the public <b>Members</b> page.</p>
+            </div>
           </div>
         </div>
       </div>
+
+      <!-- Admin Tab 2: Post Notice -->
+      <div id="admin-tab-notices" class="admin-portal-panel" style="display:none;">
+        <div class="mo-layout">
+          <div class="mo-main">
+            <div class="section-head"><h2>Post a Notice</h2><span class="tag">Text Alert</span></div>
+            <div class="card" style="margin-bottom:20px;">
+              <form onsubmit="handleAdminUpload(event, 'notice')">
+                <div class="mag-form-row">
+                  <label>Notice Content</label>
+                  <textarea id="noticeText" rows="4" required placeholder="Type the notice here..."></textarea>
+                </div>
+                <button type="submit" class="form-submit-btn" style="padding:10px 22px; background:var(--sindoor); color:var(--paper); border:none; border-radius:6px; cursor:pointer;">POST NOTICE</button>
+              </form>
+            </div>
+          </div>
+          <div class="mo-side">
+            <div class="notice-board">
+              <div class="notice-head"><span class="notice-dot"></span> LIVE NOTICES</div>
+              <div class="notice-scroll-wrap" id="noticeScrollWrap">
+                <div class="notice-list" id="noticeList">
+                  <div class="notice-item"><div class="notice-text">Loading notices…</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Admin Tab 3: Upload Docs & Images -->
+      <div id="admin-tab-media" class="admin-portal-panel" style="display:none;">
+        <div class="mo-layout">
+          <div class="mo-main">
+            <div class="section-head"><h2>Upload Document</h2><span class="tag">PDFs Only</span></div>
+            <div class="card" style="margin-bottom:20px;">
+              <form onsubmit="handleAdminUpload(event, 'document')">
+                <div class="mag-form-row">
+                  <label>Select PDF File</label>
+                  <input type="file" id="adminDoc" accept="application/pdf" required>
+                </div>
+                <button type="submit" class="form-submit-btn" style="padding:10px 22px; background:var(--marigold); color:var(--indigo); border:none; border-radius:6px; cursor:pointer; font-weight:600;">UPLOAD PDF</button>
+              </form>
+            </div>
+
+            <div class="section-head"><h2>Upload Internal Photo</h2><span class="tag">JPG, PNG</span></div>
+            <div class="card" style="margin-bottom:20px;">
+              <form onsubmit="handleAdminUpload(event, 'image')">
+                <div class="mag-form-row">
+                  <label>Select Image File</label>
+                  <input type="file" id="adminImg" accept="image/png, image/jpeg" required>
+                </div>
+                <button type="submit" class="form-submit-btn" style="padding:10px 22px; background:var(--leaf); color:var(--paper); border:none; border-radius:6px; cursor:pointer;">UPLOAD IMAGE</button>
+              </form>
+            </div>
+          </div>
+          <div class="mo-side">
+            <div class="card" style="border-top:3px solid var(--marigold);">
+              <h3>Media Guidelines</h3>
+              <p style="font-size:12.5px; color:#5c563f; margin-top:8px;">Upload PDFs for financial records and meeting minutes, and high-resolution JPEGs/PNGs for internal club photos.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </main>
 </div>
@@ -1229,7 +1284,6 @@
       window.history.replaceState({ page: 'home' }, "", window.location.pathname);
     }
 
-    // Load Public Members Directory on initial load
     loadPublicMembers();
 
     fetch('https://api.counterapi.dev/v1/dts_tarun_sangha/homepage_visits/up')
@@ -1290,6 +1344,35 @@
       showPage('home', false); 
     }
   });
+
+  // Member Portal Sub-tab switching inside Members Login
+  function switchMemberTab(panelId, event) {
+    document.querySelectorAll('.member-portal-panel').forEach(p => p.style.display = 'none');
+    document.querySelectorAll('#page-members-only .yr-tab').forEach(t => t.classList.remove('active'));
+    
+    document.getElementById(panelId).style.display = 'block';
+    if(event && event.target) event.target.classList.add('active');
+
+    if (panelId === 'portal-magazine') {
+      loadMemberMagazineManager();
+    }
+  }
+
+  // Admin Portal Sub-tab switching inside Admin Dashboard
+  function switchAdminTab(panelId, event) {
+    document.querySelectorAll('.admin-portal-panel').forEach(p => p.style.display = 'none');
+    document.querySelectorAll('#page-admin .yr-tab').forEach(t => t.classList.remove('active'));
+    
+    document.getElementById(panelId).style.display = 'block';
+    if(event && event.target) event.target.classList.add('active');
+
+    if (panelId === 'admin-tab-members') {
+      loadAdminMembers();
+    }
+    if (panelId === 'admin-tab-notices') {
+      loadNotices();
+    }
+  }
 
   const IMAGE_CAPTIONS = {
     'krishna.jpg':     { title: 'Krishna, Flute in Hand', quote: 'Dancing beneath a peacock feather sky.' },
@@ -1640,6 +1723,48 @@
     }
   }
 
+  async function loadMemberMagazineManager() {
+    const container = document.getElementById('memberMagazineManagerList');
+    if (!container) return;
+    try {
+      const { data, error } = await supabaseClient
+        .from('magazine_posts')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      if (!data || data.length === 0) {
+        container.innerHTML = '<p style="font-size:13px; color:#9a927c;">No magazine posts found.</p>';
+        return;
+      }
+
+      container.innerHTML = data.map(p => `
+        <div style="background:var(--paper-dim); padding:12px 16px; border-radius:8px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+          <div>
+            <strong style="font-size:14px; color:var(--indigo);">${escapeHtml(p.title)}</strong>
+            <div style="font-size:12px; color:#7a7260;">By ${escapeHtml(p.author)} &middot; ${escapeHtml(p.date || '')}</div>
+          </div>
+          <button onclick="deleteMagazinePost('${p.id}')" style="padding:4px 10px; background:var(--sindoor); color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px;">Delete</button>
+        </div>
+      `).join('');
+    } catch (err) {
+      container.innerHTML = '<p style="font-size:13px; color:var(--sindoor);">Error loading posts.</p>';
+    }
+  }
+
+  async function deleteMagazinePost(id) {
+    if (!confirm("Are you sure you want to delete this magazine post?")) return;
+    try {
+      const { error } = await supabaseClient.from('magazine_posts').delete().eq('id', id);
+      if (error) throw error;
+      alert("Magazine post deleted successfully!");
+      loadMemberMagazineManager();
+      loadMagazine();
+    } catch (err) {
+      alert("Error deleting post: " + err.message);
+    }
+  }
+
   async function submitMagazinePost(event) {
     event.preventDefault();
     const form = event.target;
@@ -1681,6 +1806,7 @@
       form.reset();
       if (quill) quill.setContents([]); 
       loadMagazine(); 
+      loadMemberMagazineManager();
     } catch (err) {
       status.style.display = 'block';
       status.style.background = 'rgba(181,41,46,0.12)';
@@ -1754,6 +1880,7 @@
         document.getElementById('adminLoginGate').style.display = 'none';
         document.getElementById('adminContent').style.display = 'block';
         loadAdminMembers();
+        loadNotices();
       }
     } catch (err) {
       errorDiv.textContent = "Code Error: " + err.message;
@@ -1780,6 +1907,7 @@
           .insert([{ text: text, date: today }]);
         if (error) throw error;
         alert('Notice posted successfully to the member board!');
+        loadNotices();
       } 
       else if (type === 'document' || type === 'image') {
         const fileInput = type === 'document' ? document.getElementById('adminDoc') : document.getElementById('adminImg');
