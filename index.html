@@ -30,8 +30,8 @@
 
   /* ---------- Top Utility Bar ---------- */
   .hbtno{ background:#101a33; color:rgba(247,241,227,0.8); font-size:11.5px; padding:7px 0; border-bottom:1px solid rgba(224,162,51,0.2); font-family:'JetBrains Mono',monospace; }
-  .hbtno a{ color:rgba(247,241,227,0.85); text-decoration:none; transition:color 0.2s; }
-  .hbtno a:hover{ color:var(--marigold); text-decoration:none; }
+  .hbtno a{ color:rgba(247,241,227,0.85); text-decoration:none !important; transition:color 0.2s; }
+  .hbtno a:hover{ color:var(--marigold); text-decoration:none !important; }
   .hbtno-wrap{ display:flex; justify-content:center; align-items:center; flex-wrap:wrap; gap:16px; }
   .usac{ display:flex; align-items:center; flex-wrap:wrap; gap:18px; }
 
@@ -153,10 +153,10 @@
     display:inline-flex; align-items:center; gap:8px; padding:9px 18px; border-radius:24px;
     background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.14);
     backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
-    color:rgba(247,241,227,0.9); text-decoration:none;
+    color:rgba(247,241,227,0.9); text-decoration:none !important;
     font-family:'JetBrains Mono',monospace; font-size:12px; transition:all .2s ease;
   }
-  .hero-contact-modern a:hover{ background:var(--marigold); color:var(--indigo); border-color:var(--marigold); }
+  .hero-contact-modern a:hover{ background:var(--marigold); color:var(--indigo); border-color:var(--marigold); text-decoration:none !important; }
   .hero-contact-modern svg{ flex-shrink:0; }
   @media(max-width:700px){ .hero-stats-glass{ grid-template-columns:repeat(2,1fr); } }
 
@@ -210,7 +210,7 @@
   .slide-cap { position: absolute; bottom: 0; left: 0; right: 0; padding: 40px 20px 20px; background: linear-gradient(to top, rgba(0,0,0,0.85), transparent); color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 13.5px; pointer-events: none; }
   
   .slide-arrow { cursor: pointer; position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; color: white; font-size: 20px; font-weight: bold; transition: 0.2s ease; background-color: rgba(32,38,59,0.4); border-radius: 50%; user-select: none; z-index: 10; text-decoration: none; }
-  .slide-arrow:hover { background-color: var(--marigold); color: var(--indigo); }
+  .slide-arrow:hover { background-color: var(--marigold); color: var(--indigo); text-decoration: none; }
   .slide-arrow.prev { left: 16px; }
   .slide-arrow.next { right: 16px; }
   
@@ -357,15 +357,15 @@
   .doc-list{ display:flex; flex-direction:column; gap:10px; }
   .doc-item{
     display:flex; align-items:center; gap:12px; padding:12px 14px;
-    border:1px solid var(--line); border-radius:8px; text-decoration:none;
-    background:var(--paper-dim); transition:transform .15s ease, box-shadow .15s ease;
+    border:1px solid var(--line); border-radius:8px; text-decoration:none !important;
+    background:var(--paper-dim); color:var(--ink) !important; transition:transform .15s ease, box-shadow .15s ease;
   }
-  .doc-item:hover{ transform:translateX(3px); box-shadow:0 4px 12px rgba(32,38,59,0.08); }
+  .doc-item:hover{ transform:translateX(3px); box-shadow:0 4px 12px rgba(32,38,59,0.08); text-decoration:none !important; color:var(--indigo) !important; }
   .doc-icon{ font-size:20px; flex-shrink:0; }
   .doc-info{ display:flex; flex-direction:column; flex-grow:1; }
-  .doc-title{ font-size:13.5px; color:var(--indigo); font-weight:600; }
-  .doc-sub{ font-size:11.5px; color:#7a7260; margin-top:2px; }
-  .doc-dl{ font-size:16px; color:var(--sindoor); flex-shrink:0; }
+  .doc-title{ font-size:13.5px; color:var(--indigo); font-weight:600; text-decoration:none !important; }
+  .doc-sub{ font-size:11.5px; color:#7a7260; margin-top:2px; text-decoration:none !important; }
+  .doc-dl{ font-size:16px; color:var(--sindoor); flex-shrink:0; text-decoration:none !important; }
 
   /* ---------- Bibhas magazine ---------- */
   .magazine-list{ display:flex; flex-direction:column; gap:22px; max-width:720px; }
@@ -404,11 +404,11 @@
   .join-download-info h3{ color:var(--paper); font-family:'Tiro Bangla',serif; font-weight:400; font-size:18px; }
   .join-download-info p{ color:rgba(247,241,227,0.7); font-size:12px; margin-top:4px; }
   .join-download-btn{
-    flex-shrink:0; background:var(--marigold); color:var(--indigo); text-decoration:none;
+    flex-shrink:0; background:var(--marigold); color:var(--indigo); text-decoration:none !important;
     font-family:'JetBrains Mono',monospace; font-size:12.5px; font-weight:600; letter-spacing:.04em;
     padding:12px 20px; border-radius:8px; transition:transform .15s ease;
   }
-  .join-download-btn:hover{ transform:translateY(-2px); text-decoration:none; }
+  .join-download-btn:hover{ transform:translateY(-2px); text-decoration:none !important; }
   .join-steps{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
   .join-step{ background:var(--card); border:1px solid var(--line); border-radius:10px; padding:20px; position:relative; padding-top:38px; }
   .join-step-num{
@@ -423,13 +423,13 @@
   .contact-card:hover{ transform:translateY(-3px); }
   .contact-card .c-icon{ font-size:22px; color:var(--sindoor); margin-bottom:10px; }
   .contact-card .c-lbl{ font-size:10.5px; text-transform:uppercase; letter-spacing:.06em; color:#7a7260; margin-bottom:8px; }
-  .contact-card .c-val{ font-family:'JetBrains Mono',monospace; font-size:13.5px; color:var(--indigo); text-decoration:none; line-height:1.5; display:block; }
-  .contact-card a.c-val:hover{ color:var(--sindoor); text-decoration:none; }
+  .contact-card .c-val{ font-family:'JetBrains Mono',monospace; font-size:13.5px; color:var(--indigo); text-decoration:none !important; line-height:1.5; display:block; }
+  .contact-card a.c-val:hover{ color:var(--sindoor); text-decoration:none !important; }
   @media(max-width:820px){ .contact-grid{ grid-template-columns:1fr; } }
 
   /* ---------- Professional Club Footer styling ---------- */
-  .fout{ background:var(--indigo); color:rgba(247,241,227,0.75); padding:40px 0 20px 0; font-family:'Work Sans',sans-serif; }
-  .fin{ max-width:1180px; margin:0 auto; padding:0 28px; display:grid; grid-template-columns:repeat(4, 1fr); gap:30px; text-align:left; }
+  .fout{ background:var(--indigo); color:rgba(247,241,227,0.75); padding:40px 0 20px 0; font-family:'Work Sans',sans-serif; text-align:center; }
+  .fin{ max-width:1180px; margin:0 auto; padding:0 28px; display:grid; grid-template-columns:repeat(4, 1fr); gap:30px; text-align:center; }
   .fmenu h3{ font-family:'Tiro Bangla',serif; font-size:15px; color:var(--marigold); margin-bottom:14px; text-transform:uppercase; letter-spacing:.06em; }
   .fmenu ul{ list-style:none; padding:0; margin:0; }
   .fmenu li{ margin-bottom:8px; }
@@ -437,14 +437,13 @@
   .fmenu a:hover{ color:var(--paper); text-decoration:underline !important; }
   
   .fcopy{ background:#101a33; color:rgba(247,241,227,0.7); padding:20px 0; font-size:12px; border-top:1px solid rgba(224,162,51,0.15); text-align:center; }
-  .fcopy-wrap{ max-width:1180px; margin:0 auto; padding:0 28px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
+  .fcopy-wrap{ max-width:1180px; margin:0 auto; padding:0 28px; text-align:center; }
   .fcopy b{ color:var(--marigold); }
   .fcopy a { text-decoration: none !important; color: inherit; }
   .fcopy a:hover { text-decoration: underline !important; }
 
   @media(max-width:991px){ 
     .fin{ grid-template-columns:repeat(2, 1fr); text-align:center; gap:24px; } 
-    .fcopy-wrap{ flex-direction:column; text-align:center; justify-content:center; }
   }
   @media(max-width:600px){ 
     .fin{ grid-template-columns:1fr; text-align:center; gap:20px; } 
@@ -462,9 +461,9 @@
 <div class="hbtno">
   <div class="wrap hbtno-wrap">
     <div class="usac">
-      <i style="color:var(--marigold);" class="fas fa-home"></i> <a onclick="showPage('home')" style="cursor:pointer; margin-right: 14px; text-decoration:none;">Home</a>
-      <i style="color:var(--marigold);" class="fas fa-user"></i> <a onclick="showPage('members-only')" style="cursor:pointer; margin-right: 14px; text-decoration:none;">Member Login</a>
-      <i style="color:var(--marigold);" class="fas fa-lock"></i> <a onclick="showPage('admin')" style="cursor:pointer; text-decoration:none;">Admin Login</a>
+      <i style="color:var(--marigold);" class="fas fa-home"></i> <a onclick="showPage('home')" style="cursor:pointer; margin-right: 14px; text-decoration:none !important;">Home</a>
+      <i style="color:var(--marigold);" class="fas fa-user"></i> <a onclick="showPage('members-only')" style="cursor:pointer; margin-right: 14px; text-decoration:none !important;">Member Login</a>
+      <i style="color:var(--marigold);" class="fas fa-lock"></i> <a onclick="showPage('admin')" style="cursor:pointer; text-decoration:none !important;">Admin Login</a>
     </div>
   </div>
 </div>
@@ -1297,7 +1296,7 @@
 
 <div class="alpona-rule alpona-gold"></div>
 
-<!-- Professional Club Footer -->
+<!-- Professional Club Footer Section -->
 <div class="fout">
   <div class="fin">
     <div class="fmenu">
@@ -1337,12 +1336,15 @@
 <div class="fcopy">
   <div class="fcopy-wrap">
     <div><b>Dihibaliharpur Tarun Sangha</b> &nbsp;·&nbsp; Reg. No. S0034236 &nbsp;·&nbsp; Dihibaliharpur, Daspur, Paschim Medinipur, West Bengal 721211</div>
-    <div style="margin-top:4px;">
+    <div style="margin-top:6px;">
       Mo: <b>7001883623</b> &nbsp;·&nbsp; 
       Email: <b>tarunsangha.dihibaliharpur@gmail.com</b> &nbsp;·&nbsp; 
+      Website: <b>https://arindamghatakmail-byte.github.io/dts.com/</b>
+    </div>
+    <div style="margin-top:6px;">
       Facebook <a href="https://www.facebook.com/share/1Cz53TYhQg/" target="_blank" style="display:inline-block; vertical-align:middle; margin-left:2px;"><img src="https://www.thebengalclub.com/wp-content/themes/tbc/images/f.png" alt="Facebook" style="width:16px; height:16px;"></a>
     </div>
-    <div style="display:flex; justify-content:center; align-items:center; gap:20px; font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:.08em; color:rgba(247,241,227,0.5); width:100%; margin-top:8px; flex-wrap:wrap;">
+    <div style="display:flex; justify-content:center; align-items:center; gap:20px; font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:.08em; color:rgba(247,241,227,0.5); width:100%; margin-top:10px; flex-wrap:wrap;">
       <span>Total Visitors: <b id="visitorCount" style="color:var(--marigold); font-size:12px;">...</b></span>
       <span>Site designed and controlled by <b style="color:rgba(247,241,227,0.85);">Admin</b></span>
     </div>
