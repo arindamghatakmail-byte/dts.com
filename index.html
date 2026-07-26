@@ -234,18 +234,12 @@
   @media(max-width:820px){ .art-grid{ grid-template-columns:repeat(2,1fr); } }
   @media(max-width:520px){ .art-grid{ grid-template-columns:1fr; } }
 
-  /* ---------- quick link cards on home (No Underline) ---------- */
   .quick-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
-  .quick-card, .quick-card:hover, .quick-card:focus, .quick-card:active, .quick-card:visited{ 
-    background:var(--card); border:1px solid var(--line); border-radius:10px; padding:22px 20px; 
-    text-decoration:none !important; border-bottom:1px solid var(--line) !important; 
-    display:block; box-shadow:0 1px 2px rgba(32,38,59,0.04), 0 8px 20px rgba(32,38,59,0.05); 
-    transition:transform .2s ease, box-shadow .2s ease; cursor:pointer; color:inherit; 
-  }
-  .quick-card:hover{ transform:translateY(-4px); box-shadow:0 12px 28px rgba(32,38,59,0.14); text-decoration:none !important; }
+  .quick-card{ background:var(--card); border:1px solid var(--line); border-radius:10px; padding:22px 20px; text-decoration:none; display:block; box-shadow:0 1px 2px rgba(32,38,59,0.04), 0 8px 20px rgba(32,38,59,0.05); transition:transform .2s ease, box-shadow .2s ease; cursor:pointer; }
+  .quick-card:hover{ transform:translateY(-4px); box-shadow:0 12px 28px rgba(32,38,59,0.14); }
   .quick-card .qi{ font-size:22px; margin-bottom:10px; color:var(--sindoor); }
-  .quick-card h4{ font-family:'Tiro Bangla',serif; font-weight:400; font-size:17px; color:var(--indigo); text-decoration:none !important; }
-  .quick-card p{ font-size:12.5px; color:#7a7260; margin-top:6px; text-decoration:none !important; }
+  .quick-card h4{ font-family:'Tiro Bangla',serif; font-weight:400; font-size:17px; color:var(--indigo); }
+  .quick-card p{ font-size:12.5px; color:#7a7260; margin-top:6px; }
   @media(max-width:820px){ .quick-grid{ grid-template-columns:1fr 1fr; } }
 
   .pull-quote{ border-left:3px solid var(--marigold); padding:4px 0 4px 20px; margin-bottom:26px; }
@@ -426,7 +420,7 @@
   .contact-card a.c-val:hover{ color:var(--sindoor); }
   @media(max-width:820px){ .contact-grid{ grid-template-columns:1fr; } }
 
-  /* ---------- Footer Styling (Responsive Multi-column Menu & Info Bar) ---------- */
+  /* ---------- Professional Club Footer styling ---------- */
   .fout{ background:var(--indigo); color:rgba(247,241,227,0.75); padding:40px 0 20px 0; font-family:'Work Sans',sans-serif; }
   .fin{ max-width:1180px; margin:0 auto; padding:0 28px; display:grid; grid-template-columns:repeat(4, 1fr); gap:30px; text-align:left; }
   .fmenu h3{ font-family:'Tiro Bangla',serif; font-size:15px; color:var(--marigold); margin-bottom:14px; text-transform:uppercase; letter-spacing:.06em; }
@@ -483,7 +477,7 @@
       <a class="tab-link" data-page="magazine" onclick="showPage('magazine')" style="padding:12px 12px;">Magazine</a>
       <a class="tab-link" data-page="members-only" onclick="showPage('members-only')" style="padding:12px 12px;">Members Login</a>
       <a class="tab-link" data-page="admin" onclick="showPage('admin')" style="padding:12px 12px;">Admin</a>
-      <a class="tab-link" data-page="join" onclick="showPage('join')" style="padding:12px 12px;">Join & Donate</a>
+      <a class="tab-link" data-page="join" onclick="showPage('join')" style="padding:12px 12px;">Join Us</a>
       <a class="tab-link" data-page="contact" onclick="showPage('contact')" style="padding:12px 12px;">Contact</a>
     </div>
   </div>
@@ -628,12 +622,12 @@
 <div class="page" id="page-members">
   <main class="wrap" style="padding-top:40px;">
     <h2 class="page-title">Governing Body</h2>
-    <p class="page-lede">Continuity and change across four years — the same core team steered the club through its first four years, with a new body elected for FY 2025–26.</p>
+    <p class="page-lede">Continuity and change across years — the same core team steered the club through its first four years, with a new body elected for FY 2026–27.</p>
     <div class="gb-grid">
       <div class="card">
-        <h3>FY 2022–23 to FY 2025–26 <span class="pill">4 years unchanged</span></h3>
+        <h3>FY 2022–23 to FY 2025–26 <span class="pill">4 Years Unchanged</span></h3>
         <table class="gb-table">
-          <tr><th>Role</th><th>Office bearer</th></tr>
+          <tr><th>Role</th><th>Office Bearer</th></tr>
           <tr><td class="role">President</td><td>Mr. Chandan Roy</td></tr>
           <tr><td class="role">Vice President</td><td>Mr. Dilip Mandal</td></tr>
           <tr><td class="role">Secretary</td><td>Mr. Kartik Das</td></tr>
@@ -643,9 +637,9 @@
         </table>
       </div>
       <div class="card">
-        <h3>FY 2026–27 <span class="pill">new body elected</span></h3>
+        <h3>FY 2026–27 <span class="pill">New Body Elected</span></h3>
         <table class="gb-table">
-          <tr><th>Role</th><th>Office bearer</th></tr>
+          <tr><th>Role</th><th>Office Bearer</th></tr>
           <tr><td class="role">President</td><td class="changed">Mr. Ranjit Bag</td></tr>
           <tr><td class="role">Vice President</td><td>Mr. Dilip Mandal</td></tr>
           <tr><td class="role">Secretary</td><td>Mr. Kartik Das</td></tr>
@@ -1079,24 +1073,24 @@
                   <input type="text" id="memberName" required placeholder="e.g. Mr. Ranjit Bag">
                 </div>
                 <div class="mag-form-row">
+                  <label>Address *</label>
+                  <input type="text" id="memberAddress" required placeholder="e.g. Dihibaliharpur">
+                </div>
+                <div class="mag-form-row">
                   <label>Designation *</label>
                   <input type="text" id="memberDesignation" required placeholder="e.g. Member / Secretary">
                 </div>
                 <div class="mag-form-row">
-                  <label>Address (Optional)</label>
-                  <input type="text" id="memberAddress" placeholder="e.g. Dihibaliharpur (Left blank defaults to NA)">
-                </div>
-                <div class="mag-form-row">
                   <label>Occupation (Optional)</label>
-                  <input type="text" id="memberOccupation" placeholder="e.g. Service / Business (Left blank defaults to NA)">
+                  <input type="text" id="memberOccupation" placeholder="e.g. Service / Business">
                 </div>
                 <div class="mag-form-row">
                   <label>Date of Birth (Optional)</label>
-                  <input type="text" id="memberDob" placeholder="YYYY-MM-DD or NA">
+                  <input type="text" id="memberDob" placeholder="YYYY-MM-DD">
                 </div>
                 <div class="mag-form-row">
                   <label>Contact Number (Optional)</label>
-                  <input type="text" id="memberPhone" placeholder="e.g. 7001883623 (Left blank defaults to NA)">
+                  <input type="text" id="memberPhone" placeholder="e.g. 7001883623">
                 </div>
                 <button type="submit" id="memberSaveBtn" class="form-submit-btn" style="padding:10px 22px; background:var(--leaf); color:var(--paper); border:none; border-radius:6px; cursor:pointer;">SAVE MEMBER</button>
                 <button type="button" id="memberCancelBtn" onclick="resetMemberForm()" style="display:none; padding:10px 22px; background:#7a7260; color:#fff; border:none; border-radius:6px; cursor:pointer; margin-left:8px;">CANCEL</button>
@@ -1118,7 +1112,7 @@
           <div class="mo-side">
             <div class="card" style="border-top:3px solid var(--marigold);">
               <h3>Member Directory Help</h3>
-              <p style="font-size:12.5px; color:#5c563f; margin-top:8px;">Only Name and Designation are required. Any optional fields left blank will automatically be submitted as <b>NA</b>.</p>
+              <p style="font-size:12.5px; color:#5c563f; margin-top:8px;">Name, Address, and Designation are required fields marked with (*). Other fields are optional.</p>
             </div>
           </div>
         </div>
@@ -1294,7 +1288,7 @@
 
 <div class="alpona-rule alpona-gold"></div>
 
-<!-- Classic Multi-Column Footer Section -->
+<!-- Professional Multi-Column Footer Section -->
 <div class="fout">
   <div class="fin">
     <div class="fmenu">
@@ -1324,7 +1318,7 @@
     <div class="fmenu">
       <h3>Participation</h3>
       <ul>
-        <li><a onclick="showPage('join')">Join Us (Forms)</a></li>
+        <li><a onclick="showPage('join')">Join Us</a></li>
         <li><a onclick="showPage('join')">Donate & Support</a></li>
         <li><a onclick="showPage('admin')">Admin Dashboard</a></li>
       </ul>
@@ -1464,9 +1458,6 @@
 
     if (panelId === 'portal-magazine') {
       loadMemberMagazineManager();
-    }
-    if (panelId === 'portal-members-dir') {
-      loadMemberLoginMembers();
     }
   }
 
@@ -1640,32 +1631,6 @@
     }
   }
 
-  // --- MEMBER LOGIN FULL MEMBERS DIRECTORY (Current Members Tab) ---
-  async function loadMemberLoginMembers() {
-    const tbody = document.getElementById('memberLoginTableBody');
-    if (!tbody) return;
-    try {
-      const { data, error } = await supabaseClient.from('members_directory').select('*').order('created_at', { ascending: true });
-      if (error) throw error;
-      if (!data || data.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#9a927c;">No members found.</td></tr>';
-        return;
-      }
-      tbody.innerHTML = data.map(m => `
-        <tr>
-          <td><strong>${escapeHtml(m.name)}</strong></td>
-          <td>${escapeHtml(m.designation)}</td>
-          <td>${escapeHtml(m.address)}</td>
-          <td>${escapeHtml(m.occupation)}</td>
-          <td>${escapeHtml(m.dob)}</td>
-          <td><a href="tel:${escapeHtml(m.phone)}" style="color:var(--indigo); text-decoration:none;">${escapeHtml(m.phone)}</a></td>
-        </tr>
-      `).join('');
-    } catch (err) {
-      tbody.innerHTML = '<tr><td colspan="6" style="color:var(--sindoor);">Error loading members.</td></tr>';
-    }
-  }
-
   async function loadAdminMembers() {
     const tbody = document.getElementById('adminMembersTableBody');
     if (!tbody) return;
@@ -1720,18 +1685,17 @@
     event.preventDefault();
     const id = document.getElementById('editMemberId').value;
     const name = document.getElementById('memberName').value.trim();
+    const address = document.getElementById('memberAddress').value.trim();
     const designation = document.getElementById('memberDesignation').value.trim();
     
-    let address = document.getElementById('memberAddress').value.trim();
     let occupation = document.getElementById('memberOccupation').value.trim();
     let dob = document.getElementById('memberDob').value.trim();
     let phone = document.getElementById('memberPhone').value.trim();
 
-    // Automatically submit "NA" if optional fields are left empty
-    address = address !== '' ? address : 'NA';
-    occupation = occupation !== '' ? occupation : 'NA';
-    dob = dob !== '' ? dob : 'NA';
-    phone = phone !== '' ? phone : 'NA';
+    // Optional fields left blank remain blank or empty
+    occupation = occupation !== '' ? occupation : '';
+    dob = dob !== '' ? dob : '';
+    phone = phone !== '' ? phone : '';
 
     const btn = document.getElementById('memberSaveBtn');
     const origText = btn.textContent;
@@ -1976,6 +1940,7 @@
       loadNotices();
       loadMinutes();
       loadInternalPhotos();
+      loadMemberLoginMembers();
     } catch (err) {
       errorDiv.textContent = "Error: " + err.message;
       errorDiv.style.display = 'block';
