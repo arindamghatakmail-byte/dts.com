@@ -109,6 +109,19 @@
   }
   @keyframes floatLogo{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-8px); } }
 
+  /* Mobile view adjustment to prevent floating logo overlap with Bengali title */
+  @media(max-width:768px){
+    .hero-corner-logo-wrap{
+      position: relative;
+      top: auto;
+      left: auto;
+      margin-bottom: 14px;
+    }
+    .hero-modern-wrap{
+      padding-top: 10px;
+    }
+  }
+
   h1.title-modern{
     font-family:'Tiro Bangla',serif; font-weight:400; font-size:clamp(34px,5.6vw,58px); line-height:1.1;
     background:linear-gradient(120deg, #ffffff 10%, var(--marigold) 85%);
@@ -1050,23 +1063,32 @@
       <p class="page-lede" style="max-width:640px;">We'd love to welcome you to Dihibaliharpur Tarun Sangha. Download the membership application form below, or support our CSR activities through our direct bank/QR details.</p>
     </div>
 
-    <!-- BANK DETAILS & QR CODE SECTION -->
+    <!-- BANK DETAILS & QR CODE SECTION (Redesigned clean stacked rows for mobile view) -->
     <div class="card" style="margin: 30px 0; border-top: 3px solid #27ae60; background: #fff;">
       <h3 style="color: var(--indigo); font-family: 'Tiro Bangla', serif; font-size: 20px; margin-bottom: 12px;">💚 Direct Support / Donation Details</h3>
       <p style="font-size: 13.5px; color: #5c563f; margin-bottom: 20px;">Contribute directly to our building fund, poor relief programs, and blood donation camps.</p>
       
-      <div style="display: grid; grid-template-columns: 1fr 240px; gap: 24px; align-items: center; flex-wrap: wrap;">
-        <div>
-          <p style="font-size: 13px; margin-bottom: 8px;"><strong>Account Name:</strong> Dihibaliharpur Tarun Sangha</p>
-          <p style="font-size: 13px; margin-bottom: 8px;"><strong>Bank Name:</strong> [Enter Bank Name Here]</p>
-          <p style="font-size: 13px; margin-bottom: 8px;"><strong>Account Number:</strong> [Enter Account Number Here]</p>
-          <p style="font-size: 13px; margin-bottom: 8px;"><strong>IFSC Code:</strong> [Enter IFSC Here]</p>
-          <p style="font-size: 13px; margin-bottom: 8px;"><strong>Branch:</strong> Daspur, Paschim Medinipur</p>
-        </div>
-        <div style="text-align: center; background: var(--paper-dim); padding: 16px; border-radius: 8px; border: 1px dashed var(--marigold);">
-          <img src="qr-code.png" alt="Scan to Donate QR Code" style="max-width: 150px; margin: 0 auto 10px auto;" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'150\' height=\'150\'><rect width=\'100%\' height=\'100%\' fill=\'%23ddd\'/><text x=\'50%\' y=\'50%\' font-size=\'12\' fill=\'%23666\' dominant-baseline=\'middle\' text-anchor=\'middle\'>Upload QR Code</text></svg>'">
-          <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--clay); text-transform:uppercase;">Scan to Pay via UPI</span>
-        </div>
+      <!-- Row 1: Bank Details -->
+      <div style="background: var(--paper-dim); padding: 16px; border-radius: 8px; margin-bottom: 20px;">
+        <h4 style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--clay); text-transform:uppercase; margin-bottom:10px;">Bank Account Details</h4>
+        <p style="font-size: 13px; margin-bottom: 6px;"><strong>Account Name:</strong> Dihibaliharpur Tarun Sangha</p>
+        <p style="font-size: 13px; margin-bottom: 6px;"><strong>Bank Name:</strong> [Enter Bank Name Here]</p>
+        <p style="font-size: 13px; margin-bottom: 6px;"><strong>Account Number:</strong> [Enter Account Number Here]</p>
+        <p style="font-size: 13px; margin-bottom: 6px;"><strong>IFSC Code:</strong> [Enter IFSC Here]</p>
+        <p style="font-size: 13px; margin-bottom: 0px;"><strong>Branch:</strong> Daspur, Paschim Medinipur</p>
+      </div>
+
+      <!-- Row 2: QR Code Image & Pay Now Option -->
+      <div style="text-align: center; background: var(--paper-dim); padding: 20px; border-radius: 8px; border: 1px dashed var(--marigold);">
+        <h4 style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--clay); text-transform:uppercase; margin-bottom:12px;">Scan QR Code or Pay Direct</h4>
+        
+        <img src="qr-code.png" alt="Scan to Donate QR Code" style="max-width: 180px; width: 100%; height: auto; margin: 0 auto 16px auto; border-radius: 6px;" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'180\' height=\'180\'><rect width=\'100%\' height=\'100%\' fill=\'%23ddd\'/><text x=\'50%\' y=\'50%\' font-size=\'13\' fill=\'%23666\' dominant-baseline=\'middle\' text-anchor=\'middle\'>Upload QR Code</text></svg>'">
+        
+        <!-- Below QR Code: Single click UPI redirect button -->
+        <a href="upi://pay?pa=tarunsangha.dihibaliharpur@okhdfcbank&pn=DihibaliharpurTarunSangha&cu=INR" style="display: inline-block; width: 100%; max-width: 260px; padding: 12px 20px; background: #27ae60; color: #fff; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; border-radius: 24px; box-shadow: 0 4px 12px rgba(39,174,96,0.3); transition: transform 0.2s;">
+          ⚡ PAY NOW (UPI)
+        </a>
+        <span style="display: block; font-size: 11px; color: #7a7260; margin-top: 8px;">Tap to open Google Pay, PhonePe, Paytm or any UPI app</span>
       </div>
     </div>
 
