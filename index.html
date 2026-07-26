@@ -919,9 +919,9 @@
         </div>
       </div>
 
-      <!-- Tab 2: Bibhas Magazine Portal -->
+      <!-- Tab 2: Bibhas Magazine Portal (Read & Submit only - no delete button) -->
       <div id="portal-magazine" class="member-portal-panel" style="display:none;">
-        <div class="section-head"><h2>Bibhas Magazine Submissions</h2><span class="tag">Manage & Write</span></div>
+        <div class="section-head"><h2>Bibhas Magazine Submissions</h2><span class="tag">Review & Write</span></div>
         
         <div class="card" style="margin-bottom:30px;">
           <h3 style="margin-bottom:12px; font-family:'Tiro Bangla',serif; color:var(--indigo);">Published Magazine Posts</h3>
@@ -1745,29 +1745,13 @@
       }
 
       container.innerHTML = data.map(p => `
-        <div style="background:var(--paper-dim); padding:12px 16px; border-radius:8px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
-          <div>
-            <strong style="font-size:14px; color:var(--indigo);">${escapeHtml(p.title)}</strong>
-            <div style="font-size:12px; color:#7a7260;">By ${escapeHtml(p.author)} &middot; ${escapeHtml(p.date || '')}</div>
-          </div>
-          <button onclick="deleteMagazinePost('${p.id}')" style="padding:4px 10px; background:var(--sindoor); color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px;">Delete</button>
+        <div style="background:var(--paper-dim); padding:12px 16px; border-radius:8px;">
+          <strong style="font-size:14px; color:var(--indigo);">${escapeHtml(p.title)}</strong>
+          <div style="font-size:12px; color:#7a7260;">By ${escapeHtml(p.author)} &middot; ${escapeHtml(p.date || '')}</div>
         </div>
       `).join('');
     } catch (err) {
       container.innerHTML = '<p style="font-size:13px; color:var(--sindoor);">Error loading posts.</p>';
-    }
-  }
-
-  async function deleteMagazinePost(id) {
-    if (!confirm("Are you sure you want to delete this magazine post?")) return;
-    try {
-      const { error } = await supabaseClient.from('magazine_posts').delete().eq('id', id);
-      if (error) throw error;
-      alert("Magazine post deleted successfully!");
-      loadMemberMagazineManager();
-      loadMagazine();
-    } catch (err) {
-      alert("Error deleting post: " + err.message);
     }
   }
 
