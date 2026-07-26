@@ -160,9 +160,22 @@
   h2.page-title{ font-family:'Tiro Bangla',serif; font-weight:400; font-size:30px; color:var(--indigo); margin-bottom:6px; }
   p.page-lede{ color:#5c563f; font-size:15px; max-width:640px; margin-bottom:30px; }
 
-  /* Bibhas Image Logo styling */
-  .bibhas-image-logo { max-height: 80px; width: auto; margin-bottom: 12px; display: block; }
-  .card{ background:var(--card); border:1px solid var(--line); border-radius:10px; padding:22px; box-shadow:0 1px 2px rgba(32,38,59,0.04), 0 8px 20px rgba(32,38,59,0.05); }
+  /* Bibhas Image Logo styling with an oval/circular glow */
+  .bibhas-image-logo {
+    max-height: 85px; 
+    width: auto;
+    border-radius: 50px; /* Creates a smooth oval/pill shape */
+    padding: 6px 14px;
+    background: rgba(224, 162, 51, 0.12); /* Soft gold background glow */
+    border: 1px solid rgba(224, 162, 51, 0.4);
+    box-shadow: 0 0 16px rgba(224, 162, 51, 0.35); /* Glowing aura effect */
+    display: block;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .bibhas-image-logo:hover {
+    transform: scale(1.04);
+    box-shadow: 0 0 24px rgba(224, 162, 51, 0.6); /* Brighter glow on hover */
+  }
 
   /* ---------- KPI ---------- */
   .kpi-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
