@@ -488,13 +488,13 @@
     <section class="block">
       <div class="section-head"><h2>Explore</h2><span class="tag">Everything about the club</span></div>
       <div class="quick-grid">
-        <a class="quick-card" onclick="showPage('aim')"><div class="qi">◈</div><h4>Our Aim</h4><p>What the Forum stands for, in the words of its own presidents.</p></a>
-        <a class="quick-card" onclick="showPage('members')"><div class="qi">◈</div><h4>Members</h4><p>The governing body, past and present.</p></a>
-        <a class="quick-card" onclick="showPage('finances')"><div class="qi">◈</div><h4>Financial Report</h4><p>Four years of accounts, year by year, audited and adopted.</p></a>
-        <a class="quick-card" onclick="showPage('events')"><div class="qi">◈</div><h4>Events</h4><p>The festivals and observances that shape our calendar.</p></a>
-        <a class="quick-card" onclick="showPage('activities')"><div class="qi">◈</div><h4>Activities</h4><p>What the club actually did, year by year.</p></a>
-        <a class="quick-card" onclick="showPage('gallery')"><div class="qi">◈</div><h4>Gallery</h4><p>The full children's art collection from Durga Puja 2024.</p></a>
-        <a class="quick-card" onclick="showPage('contact')"><div class="qi">◈</div><h4>Contact</h4><p>Phone, email, and our registered address.</p></a>
+        <a class="quick-card" onclick="showPage('aim')"><div class="qi">◈</div><h4>Our Aim</h4><p>What The Forum Ftands For, Our Mission and Values, Defined by Our Leadership.</p></a>
+        <a class="quick-card" onclick="showPage('members')"><div class="qi">◈</div><h4>Members</h4><p>Continuity and Change: Our Past and Present Leaders.</p></a>
+        <a class="quick-card" onclick="showPage('finances')"><div class="qi">◈</div><h4>Financial Report</h4><p>Transparent Stewardship: Four Years of Fully Audited Accounts.</p></a>
+        <a class="quick-card" onclick="showPage('events')"><div class="qi">◈</div><h4>Events</h4><p>The Rhythm of DTS: Culture, Service & Celebration- it Unites our Village.</p></a>
+        <a class="quick-card" onclick="showPage('activities')"><div class="qi">◈</div><h4>Activities</h4><p>Our Annual Footprint of Service, Culture, and Social Impact.</p></a>
+        <a class="quick-card" onclick="showPage('gallery')"><div class="qi">◈</div><h4>Gallery</h4><p>A living Record of Our Traditions, Social work, and Community Spirit.</p></a>
+        <a class="quick-card" onclick="showPage('contact')"><div class="qi">◈</div><h4>Contact</h4><p>Phone, e-mail, and our Registered Address.</p></a>
       </div>
     </section>
 
@@ -1056,6 +1056,11 @@
   <div class="wrap">
     <div><b>Dihibaliharpur Tarun Sangha</b> &nbsp;·&nbsp; Reg. No. S0034236 &nbsp;·&nbsp; Dihibaliharpur, Daspur, Paschim Medinipur, West Bengal 721211</div>
     <div style="margin-top:8px;">Mo: <b>7001883623</b> &nbsp;·&nbsp; Email: <b>tarunsangha.dihibaliharpur@gmail.com</b> &nbsp;.&nbsp; Website: <b>https://arindamghatakmail-byte.github.io/dts.com/</b></div>
+    
+    <div style="margin-top:18px; display:flex; justify-content:center; align-items:center; gap:20px; font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:.08em; color:rgba(247,241,227,0.4); flex-wrap:wrap;">
+      <span>Total Visitors: <b id="visitorCount" style="color:var(--marigold); font-size:12px;">...</b></span>
+      <span>Site designed and controlled by <b style="color:rgba(247,241,227,0.7);">Arindam</b></span>
+    </div>
   </div>
 </footer>
 
@@ -1083,6 +1088,7 @@
 
   // --- INITIALIZE ON PAGE LOAD ---
   document.addEventListener("DOMContentLoaded", function() {
+    
     // 1. Setup Quill Rich Text Editor
     if (document.getElementById('quillEditor')) {
       quill = new Quill('#quillEditor', {
@@ -1100,7 +1106,7 @@
       });
     }
 
-    // 2. Direct Link Routing (Reads the #URL and opens that tab)
+    // 2. Direct Link Routing
     const hash = window.location.hash.replace('#', '');
     const validPages = ['home', 'aim', 'members', 'finances', 'events', 'activities', 'gallery', 'magazine', 'members-only', 'admin', 'join', 'contact'];
     
@@ -1110,8 +1116,20 @@
     } else {
       window.history.replaceState({ page: 'home' }, "", window.location.pathname);
     }
-  });
 
+    // 3. Visitor Counter (Starts at 105)
+    fetch('https://api.counterapi.dev/v1/dts_tarun_sangha/homepage_visits/up')
+      .then(res => res.json())
+      .then(data => {
+        // The API starts at 1, so we add 104 to make the first visit equal 105!
+        document.getElementById('visitorCount').innerText = data.count + 104;
+      })
+      .catch(err => {
+        // If the API ever has a hiccup, default gracefully
+        document.getElementById('visitorCount').innerText = "105+";
+      });
+
+  });
   // --- NAVIGATION & HISTORY API ---
   function toggleMobileNav(){
     document.getElementById('navTabs').classList.toggle('open');
