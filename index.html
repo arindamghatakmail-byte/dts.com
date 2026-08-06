@@ -526,7 +526,7 @@
           <div class="tagline-glass"><span class="tg-dot"></span>A Forum of Sports and Culture</div>
           <p class="subtitle" style="margin-top:20px;">For Over Three Decades, We Have Been The Heartbeat of Our Village—Uniting Dihibaliharpur Through Grassroots Social Work, Vibrant Cultural Festivals, and Local Sports. We Are a Forum Built "By the Village, For the Village"; Registered as a Govt. society in 2023.</p>
           
-          <!-- Artistic Round Glowing Countdown Badge (Matching reference image) -->
+          <!-- Round-shaped glowing artistic countdown badge matching reference image -->
           <div id="homeCountdownCard" style="margin: 32px auto; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(27,42,74,0.95), rgba(16,26,51,0.99)); border: 4px solid var(--marigold); box-shadow: 0 0 40px rgba(224,162,51,0.5), inset 0 0 25px rgba(224,162,51,0.25); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 26px; position: relative;">
             <div style="font-family:'JetBrains Mono',monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:.12em; color:var(--marigold); margin-bottom:4px;">
               <span class="rotating-sign">⏳</span> Upcoming Event
@@ -1806,7 +1806,7 @@
 
     let slidesHTML = '';
     let dotsHTML = '';
-    // Requirement 3: 15 recent photos set in slideshow, with recent uploaded photo first (index 0)
+    // Requirement 3: Set 15 recent photos with recent photo first
     const slideImages = images.slice(0, 15);
     
     slideImages.forEach((img, idx) => {
@@ -1867,7 +1867,6 @@
     try {
       let allImages = [];
 
-      // Fetch from Supabase storage (internal-photos bucket) where admin uploads go
       try {
         const { data: sbFiles, error } = await supabaseClient
           .storage
@@ -1888,7 +1887,6 @@
         }
       } catch (e) {}
 
-      // Fetch from GitHub
       try {
         const res = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_IMAGES_PATH}`);
         if (res.ok) {
@@ -2559,6 +2557,7 @@
         if (error) throw error;
         alert(`${type === 'document' ? 'PDF' : 'Image'} uploaded successfully!`);
         loadAdminFiles();
+        loadImages();
       }
       event.target.reset(); 
     } catch (err) {
