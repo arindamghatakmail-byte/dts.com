@@ -5,15 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dihibaliharpur Tarun Sangha</title>
 <link rel="icon" href="logo.png" type="image/png">
-<link rel="preconnect" href="[https://fonts.googleapis.com](https://fonts.googleapis.com)">
-<link href="[https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&family=Work+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap](https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&family=Work+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap)" rel="stylesheet">
-<script src="[https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js](https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js)"></script>
+<link rel="manifest" href="manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&family=Work+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <!-- Quill Rich Text Editor CSS & JS -->
-<link href="[https://cdn.quilljs.com/1.3.6/quill.snow.css](https://cdn.quilljs.com/1.3.6/quill.snow.css)" rel="stylesheet">
-<script src="[https://cdn.quilljs.com/1.3.6/quill.min.js](https://cdn.quilljs.com/1.3.6/quill.min.js)"></script>
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
 <!-- Bootstrap & FontAwesome for Professional Layout -->
-<link rel="stylesheet" href="[https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css](https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css)">
-<script src="[https://kit.fontawesome.com/52396248c1.js](https://kit.fontawesome.com/52396248c1.js)" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="https://kit.fontawesome.com/52396248c1.js" crossorigin="anonymous"></script>
 
 <style>
   :root{
@@ -40,8 +41,8 @@
 
   /* ---------- alpona rule ---------- */
   .alpona-rule{ height:20px; width:100%; background-repeat:repeat-x; background-size:44px 20px; background-position:center; opacity:0.6; }
-  .alpona-red{ background-image:url("data:image/svg+xml,%3Csvg xmlns='[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)' width='44' height='22' viewBox='0 0 44 22'%3E%3Cpath d='M2 11 C 2 4, 10 4, 11 11 C 12 18, 20 18, 22 11 C 24 4, 32 4, 33 11 C 34 18, 42 18, 42 11' stroke='%23B5292E' stroke-width='1.4' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='11' cy='11' r='1.4' fill='%23B5292E'/%3E%3Ccircle cx='33' cy='11' r='1.4' fill='%23B5292E'/%3E%3C/svg%3E"); }
-  .alpona-gold{ background-image:url("data:image/svg+xml,%3Csvg xmlns='[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)' width='44' height='22' viewBox='0 0 44 22'%3E%3Cpath d='M2 11 C 2 4, 10 4, 11 11 C 12 18, 20 18, 22 11 C 24 4, 32 4, 33 11 C 34 18, 42 18, 42 11' stroke='%23E0A233' stroke-width='1.4' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='11' cy='11' r='1.4' fill='%23E0A233'/%3E%3Ccircle cx='33' cy='11' r='1.4' fill='%23E0A233'/%3E%3C/svg%3E"); }
+  .alpona-red{ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='22' viewBox='0 0 44 22'%3E%3Cpath d='M2 11 C 2 4, 10 4, 11 11 C 12 18, 20 18, 22 11 C 24 4, 32 4, 33 11 C 34 18, 42 18, 42 11' stroke='%23B5292E' stroke-width='1.4' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='11' cy='11' r='1.4' fill='%23B5292E'/%3E%3Ccircle cx='33' cy='11' r='1.4' fill='%23B5292E'/%3E%3C/svg%3E"); }
+  .alpona-gold{ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='22' viewBox='0 0 44 22'%3E%3Cpath d='M2 11 C 2 4, 10 4, 11 11 C 12 18, 20 18, 22 11 C 24 4, 32 4, 33 11 C 34 18, 42 18, 42 11' stroke='%23E0A233' stroke-width='1.4' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='11' cy='11' r='1.4' fill='%23E0A233'/%3E%3Ccircle cx='33' cy='11' r='1.4' fill='%23E0A233'/%3E%3C/svg%3E"); }
 
   /* ---------- nav ---------- */
   #siteNav{ position:sticky; top:0; z-index:50; background:rgba(27,42,74,0.95); backdrop-filter:blur(10px); border-bottom:1px solid rgba(224,162,51,0.25); }
@@ -59,7 +60,7 @@
   .tab-link:hover{ color:var(--paper); text-decoration:none !important; }
   .tab-link.active{ color:var(--marigold); border-bottom-color:var(--marigold); text-decoration:none !important; }
 
-  /* ---------- mobile nav ---------- */
+  /* ---------- mobile nav (hamburger dropdown) ---------- */
   .nav-hamburger{
     display:none; flex-direction:column; justify-content:center; gap:5px;
     width:36px; height:36px; background:none; border:none; cursor:pointer; padding:0;
@@ -83,10 +84,12 @@
     .tab-link.active{ border-bottom-color:rgba(255,255,255,0.06); border-left-color:var(--marigold); background:rgba(224,162,51,0.08); text-decoration:none !important; }
   }
 
+  /* ---------- pages ---------- */
   .page{ display:none; animation:fadein .35s ease; }
   .page.active{ display:block; }
   @keyframes fadein{ from{ opacity:0; transform:translateY(6px);} to{ opacity:1; transform:translateY(0);} }
 
+  /* ---------- hero ---------- */
   header.hero{
     position:relative;
     background: radial-gradient(ellipse at top left, rgba(181,41,46,0.14), transparent 50%),
@@ -97,13 +100,14 @@
   }
   header.hero::before{
     content:""; position:absolute; inset:0;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)' width='240' height='240' viewBox='0 0 240 240'%3E%3Cg fill='none' stroke='%23E0A233' stroke-width='0.6' opacity='0.16'%3E%3Ccircle cx='120' cy='120' r='90'/%3E%3Ccircle cx='120' cy='120' r='60'/%3E%3Cpath d='M120 30 L120 210 M30 120 L210 120'/%3E%3Cpath d='M55 55 L185 185 M185 55 L55 185'/%3E%3C/g%3E%3C/svg%3E");
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cg fill='none' stroke='%23E0A233' stroke-width='0.6' opacity='0.16'%3E%3Ccircle cx='120' cy='120' r='90'/%3E%3Ccircle cx='120' cy='120' r='60'/%3E%3Cpath d='M120 30 L120 210 M30 120 L210 120'/%3E%3Cpath d='M55 55 L185 185 M185 55 L55 185'/%3E%3C/g%3E%3C/svg%3E");
     background-size:480px 480px; background-position:90% -10%; background-repeat:no-repeat;
   }
   .eyebrow{ font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--marigold); display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:16px; position:relative; z-index:2; }
   .eyebrow .dot{ width:6px; height:6px; border-radius:50%; background:var(--sindoor); display:inline-block; }
   .subtitle{ margin-top:14px; max-width:600px; margin-left:auto; margin-right:auto; font-size:15px; color:rgba(247,241,227,0.78); position:relative; z-index:2; }
   
+  /* ---------- modern hero ---------- */
   .hero-inner{ position:relative; z-index:2; }
   .hero-modern-wrap{
     position:relative; z-index:2; display:flex; flex-direction:column;
@@ -181,6 +185,7 @@
   h2.page-title{ font-family:'Tiro Bangla',serif; font-weight:400; font-size:30px; color:var(--indigo); margin-bottom:6px; }
   p.page-lede{ color:#5c563f; font-size:15px; max-width:640px; margin-bottom:30px; }
 
+  /* Bibhas Image Logo styling with an oval/circular glow */
   .bibhas-image-logo {
     max-height: 85px; width: auto; border-radius: 50px; padding: 6px 14px;
     background: rgba(224, 162, 51, 0.12); border: 1px solid rgba(224, 162, 51, 0.4);
@@ -189,6 +194,7 @@
   }
   .bibhas-image-logo:hover { transform: scale(1.04); box-shadow: 0 0 24px rgba(224, 162, 51, 0.6); }
 
+  /* ---------- KPI ---------- */
   .kpi-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
   @media(max-width:700px){ .kpi-grid{ grid-template-columns:1fr 1fr; } }
   @media(max-width:420px){ .kpi-grid{ grid-template-columns:1fr; } }
@@ -200,6 +206,7 @@
   .kpi .delta{ margin-top:6px; font-size:12px; color:var(--leaf); font-weight:500; }
   .kpi .delta.down{ color:var(--sindoor); }
 
+  /* ---------- HOMEPAGE SLIDESHOW GALLERY ---------- */
   .slideshow-wrap { position: relative; max-width: 100%; margin: 0 auto; }
   .slideshow-container { position: relative; overflow: hidden; border-radius: 10px; box-shadow: 0 8px 24px rgba(32,38,59,0.12); background: #000; height: 450px; }
   .slide { display: none; width: 100%; height: 100%; cursor: zoom-in; }
@@ -233,6 +240,7 @@
   @media(max-width:820px){ .art-grid{ grid-template-columns:repeat(2,1fr); } }
   @media(max-width:520px){ .art-grid{ grid-template-columns:1fr; } }
 
+  /* ---------- quick link cards on home (No Underline) ---------- */
   .quick-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
   .quick-card, .quick-card:hover, .quick-card:focus, .quick-card:active, .quick-card:visited{ 
     background:var(--card); border:1px solid var(--line); border-radius:10px; padding:22px 20px; 
@@ -321,6 +329,7 @@
 
   .contact-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
 
+  /* ---------- Members Login: layout + notice board ---------- */
   .mo-layout{ display:grid; grid-template-columns:1fr 300px; gap:24px; align-items:start; }
   .notice-board{
     background:var(--card); border:1px solid var(--line); border-radius:10px; overflow:hidden;
@@ -363,6 +372,7 @@
   .doc-sub{ font-size:11.5px; color:#7a7260; margin-top:2px; text-decoration:none !important; }
   .doc-dl{ font-size:16px; color:var(--sindoor); flex-shrink:0; text-decoration:none !important; }
 
+  /* ---------- Bibhas magazine ---------- */
   .magazine-list{ display:flex; flex-direction:column; gap:22px; max-width:720px; }
   .magazine-post{
     background:var(--card); border:1px solid var(--line); border-radius:12px;
@@ -386,6 +396,7 @@
     font-family:'Work Sans',sans-serif; font-size:13.5px; resize:vertical; background:#fff;
   }
 
+  /* ---------- join us page ---------- */
   .join-hero{ max-width:700px; }
   .join-hero-bn{ font-size:19px; color:var(--indigo); font-family:'Work Sans',sans-serif; }
   .join-download-card{
@@ -421,6 +432,7 @@
   .contact-card a.c-val:hover{ color:var(--sindoor); text-decoration:none !important; }
   @media(max-width:820px){ .contact-grid{ grid-template-columns:1fr; } }
 
+  /* ---------- Professional Club Footer styling ---------- */
   .fout{ background:var(--indigo); color:rgba(247,241,227,0.75); padding:40px 0 20px 0; font-family:'Work Sans',sans-serif; text-align:center; }
   .fin{ max-width:1180px; margin:0 auto; padding:0 28px; display:grid; grid-template-columns:repeat(4, 1fr); gap:30px; text-align:center; }
   .fmenu h3{ font-family:'Tiro Bangla',serif; font-size:15px; color:var(--marigold); margin-bottom:14px; text-transform:uppercase; letter-spacing:.06em; }
@@ -435,9 +447,14 @@
   .fcopy a { text-decoration: none !important; color: inherit; }
   .fcopy a:hover { text-decoration: underline !important; }
 
-  @media(max-width:991px){ .fin{ grid-template-columns:repeat(2, 1fr); text-align:center; gap:24px; } }
-  @media(max-width:600px){ .fin{ grid-template-columns:1fr; text-align:center; gap:20px; } }
+  @media(max-width:991px){ 
+    .fin{ grid-template-columns:repeat(2, 1fr); text-align:center; gap:24px; } 
+  }
+  @media(max-width:600px){ 
+    .fin{ grid-template-columns:1fr; text-align:center; gap:20px; } 
+  }
 
+  /* ---------- lightbox ---------- */
   #lightbox{ display:none; position:fixed; inset:0; background:rgba(10,10,10,0.95); z-index:100; align-items:center; justify-content:center; padding:30px; cursor:zoom-out; }
   #lightbox.active{ display:flex; }
   #lightbox img{ max-width:92vw; max-height:88vh; border-radius:4px; box-shadow:0 20px 60px rgba(0,0,0,0.5); }
@@ -445,6 +462,7 @@
 </head>
 <body>
 
+<!-- Clean Top Utility Bar -->
 <div class="hbtno">
   <div class="wrap hbtno-wrap">
     <div class="usac">
@@ -522,6 +540,7 @@
         <h2>Glimpses of Tarun Sangha — Memories & Milestones</h2><span class="tag">Social Welfares, Pujas and everyday life at the Sangha</span>
       </div>
       
+      <!-- HOMEPAGE SLIDESHOW CONTAINER -->
       <div class="slideshow-wrap">
         <div class="slideshow-container" id="homeSlideshow">
           <p style="font-size:12.5px; color:rgba(255,255,255,0.5); padding:20px; text-align:center;">Loading photos…</p>
@@ -530,6 +549,7 @@
       </div>
     </section>
 
+    <!-- CSR & COMMUNITY ACTIVITIES GRID -->
     <div style="margin: 40px 0 20px 0;">
       <h3 style="font-family:'Cinzel',serif; color:var(--marigold); font-size:1.4rem; margin-bottom:16px; border-left:4px solid var(--marigold); padding-left:12px;">Community & CSR Initiatives</h3>
       <p style="color:var(--muted); font-size:14px; margin-bottom:20px;">Dedicated to social welfare, environmental protection, and public health across our region.</p>
@@ -569,6 +589,16 @@
         <a class="quick-card" onclick="showPage('gallery')"><div class="qi">◈</div><h4>Gallery</h4><p>A living record of our traditions, social work, and community spirit.</p></a>
         <a class="quick-card" onclick="showPage('magazine')"><div class="qi">◈</div><h4>Magazine</h4><p>Read poetry, stories, and prose by our members in Bibhas.</p></a>
         <a class="quick-card" onclick="showPage('contact')"><div class="qi">◈</div><h4>Contact</h4><p>Phone, e-mail, and our Registered Address.</p></a>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="section-head"><h2>At a glance</h2><span class="tag">FY 2022–23 → FY 2025–26</span></div>
+      <div class="kpi-grid">
+        <div class="kpi"><div class="lbl">Net Surplus, FY26</div><div class="val">₹2,258</div><div class="delta">↑ 330% since FY23</div></div>
+        <div class="kpi gold"><div class="lbl">Total Receipts, FY26</div><div class="val">₹1,16,237</div><div class="delta">↑ 10× since FY23</div></div>
+        <div class="kpi leaf"><div class="lbl">Fixed Assets (WDV)</div><div class="val">₹17,759</div><div class="delta down">Steady after depreciation</div></div>
+        <div class="kpi clay"><div class="lbl">Cash + Bank, FY26</div><div class="val">₹21,818</div><div class="delta down">↓ building fund deployed</div></div>
       </div>
     </section>
   </main>
@@ -635,6 +665,7 @@
       </div>
     </div>
 
+    <!-- Public Members Directory Table (Name & Designation Only) -->
     <div class="section-head" style="margin-top:44px;"><h2>All Members Directory</h2><span class="tag">Member List</span></div>
     <div class="card" style="margin-bottom:20px; max-width: 600px;">
       <table class="gb-table">
@@ -703,38 +734,90 @@
         <span class="election-tag">New governing body elected — Mr. Ranjit Bag, President</span>
       </div>
     </div>
+
+    <section class="block" style="margin-top:44px;">
+      <div class="section-head"><h2>Financial trajectory</h2><span class="tag">Receipts &amp; Payments</span></div>
+      <div class="chart-row">
+        <div class="card">
+          <h3>Receipts vs. Payments, by year</h3>
+          <p class="note">Total inflows and outflows recorded in each Receipts &amp; Payments account, in ₹.</p>
+          <div class="chart-box tall"><canvas id="chartReceipts"></canvas></div>
+        </div>
+        <div class="card">
+          <h3>Net surplus carried to Capital Fund</h3>
+          <p class="note">Excess of income over expenditure, ₹.</p>
+          <div class="chart-box tall"><canvas id="chartSurplus"></canvas></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="chart-row">
+        <div class="card">
+          <h3>Cash &amp; bank position at year-end</h3>
+          <p class="note">FY25's spike reflects the ₹82,500 building fund donation; FY26 shows it partly deployed.</p>
+          <div class="chart-box"><canvas id="chartCash"></canvas></div>
+        </div>
+        <div class="card">
+          <h3>FY26 expenditure breakdown</h3>
+          <p class="note">Where the year's ₹94,419 in outflows went.</p>
+          <div class="chart-box"><canvas id="chartExpense"></canvas></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="section-head"><h2>Clubhouse building fund</h2><span class="tag">Est. FY 2024–25</span></div>
+      <div class="fund-card">
+        <div class="fund-top">
+          <div><div class="big">₹82,500</div><div class="lbl">Raised in FY25 from patron donations</div></div>
+          <div style="text-align:right;"><div class="big" style="color:var(--paper);">₹67,119</div><div class="lbl">Spent in FY26 on construction</div></div>
+        </div>
+        <div class="fund-bar"><div class="fund-bar-fill" style="width:81.4%;"></div></div>
+        <div class="fund-legend"><span>81% of the fund deployed</span><span>₹15,381 remaining</span></div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="section-head"><h2>Financial summary, side by side</h2><span class="tag">All figures in ₹</span></div>
+      <div class="card">
+        <table class="fin">
+          <tr><th style="text-align:left;">Metric</th><th>FY23</th><th>FY24</th><th>FY25</th><th>FY26</th></tr>
+          <tr><td>Total Receipts</td><td>11,734</td><td>29,401</td><td>1,06,158</td><td>1,16,237</td></tr>
+          <tr><td>Total Payments</td><td>10,052</td><td>28,495</td><td>19,479</td><td>94,419</td></tr>
+          <tr><td>Net Surplus</td><td>525</td><td>887</td><td>1,986</td><td>2,258</td></tr>
+          <tr><td>Fixed Assets (WDV)</td><td>17,383</td><td>19,046</td><td>17,759</td><td>17,759</td></tr>
+          <tr><td>Closing Cash-in-hand</td><td>1,682</td><td>906</td><td>1,056</td><td>5,062</td></tr>
+          <tr><td>Closing Cash-at-bank</td><td>—</td><td>—</td><td>85,623</td><td>16,756</td></tr>
+          <tr class="total"><td>Capital / Fund Account Total</td><td>19,065</td><td>19,952</td><td>1,04,438</td><td>39,577</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="section-head"><h2>Auditor of record</h2><span class="tag">Statutory audit</span></div>
+      <div class="card">
+        <p style="font-size:13.5px; color:#4a4534;">All four years were audited by the same practice — <b>M/S Somnath Ghosh, Chartered Accountants</b> (FY23–FY25), formalised as <b>M/S Ghosh Somnath &amp; Co., Chartered Accountants, Kolkata</b> for FY26 — under the consistent Membership Registration Number <b class="mono">322299</b>.</p>
+      </div>
+    </section>
   </main>
 </div>
 
 <!-- ============ EVENTS ============ -->
 <div class="page" id="page-events">
   <main class="wrap" style="padding-top:40px;">
-    <h2 class="page-title">Events &amp; Countdowns</h2>
-    <p class="page-lede">The cultural and civic milestones that define the Sangha's year — complete with live countdowns to our next celebrations.</p>
-    
-    <div class="card" style="margin-bottom:30px; background:linear-gradient(135deg, var(--indigo), #26365a); color:var(--paper); border-top:3px solid var(--marigold);">
-      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
-        <div>
-          <span class="tag" style="color:var(--marigold);">Next Major Festival</span>
-          <h3 id="countdownTitle" style="font-family:'Tiro Bangla',serif; font-size:22px; color:#fff; margin-top:4px;">Durga Puja 2026 (Maha Shashthi)</h3>
-          <p id="countdownDate" style="font-size:12.5px; color:rgba(247,241,227,0.7); margin-top:2px;">October 17, 2026</p>
-        </div>
-        <div id="countdownTimer" style="display:flex; gap:12px; font-family:'JetBrains Mono',monospace; text-align:center;">
-          <div style="background:rgba(255,255,255,0.08); padding:8px 12px; border-radius:6px;"><b id="cdDays" style="font-size:18px; color:var(--marigold); display:block;">00</b><span style="font-size:10px; text-transform:uppercase;">Days</span></div>
-          <div style="background:rgba(255,255,255,0.08); padding:8px 12px; border-radius:6px;"><b id="cdHours" style="font-size:18px; color:var(--marigold); display:block;">00</b><span style="font-size:10px; text-transform:uppercase;">Hours</span></div>
-          <div style="background:rgba(255,255,255,0.08); padding:8px 12px; border-radius:6px;"><b id="cdMins" style="font-size:18px; color:var(--marigold); display:block;">00</b><span style="font-size:10px; text-transform:uppercase;">Mins</span></div>
-          <div style="background:rgba(255,255,255,0.08); padding:8px 12px; border-radius:6px;"><b id="cdSecs" style="font-size:18px; color:var(--marigold); display:block;">00</b><span style="font-size:10px; text-transform:uppercase;">Secs</span></div>
-        </div>
-      </div>
-    </div>
-
+    <h2 class="page-title">Events &amp; Observances</h2>
+    <p class="page-lede">The cultural and civic milestones that define the Sangha's year — drawn directly from four years of annual reports.</p>
     <div class="event-grid">
-      <div class="event-card"><div class="em">17–21 Oct 2026</div><h4>Durga Puja</h4><p>The club's largest celebration each year, bringing together hundreds of families for a community pandal.</p></div>
+      <div class="event-card"><div class="em">Autumn &middot; Flagship</div><h4>Durga Puja</h4><p>The club's largest celebration each year, bringing together hundreds of families for a community pandal.</p></div>
       <div class="event-card"><div class="em">Winter/Spring</div><h4>Saraswati Puja</h4><p>Honouring the goddess of knowledge, with strong participation from village youth.</p></div>
       <div class="event-card"><div class="em">Spring</div><h4>Basanta Utsav</h4><p>Welcoming spring with colour, music, and community gathering.</p></div>
       <div class="event-card"><div class="em">Cultural</div><h4>Kobi Pronam</h4><p>A literary tribute celebrating poets and cultural heritage.</p></div>
       <div class="event-card"><div class="em">26th January</div><h4>Republic Day</h4><p>Flag hoisting and cultural programs promoting civic values among local children.</p></div>
       <div class="event-card"><div class="em">15th August</div><h4>Independence Day</h4><p>Full-honours flag hoisting, national anthem, and youth events.</p></div>
+      <div class="event-card"><div class="em">23rd January</div><h4>Netaji Jayanti</h4><p>Observing Netaji Subhas Chandra Bose's birthday with formal ceremony.</p></div>
+      <div class="event-card"><div class="em">Public Health</div><h4>Blood Donation Camp</h4><p>Planned and hosted to support community health needs.</p></div>
+      <div class="event-card"><div class="em">Environment</div><h4>Tree Plantation Day</h4><p>Village greening drives held on National Tree Plantation Day each year.</p></div>
     </div>
   </main>
 </div>
@@ -753,6 +836,33 @@
     <div class="fy-panel active" id="fy23">
       <div class="activity-grid">
         <div class="activity-card"><div class="cat">Social Welfare</div><p>Clothing distribution drive for economically vulnerable families.</p></div>
+        <div class="activity-card"><div class="cat">Cultural Planning</div><p>Foundations laid for the annual calendar: Republic Day, Netaji Jayanti, Independence Day, Kobi Pronam, Basanta Utsav, Saraswati Puja, Durga Puja.</p></div>
+        <div class="activity-card"><div class="cat">Environmental &amp; Health</div><p>Planning sessions for a tree plantation drive and a summer blood donation camp.</p></div>
+        <div class="activity-card"><div class="cat">Infrastructure</div><p>Purchase of utility chairs and office furniture to set up the administrative office.</p></div>
+      </div>
+    </div>
+    <div class="fy-panel" id="fy24">
+      <div class="activity-grid">
+        <div class="activity-card"><div class="cat">Social Welfare</div><p>Clothing distribution to poor and distressed residents during major seasonal festivals.</p></div>
+        <div class="activity-card"><div class="cat">Cultural &amp; Religious</div><p>First full-scale Durga Puja, plus Saraswati Puja and Basanta Utsav, engaging neighbourhood youth.</p></div>
+        <div class="activity-card"><div class="cat">National Days</div><p>Flag hoisting and cultural programs for Netaji's Birthday, Republic Day and Independence Day.</p></div>
+        <div class="activity-card"><div class="cat">Literary &amp; Environmental</div><p>Kobi Pronam observed; tree plantation drive for climate awareness.</p></div>
+      </div>
+    </div>
+    <div class="fy-panel" id="fy25">
+      <div class="activity-grid">
+        <div class="activity-card"><div class="cat">Infrastructure</div><p>Long-term resource drive raising contributions toward a permanent Building Construction Fund.</p></div>
+        <div class="activity-card"><div class="cat">Social Welfare</div><p>Festive food distribution programs for needy families.</p></div>
+        <div class="activity-card"><div class="cat">Cultural &amp; Religious</div><p>Flagship Durga Puja, plus Saraswati Puja, Basanta Utsav and Kobi Pronam.</p></div>
+        <div class="activity-card"><div class="cat">Environment</div><p>Local cleanliness drives and tree plantation on National Tree Plantation Day.</p></div>
+      </div>
+    </div>
+    <div class="fy-panel" id="fy26">
+      <div class="activity-grid">
+        <div class="activity-card"><div class="cat">Infrastructure</div><p>₹67,119 spent directly from the Building Fund on materials and labour for the clubhouse.</p></div>
+        <div class="activity-card"><div class="cat">Education</div><p>Educational materials, periodicals and magazines purchased for the youth wing.</p></div>
+        <div class="activity-card"><div class="cat">Cultural &amp; Religious</div><p>Flagship Durga Puja with extensive participation; Saraswati Puja, Basanta Utsav, Kobi Pronam.</p></div>
+        <div class="activity-card"><div class="cat">Public Health</div><p>Health awareness campaigns, blood donation camp planning, village greening drives.</p></div>
       </div>
     </div>
   </main>
@@ -773,12 +883,19 @@
 <!-- ============ Bibhas (MAGAZINE) ============ -->
 <div class="page" id="page-magazine">
   <main class="wrap" style="padding-top:40px;">
+    
     <div style="display: flex; align-items: center; gap: 24px; margin-bottom: 12px;">
       <img src="bibhas-logo.png" alt="Bibhas Magazine Logo" class="bibhas-image-logo" style="margin-bottom: 0;" onerror="this.style.display='none'">
     </div>
-    <p class="page-lede">A space for our members' own writing — poetry, prose, stories, and reflections.</p>
+
+    <p class="page-lede">A space for our members' own writing — poetry, prose, stories, and reflections. Open for everyone to read; open for members to write.</p>
+
     <div id="magazineList" class="magazine-list">
       <p style="font-size:13px; color:#9a927c;">Loading posts…</p>
+    </div>
+
+    <div class="card" style="margin-top:30px; max-width:560px;">
+      <p style="font-size:13px; color:#5c563f;">Are you a member with something to share? Log in via <b>Members Login</b> to submit your writing for publication here.</p>
     </div>
   </main>
 </div>
@@ -787,7 +904,7 @@
 <div class="page" id="page-members-only">
   <main class="wrap" style="padding-top:40px;">
     <h2 class="page-title">Members Login</h2>
-    <p class="page-lede">Meeting notes, minutes, internal photos, current members list, monthly membership donations (FY 26-27), and Bibhas Magazine portal.</p>
+    <p class="page-lede">Meeting notes, minutes, internal photos, current members list, and Bibhas Magazine portal — for club members.</p>
 
     <div id="loginGate" class="card" style="max-width:380px;">
       <h3>Members Login</h3>
@@ -801,66 +918,78 @@
     </div>
 
     <div id="membersContent" style="display:none;">
+      <!-- Member Portal Sub-tabs -->
       <div class="yr-tabs" style="margin-bottom:24px;">
         <div class="yr-tab active" onclick="switchMemberTab('portal-docs', event)">Documents & Media</div>
-        <div class="yr-tab" onclick="switchMemberTab('portal-fees', event)">Membership Dues (FY 26-27)</div>
         <div class="yr-tab" onclick="switchMemberTab('portal-magazine', event)">Bibhas Magazine Portal</div>
         <div class="yr-tab" onclick="switchMemberTab('portal-members-dir', event)">Current Members</div>
       </div>
 
+      <!-- Tab 1: Documents & Media -->
       <div id="portal-docs" class="member-portal-panel">
         <div class="mo-layout">
           <div class="mo-main">
-            <div class="section-head"><h2>Meeting Minutes</h2></div>
+            <div class="section-head"><h2>Meeting Minutes</h2><span class="tag">Members Login</span></div>
             <div class="card" style="margin-bottom:20px;">
-              <div class="doc-list" id="minutesList"><p style="font-size:12.5px; color:#9a927c;">Loading minutes…</p></div>
+              <div class="doc-list" id="minutesList">
+                <p style="font-size:12.5px; color:#9a927c;">Loading minutes…</p>
+              </div>
+              <p style="font-size:12px; color:#9a927c; margin-top:14px;">Upload PDFs to the club's <code>minutes</code> folder and they'll appear here automatically.</p>
             </div>
-            <div class="section-head"><h2>Internal Photos</h2></div>
+            <div class="section-head"><h2>Internal Photos</h2><span class="tag">Members Login</span></div>
             <div class="card" style="margin-bottom:20px;">
-              <div class="photo-grid" id="internalPhotosGrid" style="grid-template-columns:repeat(4,1fr); grid-auto-rows:110px;"><p style="font-size:12.5px; color:#9a927c;">Loading photos…</p></div>
+              <div class="photo-grid" id="internalPhotosGrid" style="grid-template-columns:repeat(4,1fr); grid-auto-rows:110px;">
+                <p style="font-size:12.5px; color:#9a927c;">Loading photos…</p>
+              </div>
+              <p style="font-size:12px; color:#9a927c; margin-top:14px;">Upload images to the club's <code>internal-photos</code> folder and they'll appear here automatically — kept separate from the public gallery.</p>
             </div>
-            <div class="section-head"><h2>Documents</h2></div>
+
+            <div class="section-head"><h2>Documents</h2><span class="tag">Annual Reports &amp; Audited Statements</span></div>
             <div class="card" style="margin-bottom:20px;">
-              <div class="doc-list" id="docList"><p style="font-size:12.5px; color:#9a927c;">Loading documents…</p></div>
+              <div class="doc-list" id="docList">
+                <p style="font-size:12.5px; color:#9a927c;">Loading documents…</p>
+              </div>
+              <p style="font-size:12px; color:#9a927c; margin-top:14px;">Documents are pulled automatically from the club's document folder — upload a new PDF there and it appears here.</p>
             </div>
           </div>
+
           <div class="mo-side">
             <div class="notice-board">
-              <div class="notice-head"><span class="notice-dot"></span> NOTICE BOARD</div>
-              <div class="notice-scroll-wrap">
-                <div class="notice-list" id="noticeList"><div class="notice-item"><div class="notice-text">Loading notices…</div></div></div>
+              <div class="notice-head">
+                <span class="notice-dot"></span> NOTICE BOARD
+              </div>
+              <div class="notice-scroll-wrap" id="noticeScrollWrap">
+                <div class="notice-list" id="noticeList">
+                  <div class="notice-item"><div class="notice-text">Loading notices…</div></div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Member Tab: Membership Dues FY 26-27 -->
-      <div id="portal-fees" class="member-portal-panel" style="display:none;">
-        <div class="section-head"><h2>Monthly Membership Donations (FY 2026–27)</h2><span class="tag">Record Status</span></div>
-        <div class="card" style="margin-bottom:20px; overflow-x:auto;">
-          <table class="gb-table">
-            <thead>
-              <tr><th>Member Name</th><th>Month</th><th>Amount</th><th>Status</th><th>Recorded On</th></tr>
-            </thead>
-            <tbody id="memberFeesTableBody">
-              <tr><td colspan="5" style="text-align:center; color:#9a927c;">Loading membership fees...</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
+      <!-- Tab 2: Bibhas Magazine Portal (Read & Submit only - no delete) -->
       <div id="portal-magazine" class="member-portal-panel" style="display:none;">
         <div class="section-head"><h2>Bibhas Magazine Submissions</h2><span class="tag">Review & Write</span></div>
+        
         <div class="card" style="margin-bottom:30px;">
           <h3 style="margin-bottom:12px; font-family:'Tiro Bangla',serif; color:var(--indigo);">Published Magazine Posts</h3>
-          <div id="memberMagazineManagerList" style="display:flex; flex-direction:column; gap:12px;"><p style="font-size:13px; color:#9a927c;">Loading posts…</p></div>
+          <div id="memberMagazineManagerList" style="display:flex; flex-direction:column; gap:12px;">
+            <p style="font-size:13px; color:#9a927c;">Loading magazine posts…</p>
+          </div>
         </div>
+
         <div class="card" style="max-width:720px;">
           <h3 style="margin-bottom:16px; font-family:'Tiro Bangla',serif; color:var(--indigo);">Submit New Piece to বিভাস</h3>
           <form id="magazineForm" onsubmit="submitMagazinePost(event)">
-            <div class="mag-form-row"><label>Your Name</label><input type="text" name="author" required></div>
-            <div class="mag-form-row"><label>Title of Your Piece</label><input type="text" name="title" required></div>
+            <div class="mag-form-row">
+              <label>Your Name</label>
+              <input type="text" name="author" required>
+            </div>
+            <div class="mag-form-row">
+              <label>Title of Your Piece</label>
+              <input type="text" name="title" required>
+            </div>
             <div class="mag-form-row">
               <label>Category</label>
               <select name="category" required>
@@ -884,21 +1013,29 @@
             </div>
             <div class="mag-form-row">
               <label>Your Writing</label>
-              <div id="quillEditor" style="height: 250px; background: #fff; font-family: 'Work Sans', sans-serif;"></div>
+              <div id="quillEditor" style="height: 250px; background: #fff; font-family: 'Work Sans', sans-serif; border-bottom-left-radius: 6px; border-bottom-right-radius: 6px;"></div>
               <input type="hidden" name="content" id="magazineContent">
             </div>
-            <button type="submit" id="magazineBtn" class="form-submit-btn" style="padding:10px 22px; background:var(--sindoor); color:var(--paper); border:none; border-radius:6px; cursor:pointer;">PUBLISH TO BIBHAS</button>
-            <div id="magazineStatus" style="display:none; margin-top:14px; padding:12px; border-radius:6px; font-size:13px;"></div>
+            <button type="submit" id="magazineBtn" class="form-submit-btn" style="padding:10px 22px; background:var(--sindoor); color:var(--paper); border:none; border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:13px; cursor:pointer; letter-spacing:.04em;">PUBLISH TO BIBHAS</button>
+            <div id="magazineStatus" style="display:none; margin-top:14px; padding:12px 14px; border-radius:6px; font-size:13px;"></div>
           </form>
         </div>
       </div>
 
+      <!-- Tab 3: Current Members (Full Details) -->
       <div id="portal-members-dir" class="member-portal-panel" style="display:none;">
         <div class="section-head"><h2>Current Members Directory</h2><span class="tag">Complete Details</span></div>
         <div class="card" style="margin-bottom:20px; overflow-x:auto;">
           <table class="gb-table" style="min-width: 720px;">
             <thead>
-              <tr><th>Name</th><th>Designation</th><th>Address</th><th>Occupation</th><th>DOB</th><th>Contact</th></tr>
+              <tr>
+                <th>Name</th>
+                <th>Designation</th>
+                <th>Address</th>
+                <th>Occupation</th>
+                <th>DOB</th>
+                <th>Contact</th>
+              </tr>
             </thead>
             <tbody id="memberLoginTableBody">
               <tr><td colspan="6" style="text-align:center; color:#9a927c;">Loading members...</td></tr>
@@ -906,6 +1043,7 @@
           </table>
         </div>
       </div>
+
     </div>
   </main>
 </div>
@@ -914,7 +1052,7 @@
 <div class="page" id="page-admin">
   <main class="wrap" style="padding-top:40px;">
     <h2 class="page-title">Admin Dashboard</h2>
-    <p class="page-lede">Upload notices, documents, images, members directory, and record monthly membership donations (FY 26-27).</p>
+    <p class="page-lede">Upload notices, documents, images, and club member directory.</p>
 
     <div id="adminLoginGate" class="card" style="max-width:380px;">
       <h3>Admin Access</h3>
@@ -928,13 +1066,14 @@
     </div>
 
     <div id="adminContent" style="display:none;">
+      <!-- Admin Portal Sub-tabs -->
       <div class="yr-tabs" style="margin-bottom:24px;">
         <div class="yr-tab active" onclick="switchAdminTab('admin-tab-members', event)">Manage Members</div>
-        <div class="yr-tab" onclick="switchAdminTab('admin-tab-fees', event)">Membership Fees (FY 26-27)</div>
         <div class="yr-tab" onclick="switchAdminTab('admin-tab-notices', event)">Post Notice</div>
         <div class="yr-tab" onclick="switchAdminTab('admin-tab-media', event)">Upload & Delete Files</div>
       </div>
 
+      <!-- Admin Tab 1: Manage Members -->
       <div id="admin-tab-members" class="admin-portal-panel">
         <div class="mo-layout">
           <div class="mo-main">
@@ -942,141 +1081,130 @@
             <div class="card" style="margin-bottom:20px;">
               <form onsubmit="handleMemberSave(event)">
                 <input type="hidden" id="editMemberId">
-                <div class="mag-form-row"><label>Full Name *</label><input type="text" id="memberName" required placeholder="Full Name"></div>
-                <div class="mag-form-row"><label>Address *</label><input type="text" id="memberAddress" required placeholder="Address"></div>
-                <div class="mag-form-row"><label>Designation *</label><input type="text" id="memberDesignation" required placeholder="Designation e.g. Member"></div>
-                <div class="mag-form-row"><label>Occupation (Optional)</label><input type="text" id="memberOccupation" placeholder="Occupation"></div>
-                <div class="mag-form-row"><label>Date of Birth (Optional)</label><input type="date" id="memberDob"></div>
-                <div class="mag-form-row"><label>Contact Number (Optional)</label><input type="text" id="memberPhone" placeholder="Phone"></div>
+                <div class="mag-form-row">
+                  <label>Full Name *</label>
+                  <input type="text" id="memberName" required placeholder="Enter Your Full Name">
+                </div>
+                <div class="mag-form-row">
+                  <label>Address *</label>
+                  <input type="text" id="memberAddress" required placeholder="Enter Your Address">
+                </div>
+                <div class="mag-form-row">
+                  <label>Designation *</label>
+                  <input type="text" id="memberDesignation" required placeholder="Enter your Designation e.g. Member / Secretary">
+                </div>
+                <div class="mag-form-row">
+                  <label>Occupation (Optional)</label>
+                  <input type="text" id="memberOccupation" placeholder="Enter your Occupation e.g. Service / Business">
+                </div>
+                <div class="mag-form-row">
+                  <label>Date of Birth (Optional)</label>
+                  <input type="date" id="memberDob">
+                </div>
+                <div class="mag-form-row">
+                  <label>Contact Number (Optional)</label>
+                  <input type="text" id="memberPhone" placeholder="XXXXXXXXX">
+                </div>
                 <button type="submit" id="memberSaveBtn" class="form-submit-btn" style="padding:10px 22px; background:var(--leaf); color:var(--paper); border:none; border-radius:6px; cursor:pointer;">SAVE MEMBER</button>
                 <button type="button" id="memberCancelBtn" onclick="resetMemberForm()" style="display:none; padding:10px 22px; background:#7a7260; color:#fff; border:none; border-radius:6px; cursor:pointer; margin-left:8px;">CANCEL</button>
               </form>
             </div>
 
-            <div class="section-head"><h2>Existing Members List</h2></div>
+            <div class="section-head"><h2>Existing Members List</h2><span class="tag">Edit / Delete</span></div>
             <div class="card" style="margin-bottom:20px; overflow-x:auto;">
               <table class="gb-table">
-                <thead><tr><th>Name</th><th>Designation</th><th>Actions</th></tr></thead>
-                <tbody id="adminMembersTableBody"><tr><td colspan="3">Loading members...</td></tr></tbody>
+                <thead>
+                  <tr><th>Name</th><th>Designation</th><th>Actions</th></tr>
+                </thead>
+                <tbody id="adminMembersTableBody">
+                  <tr><td colspan="3">Loading members...</td></tr>
+                </tbody>
               </table>
             </div>
           </div>
           <div class="mo-side">
             <div class="card" style="border-top:3px solid var(--marigold);">
-              <h3>Member Guidelines</h3>
-              <p style="font-size:12.5px; color:#5c563f; margin-top:8px;">Manage active directory records here.</p>
+              <h3>Member Directory Help</h3>
+              <p style="font-size:12.5px; color:#5c563f; margin-top:8px;">Name, Address, and Designation are required fields marked with (*). Other fields are optional.</p>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Admin Tab: Membership Fees FY 26-27 -->
-      <div id="admin-tab-fees" class="admin-portal-panel" style="display:none;">
-        <div class="mo-layout">
-          <div class="mo-main">
-            <div class="section-head"><h2>Record Monthly Membership Fee</h2><span class="tag">FY 2026–27</span></div>
-            <div class="card" style="margin-bottom:20px;">
-              <form onsubmit="handleFeeRecordSave(event)">
-                <div class="mag-form-row">
-                  <label>Select Member *</label>
-                  <select id="feeMemberSelect" required style="width:100%; padding:10px; background:#fff; border:1px solid var(--line); border-radius:6px;">
-                    <option value="">Select a member</option>
-                  </select>
-                </div>
-                <div class="mag-form-row">
-                  <label>Month (FY 2026–27) *</label>
-                  <select id="feeMonthSelect" required style="width:100%; padding:10px; background:#fff; border:1px solid var(--line); border-radius:6px;">
-                    <option value="">Select Month</option>
-                    <option value="April 2026">April 2026</option>
-                    <option value="May 2026">May 2026</option>
-                    <option value="June 2026">June 2026</option>
-                    <option value="July 2026">July 2026</option>
-                    <option value="August 2026">August 2026</option>
-                    <option value="September 2026">September 2026</option>
-                    <option value="October 2026">October 2026</option>
-                    <option value="November 2026">November 2026</option>
-                    <option value="December 2026">December 2026</option>
-                    <option value="January 2027">January 2027</option>
-                    <option value="February 2027">February 2027</option>
-                    <option value="March 2027">March 2027</option>
-                  </select>
-                </div>
-                <div class="mag-form-row">
-                  <label>Amount (₹) *</label>
-                  <input type="number" id="feeAmountInput" required placeholder="e.g. 50" min="1" style="width:100%; padding:10px; border:1px solid var(--line); border-radius:6px;">
-                </div>
-                <button type="submit" id="feeSaveBtn" style="padding:10px 22px; background:var(--leaf); color:var(--paper); border:none; border-radius:6px; cursor:pointer; font-weight:600;">RECORD DONATION</button>
-              </form>
-            </div>
-
-            <div class="section-head"><h2>Recorded Membership Donations</h2></div>
-            <div class="card" style="margin-bottom:20px; overflow-x:auto;">
-              <table class="gb-table">
-                <thead><tr><th>Member</th><th>Month</th><th>Amount</th><th>Action</th></tr></thead>
-                <tbody id="adminFeesTableBody"><tr><td colspan="4">Loading records...</td></tr></tbody>
-              </table>
-            </div>
-          </div>
-          <div class="mo-side">
-            <div class="card" style="border-top:3px solid var(--marigold);">
-              <h3>FY 26-27 Dues Note</h3>
-              <p style="font-size:12.5px; color:#5c563f; margin-top:8px;">Track monthly contributions reliably across the fiscal year.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
+      <!-- Admin Tab 2: Post Notice -->
       <div id="admin-tab-notices" class="admin-portal-panel" style="display:none;">
         <div class="mo-layout">
           <div class="mo-main">
             <div class="section-head"><h2>Post a Notice</h2><span class="tag">Text Alert</span></div>
             <div class="card" style="margin-bottom:20px;">
               <form onsubmit="handleAdminUpload(event, 'notice')">
-                <div class="mag-form-row"><label>Notice Content</label><textarea id="noticeText" rows="4" required placeholder="Type notice..."></textarea></div>
-                <button type="submit" style="padding:10px 22px; background:var(--sindoor); color:var(--paper); border:none; border-radius:6px; cursor:pointer;">POST NOTICE</button>
+                <div class="mag-form-row">
+                  <label>Notice Content</label>
+                  <textarea id="noticeText" rows="4" required placeholder="Type the notice here..."></textarea>
+                </div>
+                <button type="submit" class="form-submit-btn" style="padding:10px 22px; background:var(--sindoor); color:var(--paper); border:none; border-radius:6px; cursor:pointer;">POST NOTICE</button>
               </form>
             </div>
           </div>
           <div class="mo-side">
             <div class="notice-board">
               <div class="notice-head"><span class="notice-dot"></span> NOTICE BOARD</div>
-              <div class="notice-scroll-wrap"><div class="notice-list" id="adminNoticeList"><div class="notice-item"><div class="notice-text">Loading notices…</div></div></div></div>
+              <div class="notice-scroll-wrap">
+                <div class="notice-list" id="adminNoticeList">
+                  <div class="notice-item"><div class="notice-text">Loading notices…</div></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
+      <!-- Admin Tab 3: Upload & Delete Docs & Images -->
       <div id="admin-tab-media" class="admin-portal-panel" style="display:none;">
         <div class="mo-layout">
           <div class="mo-main">
             <div class="section-head"><h2>Upload Document</h2><span class="tag">PDFs Only</span></div>
             <div class="card" style="margin-bottom:20px;">
               <form onsubmit="handleAdminUpload(event, 'document')">
-                <div class="mag-form-row"><label>Select PDF File</label><input type="file" id="adminDoc" accept="application/pdf" required></div>
-                <button type="submit" style="padding:10px 22px; background:var(--marigold); color:var(--indigo); border:none; border-radius:6px; cursor:pointer; font-weight:600;">UPLOAD PDF</button>
+                <div class="mag-form-row">
+                  <label>Select PDF File</label>
+                  <input type="file" id="adminDoc" accept="application/pdf" required>
+                </div>
+                <button type="submit" class="form-submit-btn" style="padding:10px 22px; background:var(--marigold); color:var(--indigo); border:none; border-radius:6px; cursor:pointer; font-weight:600;">UPLOAD PDF</button>
               </form>
             </div>
+
             <div class="section-head"><h2>Manage & Delete Documents</h2></div>
-            <div class="card" style="margin-bottom:20px;"><div id="adminDocList"><p style="font-size:12px; color:#9a927c;">Loading documents...</p></div></div>
+            <div class="card" style="margin-bottom:20px;">
+              <div id="adminDocList"><p style="font-size:12px; color:#9a927c;">Loading documents...</p></div>
+            </div>
 
             <div class="section-head"><h2>Upload Internal Photo</h2><span class="tag">JPG, PNG</span></div>
             <div class="card" style="margin-bottom:20px;">
               <form onsubmit="handleAdminUpload(event, 'image')">
-                <div class="mag-form-row"><label>Select Image File</label><input type="file" id="adminImg" accept="image/png, image/jpeg" required></div>
-                <button type="submit" style="padding:10px 22px; background:var(--leaf); color:var(--paper); border:none; border-radius:6px; cursor:pointer;">UPLOAD IMAGE</button>
+                <div class="mag-form-row">
+                  <label>Select Image File</label>
+                  <input type="file" id="adminImg" accept="image/png, image/jpeg" required>
+                </div>
+                <button type="submit" class="form-submit-btn" style="padding:10px 22px; background:var(--leaf); color:var(--paper); border:none; border-radius:6px; cursor:pointer;">UPLOAD IMAGE</button>
               </form>
             </div>
+
             <div class="section-head"><h2>Manage & Delete Internal Photos</h2></div>
-            <div class="card" style="margin-bottom:20px;"><div id="adminPhotoList"><p style="font-size:12px; color:#9a927c;">Loading photos...</p></div></div>
+            <div class="card" style="margin-bottom:20px;">
+              <div id="adminPhotoList"><p style="font-size:12px; color:#9a927c;">Loading photos...</p></div>
+            </div>
           </div>
+
           <div class="mo-side">
             <div class="card" style="border-top:3px solid var(--marigold);">
               <h3>Media Guidelines</h3>
-              <p style="font-size:12.5px; color:#5c563f; margin-top:8px;">Manage club media files here securely.</p>
+              <p style="font-size:12.5px; color:#5c563f; margin-top:8px;">Upload PDFs for financial records and meeting minutes, and high-resolution JPEGs/PNGs for internal club photos. You can also delete any uploaded file directly using the delete buttons.</p>
             </div>
           </div>
         </div>
       </div>
+
     </div>
   </main>
 </div>
@@ -1090,6 +1218,7 @@
       <p class="page-lede" style="max-width:640px;">Choose whether you would like to become a member of Dihibaliharpur Tarun Sangha or support our social welfare and construction activities through a donation.</p>
     </div>
 
+    <!-- SECTION 1: JOIN -->
     <div class="section-head" style="margin-top:36px;"><h2>1. Join Our Sangha</h2><span class="tag">Membership Application</span></div>
     <div class="join-download-card">
       <div class="join-download-icon">📄</div>
@@ -1100,6 +1229,7 @@
       <a href="membership-application-form.pdf" target="_blank" class="join-download-btn">DOWNLOAD PDF ↓</a>
     </div>
 
+    <!-- Android App Direct Download Card -->
     <div class="join-download-card" style="margin-top: 20px; background: linear-gradient(135deg, #1B2A4A, #101a33);">
       <div class="join-download-icon">📱</div>
       <div class="join-download-info">
@@ -1108,6 +1238,52 @@
       </div>
       <a href="dts-app.apk" download class="join-download-btn" style="background: #27ae60; color: #fff;">DOWNLOAD APP ↓</a>
     </div>
+
+    <div class="join-steps" style="margin-top:20px;">
+      <div class="join-step">
+        <div class="join-step-num">1</div>
+        <h4>Download &amp; Fill</h4>
+        <p>Download the form above, print it, and fill in your details by hand — name, address, occupation, DOB, and contact.</p>
+      </div>
+      <div class="join-step">
+        <div class="join-step-num">2</div>
+        <h4>Submit in Person</h4>
+        <p>Bring the completed form to the club premises at Dihibaliharpur and hand it to a committee member.</p>
+      </div>
+      <div class="join-step">
+        <div class="join-step-num">3</div>
+        <h4>Wait for Approval</h4>
+        <p>Your application will be reviewed internally by the committee, and you'll be notified upon acceptance.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 2: DONATE -->
+    <div class="section-head" style="margin-top:48px;"><h2>2. Donate & Support</h2><span class="tag">Banking & QR Details</span></div>
+    <div class="card" style="margin-bottom:30px; border-top: 3px solid #27ae60; background: #fff;">
+      <h3 style="color: var(--indigo); font-family: 'Tiro Bangla', serif; font-size: 20px; margin-bottom: 12px;">💚 Direct Support / Donation Details</h3>
+      <p style="font-size: 13.5px; color: #5c563f; margin-bottom: 20px;">Contribute directly to our building fund, poor relief programs, and blood donation camps.</p>
+      
+      <div style="background: var(--paper-dim); padding: 16px; border-radius: 8px; margin-bottom: 20px;">
+        <h4 style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--clay); text-transform:uppercase; margin-bottom:10px;">Bank Account Details</h4>
+        <p style="font-size: 13px; margin-bottom: 6px;"><strong>Account Name:</strong> Dihibaliharpur Tarun Sangha</p>
+        <p style="font-size: 13px; margin-bottom: 6px;"><strong>Bank Name:</strong> Punjab National Bank</p>
+        <p style="font-size: 13px; margin-bottom: 6px;"><strong>Account Number:</strong> 0188200100013068</p>
+        <p style="font-size: 13px; margin-bottom: 6px;"><strong>IFSC Code:</strong> PUNB0018820</p>
+        <p style="font-size: 13px; margin-bottom: 0px;"><strong>Branch:</strong> Dasspur(018820), Paschim Medinipur</p>
+      </div>
+
+      <div style="text-align: center; background: var(--paper-dim); padding: 20px; border-radius: 8px; border: 1px dashed var(--marigold);">
+        <h4 style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--clay); text-transform:uppercase; margin-bottom:12px;">Scan QR Code or Pay Direct</h4>
+        
+        <img src="qr-code.png" alt="Scan to Donate QR Code" style="max-width: 180px; width: 100%; height: auto; margin: 0 auto 16px auto; border-radius: 6px;" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'180\' height=\'180\'><rect width=\'100%\' height=\'100%\' fill=\'%23ddd\'/><text x=\'50%\' y=\'50%\' font-size=\'13\' fill=\'%23666\' dominant-baseline=\'middle\' text-anchor=\'middle\'>Upload QR Code</text></svg>'">
+        
+        <a href="upi://pay?pa=8972217940m@pnb&pn=DihibaliharpurTarunSangha&cu=INR" style="display: inline-block; width: 100%; max-width: 260px; padding: 12px 20px; background: #27ae60; color: #fff; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; border-radius: 24px; box-shadow: 0 4px 12px rgba(39,174,96,0.3); transition: transform 0.2s;">
+          ⚡ PAY NOW (UPI)
+        </a>
+        <span style="display: block; font-size: 11px; color: #7a7260; margin-top: 8px;">Tap to open Google Pay, PhonePe, Paytm or any UPI app</span>
+      </div>
+    </div>
+
   </main>
 </div>
 
@@ -1122,31 +1298,23 @@
       <div class="card contact-card"><div class="c-icon">⚑</div><div class="c-lbl">Registered Office</div><div class="c-val">Dihibaliharpur, P.O. &amp; P.S. Daspur, Paschim Medinipur, West Bengal 721211</div></div>
     </div>
 
-    <div class="section-head" style="margin-top:40px;"><h2>Raise a Query</h2><span class="tag">Security Verified</span></div>
+    <div class="section-head" style="margin-top:40px;"><h2>Raise a Query</h2><span class="tag">We'll reply by email</span></div>
     <div class="card" style="max-width:520px;">
-      <form id="queryForm" action="[https://formspree.io/f/xgogkbkr](https://formspree.io/f/xgogkbkr)" method="POST">
+      <form id="queryForm" action="https://formspree.io/f/xgogkbkr" method="POST">
         <div style="margin-bottom:14px;">
           <label style="font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:#7a7260; display:block; margin-bottom:6px;">Your Name</label>
-          <input type="text" name="name" required style="width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:6px;">
+          <input type="text" name="name" required style="width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:6px; font-family:'Work Sans',sans-serif; font-size:13.5px;">
         </div>
         <div style="margin-bottom:14px;">
           <label style="font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:#7a7260; display:block; margin-bottom:6px;">Your Email or Phone</label>
-          <input type="text" name="contact" required style="width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:6px;">
+          <input type="text" name="contact" required style="width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:6px; font-family:'Work Sans',sans-serif; font-size:13.5px;">
         </div>
         <div style="margin-bottom:16px;">
           <label style="font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:#7a7260; display:block; margin-bottom:6px;">Your Query</label>
-          <textarea name="message" required rows="4" style="width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:6px; resize:vertical;"></textarea>
+          <textarea name="message" required rows="4" style="width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:6px; font-family:'Work Sans',sans-serif; font-size:13.5px; resize:vertical;"></textarea>
         </div>
-        <div class="mag-form-row" style="background: var(--paper-dim); padding: 12px; border-radius: 6px; margin-bottom: 14px;">
-          <label style="font-weight: 600; color: var(--indigo); margin-bottom: 6px; display: block; font-size: 11px; text-transform: uppercase;">Security Verification</label>
-          <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 8px;">
-            <div id="captchaBox" style="background: #1B2A4A; color: #E0A233; font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: bold; letter-spacing: 4px; padding: 6px 12px; border-radius: 6px; user-select: none; text-align: center; flex-grow: 1;">ABC12</div>
-            <button type="button" onclick="refreshCaptcha()" style="background: var(--marigold); color: var(--indigo); border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-family: 'JetBrains Mono', monospace; font-size: 11px;">🔄 Refresh</button>
-          </div>
-          <input type="text" id="captchaInput" required placeholder="Enter code" style="width: 100%; padding: 8px 12px; border: 1px solid var(--line); border-radius: 6px; font-family: 'JetBrains Mono', monospace;">
-        </div>
-        <button type="submit" id="queryBtn" style="padding:10px 22px; background:var(--sindoor); color:var(--paper); border:none; border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:13px; cursor:pointer;">SEND QUERY</button>
-        <div id="queryStatus" style="display:none; margin-top:14px; padding:12px; border-radius:6px; font-size:13px;"></div>
+        <button type="submit" id="queryBtn" style="padding:10px 22px; background:var(--sindoor); color:var(--paper); border:none; border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:13px; cursor:pointer; letter-spacing:.04em;">SEND QUERY</button>
+        <div id="queryStatus" style="display:none; margin-top:14px; padding:12px 14px; border-radius:6px; font-size:13px;"></div>
       </form>
     </div>
   </main>
@@ -1154,6 +1322,7 @@
 
 <div class="alpona-rule alpona-gold"></div>
 
+<!-- Professional Club Footer Section -->
 <div class="fout">
   <div class="fin">
     <div class="fmenu">
@@ -1193,30 +1362,39 @@
 <div class="fcopy">
   <div class="fcopy-wrap">
     <div><b>Dihibaliharpur Tarun Sangha</b> &nbsp;·&nbsp; Reg. No. S0034236 &nbsp;·&nbsp; Dihibaliharpur, Daspur, Paschim Medinipur, West Bengal 721211</div>
-    <div style="margin-top:6px;">Mo: <b>7001883623</b> &nbsp;·&nbsp; Email: <b>tarunsangha.dihibaliharpur@gmail.com</b></div>
+    <div style="margin-top:6px;">
+      Mo: <b>7001883623</b> &nbsp;·&nbsp; 
+      Email: <b>tarunsangha.dihibaliharpur@gmail.com</b> &nbsp;·&nbsp; 
+      Website: <b>https://arindamghatakmail-byte.github.io/dts.com/</b>
+    </div>
+    <div style="margin-top:6px;">
+      Facebook <a href="https://www.facebook.com/share/1Cz53TYhQg/" target="_blank" style="display:inline-block; vertical-align:middle; margin-left:2px; text-decoration:none !important;"><img src="https://www.thebengalclub.com/wp-content/themes/tbc/images/f.png" alt="Facebook" style="width:16px; height:16px;"></a>
+    </div>
     <div style="display:flex; justify-content:center; align-items:center; gap:20px; font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:.08em; color:rgba(247,241,227,0.5); width:100%; margin-top:10px; flex-wrap:wrap;">
       <span>Total Visitors: <b id="visitorCount" style="color:var(--marigold); font-size:12px;">...</b></span>
+      <span>Site designed and controlled by <b style="color:rgba(247,241,227,0.85);">Admin</b></span>
     </div>
   </div>
 </div>
 
 <div id="lightbox" onclick="closeLightbox()"><img id="lightboxImg" src="" alt=""></div>
 
-<script src="[https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2](https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2)"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
   const GITHUB_OWNER = 'arindamghatakmail-byte';
   const GITHUB_REPO = 'dts.com';
   const GITHUB_IMAGES_PATH = 'images';
 
-  const SUPABASE_URL = '[https://gnxptgaaoxljygnidjwg.supabase.co](https://gnxptgaaoxljygnidjwg.supabase.co)'; 
+  const SUPABASE_URL = 'https://gnxptgaaoxljygnidjwg.supabase.co'; 
   const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdueHB0Z2Fhb3hsanlnbmlkandnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ5ODE2MzUsImV4cCI6MjEwMDU1NzYzNX0.FzxWzLiah4gexcvSL43PnN3LLIPWL3E-Fmtwqkb6le8';
   const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
   var quill;
   let IMAGE_DATA = [];
   let INTERNAL_PHOTO_DATA = [];
-  let generatedCaptcha = '';
+  let slideIndex = 1;
+  let slideTimer;
 
   document.addEventListener("DOMContentLoaded", function() {
     if (document.getElementById('quillEditor')) {
@@ -1235,34 +1413,28 @@
       });
     }
 
-    refreshCaptcha();
-    loadPublicMembers();
-    loadNotices();
-
     const hash = window.location.hash.replace('#', '');
     const validPages = ['home', 'aim', 'members', 'finances', 'events', 'activities', 'gallery', 'magazine', 'members-only', 'admin', 'join', 'contact'];
+    
     if (hash && validPages.includes(hash)) {
-      showPage(hash, false);
+      showPage(hash, false); 
+      window.history.replaceState({ page: hash }, "", "#" + hash);
     } else {
       window.history.replaceState({ page: 'home' }, "", window.location.pathname);
     }
 
-    fetch('[https://api.counterapi.dev/v1/dts_tarun_sangha/homepage_visits/up](https://api.counterapi.dev/v1/dts_tarun_sangha/homepage_visits/up)')
-      .then(res => res.json())
-      .then(data => { document.getElementById('visitorCount').innerText = data.count + 104; })
-      .catch(err => { document.getElementById('visitorCount').innerText = "105+"; });
-  });
+    loadPublicMembers();
+    loadNotices();
 
-  function refreshCaptcha() {
-    const chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    let captcha = "";
-    for (let i = 0; i < 5; i++) {
-      captcha += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    generatedCaptcha = captcha;
-    const box = document.getElementById('captchaBox');
-    if (box) box.textContent = generatedCaptcha;
-  }
+    fetch('https://api.counterapi.dev/v1/dts_tarun_sangha/homepage_visits/up')
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('visitorCount').innerText = data.count + 104;
+      })
+      .catch(err => {
+        document.getElementById('visitorCount').innerText = "105+";
+      });
+  });
 
   function toggleMobileNav(){
     document.getElementById('navTabs').classList.toggle('open');
@@ -1284,6 +1456,7 @@
     window.scrollTo({top:0, behavior:'smooth'});
     closeMobileNav();
 
+    if(name==='finances' && !window.__chartsInit){ initCharts(); window.__chartsInit = true; }
     if(name==='magazine'){ loadMagazine(); }
     if(name==='members'){ loadPublicMembers(); }
     if(name==='members-only'){
@@ -1304,28 +1477,57 @@
     }
   }
 
+  window.addEventListener('popstate', function(event) {
+    if (event.state && event.state.page) {
+      showPage(event.state.page, false); 
+    } else {
+      showPage('home', false); 
+    }
+  });
+
+  // Member Portal Sub-tab switching inside Members Login
   function switchMemberTab(panelId, event) {
     document.querySelectorAll('.member-portal-panel').forEach(p => p.style.display = 'none');
     document.querySelectorAll('#page-members-only .yr-tab').forEach(t => t.classList.remove('active'));
+    
     document.getElementById(panelId).style.display = 'block';
     if(event && event.target) event.target.classList.add('active');
 
-    if (panelId === 'portal-magazine') loadMemberMagazineManager();
-    if (panelId === 'portal-members-dir') loadMemberLoginMembers();
-    if (panelId === 'portal-fees') loadMemberFees();
+    if (panelId === 'portal-magazine') {
+      loadMemberMagazineManager();
+    }
+    if (panelId === 'portal-members-dir') {
+      loadMemberLoginMembers();
+    }
   }
 
+  // Admin Portal Sub-tab switching inside Admin Dashboard
   function switchAdminTab(panelId, event) {
     document.querySelectorAll('.admin-portal-panel').forEach(p => p.style.display = 'none');
     document.querySelectorAll('#page-admin .yr-tab').forEach(t => t.classList.remove('active'));
+    
     document.getElementById(panelId).style.display = 'block';
     if(event && event.target) event.target.classList.add('active');
 
-    if (panelId === 'admin-tab-members') loadAdminMembers();
-    if (panelId === 'admin-tab-notices') loadNotices();
-    if (panelId === 'admin-tab-media') loadAdminFiles();
-    if (panelId === 'admin-tab-fees') loadAdminFeeFormAndList();
+    if (panelId === 'admin-tab-members') {
+      loadAdminMembers();
+    }
+    if (panelId === 'admin-tab-notices') {
+      loadNotices();
+    }
+    if (panelId === 'admin-tab-media') {
+      loadAdminFiles();
+    }
   }
+
+  const IMAGE_CAPTIONS = {
+    'krishna.jpg':     { title: 'Krishna, Flute in Hand', quote: 'Dancing beneath a peacock feather sky.' },
+    'chandrayaan.jpg': { title: 'Chandrayaan-3', quote: 'A rocket bound for the moon, drawn for National Moon Day.' },
+    'trishul.jpg':     { title: "The Trishul of Maa Durga", quote: 'Finished in a hand-drawn mandala.' },
+    'village.jpg':     { title: 'Our Village', quote: 'Home — the huts, the trees, and the path that leads back to them.' },
+    'durgaface.jpg':   { title: 'Maa Durga', quote: 'The fierce, watchful gaze of the goddess.' },
+    'portrait.jpg':    { title: 'A Quiet Study', quote: 'A graphite portrait, drawn with a steady hand.', by: 'Anya Sudha Bora' }
+  };
 
   function formatImageTitle(filename){
     let name = filename.replace(/\.(jpg|jpeg|png|webp|gif)$/i, '').replace(/[-_]+/g, ' ');
@@ -1339,20 +1541,21 @@
   }
   function closeLightbox(){ document.getElementById('lightbox').classList.remove('active'); }
 
-  let slideIndex = 1;
-  let slideTimer;
-
   function renderSlideshow(images) {
     const container = document.getElementById('homeSlideshow');
     const dotsContainer = document.getElementById('homeSlideshowDots');
+    
     if (!container) return;
     if (!images || images.length === 0) {
       container.innerHTML = '<p style="padding:20px; color:rgba(255,255,255,0.5); text-align:center;">No photos uploaded yet.</p>';
       return;
     }
+
     let slidesHTML = '';
     let dotsHTML = '';
-    images.forEach((img, idx) => {
+    const slideImages = images.slice(0, 14);
+    
+    slideImages.forEach((img, idx) => {
       slidesHTML += `
         <div class="slide fade-anim" onclick="openLightbox(${idx})">
           <img src="${img.url}" alt="${img.title}">
@@ -1361,12 +1564,15 @@
       `;
       dotsHTML += `<span class="dot" onclick="currentSlide(${idx + 1})"></span>`;
     });
+
     slidesHTML += `
       <a class="slide-arrow prev" onclick="changeSlide(-1, event)">&#10094;</a>
       <a class="slide-arrow next" onclick="changeSlide(1, event)">&#10095;</a>
     `;
+
     container.innerHTML = slidesHTML;
     dotsContainer.innerHTML = dotsHTML;
+
     showSlides(slideIndex);
     startSlideTimer();
   }
@@ -1376,61 +1582,76 @@
     showSlides(slideIndex += n);
     resetSlideTimer();
   }
+
   function currentSlide(n) {
     showSlides(slideIndex = n);
     resetSlideTimer();
   }
+
   function showSlides(n) {
     let slides = document.getElementsByClassName("slide");
     let dots = document.getElementsByClassName("dot");
     if (!slides.length) return;
-    if (n > slides.length) slideIndex = 1;
-    if (n < 1) slideIndex = slides.length;
-    for (let i = 0; i < slides.length; i++) slides[i].style.display = "none";
-    for (let i = 0; i < dots.length; i++) dots[i].className = dots[i].className.replace(" active", "");
-    if(slides[slideIndex-1]) slides[slideIndex-1].style.display = "block";
+    if (n > slides.length) {slideIndex = 1}
+    if (n < 1) {slideIndex = slides.length}
+    for (let i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }
+    for (let i = 0; i < dots.length; i++) { dots[i].className = dots[i].className.replace(" active", ""); }
+    slides[slideIndex-1].style.display = "block";
     if(dots[slideIndex-1]) dots[slideIndex-1].className += " active";
   }
-  function startSlideTimer() { slideTimer = setInterval(function(){ changeSlide(1) }, 4000); }
-  function resetSlideTimer() { clearInterval(slideTimer); startSlideTimer(); }
+
+  function startSlideTimer() {
+    slideTimer = setInterval(function(){ changeSlide(1) }, 4000);
+  }
+  function resetSlideTimer() {
+    clearInterval(slideTimer);
+    startSlideTimer();
+  }
 
   async function loadImages(){
     const galleryGrid = document.getElementById('galleryArtGrid');
     try {
-      let allImages = [];
-      try {
-        const { data: sbFiles, error } = await supabaseClient.storage.from('club_files').list('internal-photos', { limit: 100, sortBy: { column: 'created_at', order: 'desc' } });
-        if (!error && sbFiles) {
-          const sbImages = sbFiles.filter(file => file.name.match(/\.(jpeg|jpg|gif|png|webp)$/i));
-          const formattedSb = sbImages.map(img => {
-            const { data: publicUrlData } = supabaseClient.storage.from('club_files').getPublicUrl('internal-photos/' + img.name);
-            return { url: publicUrlData.publicUrl, title: formatImageTitle(img.name), by: 'Member Upload' };
-          });
-          allImages = [...allImages, ...formattedSb];
-        }
-      } catch (e) {}
-
-      if (allImages.length === 0) {
+      const res = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_IMAGES_PATH}`);
+      if (!res.ok) throw new Error('GitHub API request failed');
+      const files = await res.json();
+      const imgFiles = Array.isArray(files) ? files.filter(f => /\.(jpe?g|png|webp|gif)$/i.test(f.name)) : [];
+      if (imgFiles.length === 0) {
         if (galleryGrid) galleryGrid.innerHTML = '<p style="font-size:13px; color:#9a927c;">No photos uploaded yet.</p>';
         return;
       }
-      IMAGE_DATA = allImages;
+      imgFiles.sort((a, b) => a.name.localeCompare(b.name));
+      IMAGE_DATA = imgFiles.map(f => {
+        const known = IMAGE_CAPTIONS[f.name.toLowerCase()];
+        return {
+          url: f.download_url,
+          title: known ? known.title : formatImageTitle(f.name),
+          quote: known ? known.quote : null,
+          by: known ? known.by : null
+        };
+      });
+
       renderSlideshow(IMAGE_DATA);
+      
       if (galleryGrid) {
         galleryGrid.innerHTML = IMAGE_DATA.map((img, i) => `
           <div class="art-frame" onclick="openLightbox(${i})">
             <div class="ph-wrap"><img src="${img.url}" alt="${img.title}"></div>
             <div class="art-cap">
               <h4>${img.title}</h4>
+              ${img.quote ? `<p>"${img.quote}"</p>` : ''}
               ${img.by ? `<span class="by">By ${img.by}</span>` : ''}
             </div>
           </div>
         `).join('');
       }
-    } catch (err) {}
+    } catch (err) {
+      if (document.getElementById('homeSlideshow')) document.getElementById('homeSlideshow').innerHTML = '<p style="padding:20px; color:rgba(255,255,255,0.5); text-align:center;">Couldn\'t load photos right now — please refresh.</p>';
+      if (galleryGrid) galleryGrid.innerHTML = '<p style="font-size:13px; color:#9a927c;">Couldn\'t load gallery right now — please refresh.</p>';
+    }
   }
   loadImages();
 
+  // --- PUBLIC MEMBERS DIRECTORY (Name & Designation Only) ---
   async function loadPublicMembers() {
     const tbody = document.getElementById('publicMembersTableBody');
     if (!tbody) return;
@@ -1447,9 +1668,13 @@
           <td class="role">${escapeHtml(m.designation)}</td>
         </tr>
       `).join('');
-    } catch (err) {}
+    } catch (err) {
+      console.error(err);
+      tbody.innerHTML = '<tr><td colspan="2" style="text-align:center; color:var(--sindoor);">Could not load members directory.</td></tr>';
+    }
   }
 
+  // --- MEMBER LOGIN FULL MEMBERS DIRECTORY (Current Members Tab) ---
   async function loadMemberLoginMembers() {
     const tbody = document.getElementById('memberLoginTableBody');
     if (!tbody) return;
@@ -1470,7 +1695,9 @@
           <td><a href="tel:${escapeHtml(m.phone || '')}" style="color:var(--indigo); text-decoration:none;">${escapeHtml(m.phone || '')}</a></td>
         </tr>
       `).join('');
-    } catch (err) {}
+    } catch (err) {
+      tbody.innerHTML = '<tr><td colspan="6" style="color:var(--sindoor);">Error loading members.</td></tr>';
+    }
   }
 
   async function loadAdminMembers() {
@@ -1493,7 +1720,9 @@
           </td>
         </tr>
       `).join('');
-    } catch (err) {}
+    } catch (err) {
+      tbody.innerHTML = '<tr><td colspan="3" style="color:var(--sindoor);">Error loading members.</td></tr>';
+    }
   }
 
   function editMember(id, name, designation, address, occupation, dob, phone) {
@@ -1527,9 +1756,19 @@
     const name = document.getElementById('memberName').value.trim();
     const address = document.getElementById('memberAddress').value.trim();
     const designation = document.getElementById('memberDesignation').value.trim();
-    let occupation = document.getElementById('memberOccupation').value.trim() || null;
-    let dob = document.getElementById('memberDob').value.trim() || null;
-    let phone = document.getElementById('memberPhone').value.trim() || null;
+    
+    let occupation = document.getElementById('memberOccupation').value.trim();
+    let dob = document.getElementById('memberDob').value.trim();
+    let phone = document.getElementById('memberPhone').value.trim();
+
+    occupation = occupation !== '' ? occupation : null;
+    dob = dob !== '' ? dob : null;
+    phone = phone !== '' ? phone : null;
+
+    const btn = document.getElementById('memberSaveBtn');
+    const origText = btn.textContent;
+    btn.textContent = "SAVING...";
+    btn.disabled = true;
 
     try {
       if (id) {
@@ -1546,6 +1785,9 @@
       loadPublicMembers();
     } catch (err) {
       alert("Error saving member: " + err.message);
+    } finally {
+      btn.textContent = origText;
+      btn.disabled = false;
     }
   }
 
@@ -1558,94 +1800,7 @@
       loadAdminMembers();
       loadPublicMembers();
     } catch (err) {
-      alert("Error: " + err.message);
-    }
-  }
-
-  // --- Membership Fees Management (FY 26-27) ---
-  async function loadAdminFeeFormAndList() {
-    const select = document.getElementById('feeMemberSelect');
-    const tbody = document.getElementById('adminFeesTableBody');
-    if (!select || !tbody) return;
-
-    try {
-      // Load members for dropdown
-      const { data: members, error: memErr } = await supabaseClient.from('members_directory').select('id, name').order('name');
-      if (memErr) throw memErr;
-      select.innerHTML = '<option value="">Select a member</option>' + (members || []).map(m => `<option value="${m.id}">${escapeHtml(m.name)}</option>`).join('');
-
-      // Load recorded fees
-      const { data: fees, error: feeErr } = await supabaseClient.from('member_donations').select('*').order('created_at', { ascending: false });
-      if (feeErr) throw feeErr;
-
-      if (!fees || fees.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; color:#9a927c;">No membership donations recorded yet for FY 26-27.</td></tr>';
-      } else {
-        tbody.innerHTML = fees.map(f => `
-          <tr>
-            <td><strong>${escapeHtml(f.member_name)}</strong></td>
-            <td>${escapeHtml(f.month_year)}</td>
-            <td>₹${f.amount}</td>
-            <td><button onclick="deleteFeeRecord(${f.id})" style="background:var(--sindoor); color:#fff; border:none; padding:4px 8px; border-radius:4px; font-size:11px; cursor:pointer;">Delete</button></td>
-          </tr>
-        `).join('');
-      }
-    } catch (err) {
-      tbody.innerHTML = '<tr><td colspan="4" style="color:var(--sindoor);">Error loading fee records. Make sure the SQL table is created.</td></tr>';
-    }
-  }
-
-  async function handleFeeRecordSave(event) {
-    event.preventDefault();
-    const select = document.getElementById('feeMemberSelect');
-    const memberId = select.value;
-    const memberName = select.options[select.selectedIndex].text;
-    const monthYear = document.getElementById('feeMonthSelect').value;
-    const amount = parseFloat(document.getElementById('feeAmountInput').value);
-
-    try {
-      const { error } = await supabaseClient.from('member_donations').insert([{ member_id: memberId, member_name: memberName, month_year: monthYear, amount: amount, status: 'Paid' }]);
-      if (error) throw error;
-      alert("Membership donation recorded successfully!");
-      document.getElementById('feeAmountInput').value = '';
-      loadAdminFeeFormAndList();
-    } catch (err) {
-      alert("Error recording donation: " + err.message);
-    }
-  }
-
-  async function deleteFeeRecord(id) {
-    if (!confirm("Delete this fee record?")) return;
-    try {
-      const { error } = await supabaseClient.from('member_donations').delete().eq('id', id);
-      if (error) throw error;
-      loadAdminFeeFormAndList();
-    } catch (err) {
-      alert("Error deleting record: " + err.message);
-    }
-  }
-
-  async function loadMemberFees() {
-    const tbody = document.getElementById('memberFeesTableBody');
-    if (!tbody) return;
-    try {
-      const { data, error } = await supabaseClient.from('member_donations').select('*').order('created_at', { ascending: false });
-      if (error) throw error;
-      if (!data || data.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#9a927c;">No membership donations recorded for FY 2026–27.</td></tr>';
-        return;
-      }
-      tbody.innerHTML = data.map(f => `
-        <tr>
-          <td><strong>${escapeHtml(f.member_name)}</strong></td>
-          <td>${escapeHtml(f.month_year)}</td>
-          <td>₹${f.amount}</td>
-          <td><span style="color:var(--leaf); font-weight:600;">${escapeHtml(f.status)}</span></td>
-          <td>${new Date(f.created_at).toLocaleDateString('en-GB')}</td>
-        </tr>
-      `).join('');
-    } catch (err) {
-      tbody.innerHTML = '<tr><td colspan="5" style="color:var(--sindoor);">Error loading member fees.</td></tr>';
+      alert("Error deleting member: " + err.message);
     }
   }
 
@@ -1655,53 +1810,94 @@
     if (!docContainer || !photoContainer) return;
 
     try {
-      const { data: docFiles } = await supabaseClient.storage.from('club_files').list('documents');
-      docContainer.innerHTML = (!docFiles || docFiles.length === 0) ? '<p style="font-size:12px; color:#9a927c;">No documents uploaded.</p>' : docFiles.map(f => `
-        <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 10px; background:var(--paper-dim); border-radius:6px; margin-bottom:6px;">
-          <span style="font-size:13px; word-break:break-all;">📄 ${escapeHtml(f.name)}</span>
-          <button onclick="deleteStorageFile('documents/${f.name}')" style="background:var(--sindoor); color:#fff; border:none; padding:4px 8px; border-radius:4px; font-size:11px; cursor:pointer;">Delete</button>
-        </div>
-      `).join('');
+      const { data: docFiles, error: docErr } = await supabaseClient.storage.from('club_files').list('documents');
+      if (docErr) throw docErr;
 
-      const { data: photoFiles } = await supabaseClient.storage.from('club_files').list('internal-photos');
-      photoContainer.innerHTML = (!photoFiles || photoFiles.length === 0) ? '<p style="font-size:12px; color:#9a927c;">No internal photos uploaded.</p>' : photoFiles.map(f => `
-        <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 10px; background:var(--paper-dim); border-radius:6px; margin-bottom:6px;">
-          <span style="font-size:13px; word-break:break-all;">🖼️ ${escapeHtml(f.name)}</span>
-          <button onclick="deleteStorageFile('internal-photos/${f.name}')" style="background:var(--sindoor); color:#fff; border:none; padding:4px 8px; border-radius:4px; font-size:11px; cursor:pointer;">Delete</button>
-        </div>
-      `).join('');
-    } catch (err) {}
+      if (!docFiles || docFiles.length === 0) {
+        docContainer.innerHTML = '<p style="font-size:12px; color:#9a927c;">No documents uploaded.</p>';
+      } else {
+        docContainer.innerHTML = docFiles.map(f => `
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 10px; background:var(--paper-dim); border-radius:6px; margin-bottom:6px;">
+            <span style="font-size:13px; word-break:break-all;">📄 ${escapeHtml(f.name)}</span>
+            <button onclick="deleteStorageFile('documents/${f.name}')" style="background:var(--sindoor); color:#fff; border:none; padding:4px 8px; border-radius:4px; font-size:11px; cursor:pointer;">Delete</button>
+          </div>
+        `).join('');
+      }
+
+      const { data: photoFiles, error: photoErr } = await supabaseClient.storage.from('club_files').list('internal-photos');
+      if (photoErr) throw photoErr;
+
+      if (!photoFiles || photoFiles.length === 0) {
+        photoContainer.innerHTML = '<p style="font-size:12px; color:#9a927c;">No internal photos uploaded.</p>';
+      } else {
+        photoContainer.innerHTML = photoFiles.map(f => `
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 10px; background:var(--paper-dim); border-radius:6px; margin-bottom:6px;">
+            <span style="font-size:13px; word-break:break-all;">🖼️ ${escapeHtml(f.name)}</span>
+            <button onclick="deleteStorageFile('internal-photos/${f.name}')" style="background:var(--sindoor); color:#fff; border:none; padding:4px 8px; border-radius:4px; font-size:11px; cursor:pointer;">Delete</button>
+          </div>
+        `).join('');
+      }
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   async function deleteStorageFile(filePath) {
-    if (!confirm("Delete this file?")) return;
+    if (!confirm("Are you sure you want to delete this file?")) return;
     try {
       const { error } = await supabaseClient.storage.from('club_files').remove([filePath]);
       if (error) throw error;
+      alert("File deleted successfully!");
       loadAdminFiles();
-      loadImages();
+      if (typeof loadDocuments === 'function') loadDocuments();
+      if (typeof loadInternalPhotos === 'function') loadInternalPhotos();
     } catch (err) {
-      alert("Error: " + err.message);
+      alert("Error deleting file: " + err.message);
     }
   }
 
   async function loadNotices(){
     const containers = [document.getElementById('noticeList'), document.getElementById('adminNoticeList')];
     try {
-      const { data: dbNotices } = await supabaseClient.from('notices').select('*').order('created_at', { ascending: false });
-      const oldNotices = [{ date: "04.07.2026", text: "New Elected Executive Committee, w.e.f. 04.07.2026" }];
+      const { data: dbNotices, error } = await supabaseClient
+        .from('notices')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+
+      const oldNotices = [
+        { date: "04.07.2026", text: "New Elected Executive Committee, w.e.f. 04.07.2026" },
+        { date: "FY 2025–26", text: "Clubhouse wants to raise a Library Building Fund" },
+        { date: "2026", text: "Kobi Pronam – 2026 celebrated with a cultural programme" },
+        { date: "2026", text: "Basanta Utsav 2026 celebrated with colour and music" },
+        { date: "2025", text: "Organisation successfully celebrated Durga Pujo 2025" },
+        { date: "2025", text: "Blood Donation Camp organised successfully" }
+      ];
+
       const allNotices = [...(dbNotices || []), ...oldNotices];
+      
       containers.forEach(container => {
         if (!container) return;
+        if (!Array.isArray(allNotices) || allNotices.length === 0) {
+          container.innerHTML = '<div class="notice-item"><div class="notice-text">No notices yet.</div></div>';
+          return;
+        }
+        
         const itemsHtml = allNotices.map((n, i) => `
           <div class="notice-item">
             ${i === 0 ? '<span class="notice-pill">NEW</span>' : ''}
             <div class="notice-date">${escapeHtml(n.date || '')}</div>
             <div class="notice-text">${escapeHtml(n.text || '')}</div>
           </div>`).join('');
+          
         container.innerHTML = itemsHtml + itemsHtml;
       });
-    } catch (err) {}
+    } catch (err) {
+      containers.forEach(container => {
+        if (container) container.innerHTML = '<div class="notice-item"><div class="notice-text">Couldn\'t load notices — please refresh.</div></div>';
+      });
+    }
   }
 
   function escapeHtml(str){
@@ -1714,34 +1910,74 @@
     const container = document.getElementById('magazineList');
     if (!container) return;
     try {
-      const { data: sbPosts } = await supabaseClient.from('magazine_posts').select('*').order('created_at', { ascending: false });
-      if (!sbPosts || sbPosts.length === 0) {
-        container.innerHTML = '<p style="font-size:13px; color:#9a927c;">No posts published yet.</p>';
+      let allPosts = [];
+      try {
+        const { data: sbPosts, error } = await supabaseClient
+          .from('magazine_posts')
+          .select('*')
+          .order('created_at', { ascending: false });
+        if (!error && sbPosts) allPosts = [...allPosts, ...sbPosts];
+      } catch (sbErr) {}
+
+      try {
+        const res = await fetch('magazine.json');
+        if (res.ok) {
+          const ghPosts = await res.json();
+          if (Array.isArray(ghPosts)) allPosts = [...allPosts, ...ghPosts];
+        }
+      } catch (ghErr) {}
+
+      if (allPosts.length === 0) {
+        container.innerHTML = '<p style="font-size:13px; color:#9a927c;">No posts published yet — check back soon.</p>';
         return;
       }
-      container.innerHTML = sbPosts.map(p => `
-        <div class="magazine-post">
-          <div class="mp-meta"><span class="mp-cat">${escapeHtml(p.category)}</span><span class="mp-date">${escapeHtml(p.date)}</span></div>
-          <h3>${escapeHtml(p.title)}</h3>
-          <div class="mp-author">By ${escapeHtml(p.author)}, ${escapeHtml(p.designation)}</div>
-          <div class="mp-body">${p.content}</div>
-        </div>
-      `).join('');
-    } catch (err) {}
+      
+      container.innerHTML = allPosts.map(p => {
+        let authorText = escapeHtml(p.author || 'Anonymous');
+        if (p.designation && p.designation.trim() !== '') {
+          authorText += `, ${escapeHtml(p.designation)}`;
+        }
+        return `
+          <div class="magazine-post">
+            <div class="mp-meta">
+              <span class="mp-cat">${escapeHtml(p.category || 'Writing')}</span>
+              <span class="mp-date">${escapeHtml(p.date || '')}</span>
+            </div>
+            <h3>${escapeHtml(p.title || 'Untitled')}</h3>
+            <div class="mp-author">By ${authorText}</div>
+            <div class="mp-body" style="font-family:'Work Sans',sans-serif;">${p.content || ''}</div>
+          </div>
+        `;
+      }).join('');
+    } catch (err) {
+      container.innerHTML = '<p style="font-size:13px; color:#9a927c;">Couldn\'t load posts right now — please refresh.</p>';
+    }
   }
 
   async function loadMemberMagazineManager() {
     const container = document.getElementById('memberMagazineManagerList');
     if (!container) return;
     try {
-      const { data } = await supabaseClient.from('magazine_posts').select('*').order('created_at', { ascending: false });
-      container.innerHTML = (!data || data.length === 0) ? '<p style="font-size:13px; color:#9a927c;">No posts found.</p>' : data.map(p => `
+      const { data, error } = await supabaseClient
+        .from('magazine_posts')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      if (!data || data.length === 0) {
+        container.innerHTML = '<p style="font-size:13px; color:#9a927c;">No magazine posts found.</p>';
+        return;
+      }
+
+      container.innerHTML = data.map(p => `
         <div style="background:var(--paper-dim); padding:12px 16px; border-radius:8px;">
           <strong style="font-size:14px; color:var(--indigo);">${escapeHtml(p.title)}</strong>
-          <div style="font-size:12px; color:#7a7260;">By ${escapeHtml(p.author)} &middot; ${escapeHtml(p.date)}</div>
+          <div style="font-size:12px; color:#7a7260;">By ${escapeHtml(p.author)} &middot; ${escapeHtml(p.date || '')}</div>
         </div>
       `).join('');
-    } catch (err) {}
+    } catch (err) {
+      container.innerHTML = '<p style="font-size:13px; color:var(--sindoor);">Error loading posts.</p>';
+    }
   }
 
   async function submitMagazinePost(event) {
@@ -1749,29 +1985,50 @@
     const form = event.target;
     const btn = document.getElementById('magazineBtn');
     const status = document.getElementById('magazineStatus');
-    const content = quill ? quill.root.innerHTML : form.content.value;
+    const richTextContent = quill ? quill.root.innerHTML : form.content.value;
     
+    if (quill && quill.getText().trim().length === 0) {
+      alert("Please write something in the editor before publishing.");
+      return;
+    }
+
+    const originalBtnText = btn.textContent;
     btn.textContent = 'PUBLISHING...';
     btn.disabled = true;
+    status.style.display = 'none';
+
+    const today = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
 
     try {
-      const today = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
-      const { error } = await supabaseClient.from('magazine_posts').insert([{ author: form.author.value, title: form.title.value, category: form.category.value, designation: form.designation.value, content: content, date: today }]);
+      const { error } = await supabaseClient
+        .from('magazine_posts')
+        .insert([{ 
+          author: form.author.value, 
+          title: form.title.value, 
+          category: form.category.value,
+          designation: form.designation.value,
+          content: richTextContent,
+          date: today
+        }]);
+
       if (error) throw error;
+
       status.style.display = 'block';
       status.style.background = 'rgba(51,85,63,0.12)';
       status.style.color = 'var(--leaf)';
-      status.textContent = "Successfully published!";
+      status.textContent = "Successfully published! Check the Bibhas tab.";
+      
       form.reset();
-      if (quill) quill.setContents([]);
-      loadMagazine();
+      if (quill) quill.setContents([]); 
+      loadMagazine(); 
+      loadMemberMagazineManager();
     } catch (err) {
       status.style.display = 'block';
       status.style.background = 'rgba(181,41,46,0.12)';
       status.style.color = 'var(--sindoor)';
-      status.textContent = "Error publishing post.";
+      status.textContent = "Error publishing post. Please check your database permissions.";
     } finally {
-      btn.textContent = 'PUBLISH TO BIBHAS';
+      btn.textContent = originalBtnText;
       btn.disabled = false;
     }
   }
@@ -1780,44 +2037,80 @@
     const email = document.getElementById('memberEmail').value.trim();
     const password = document.getElementById('memberPassword').value;
     const errorDiv = document.getElementById('loginError');
-    if (!password) { errorDiv.textContent = 'Enter password.'; errorDiv.style.display = 'block'; return; }
+    const btn = document.querySelector('#loginGate button');
+    
+    errorDiv.style.display = 'none';
+    if (!password) {
+      errorDiv.textContent = 'Please enter the password.';
+      errorDiv.style.display = 'block';
+      return;
+    }
 
+    const originalBtnText = btn.textContent;
+    btn.textContent = 'VERIFYING...';
+    btn.disabled = true;
+    
     try {
-      const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+      const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
       if (error) throw error;
+      
       document.getElementById('loginGate').style.display = 'none';
       document.getElementById('membersContent').style.display = 'block';
+      loadDocuments();
       loadNotices();
+      loadMinutes();
+      loadInternalPhotos();
       loadMemberLoginMembers();
-      loadMemberFees();
     } catch (err) {
       errorDiv.textContent = "Error: " + err.message;
       errorDiv.style.display = 'block';
+    } finally {
+      btn.textContent = originalBtnText;
+      btn.disabled = false;
     }
   }
-
+  
   async function checkAdminPassword() {
     const email = document.getElementById('adminEmail').value;
     const password = document.getElementById('adminPassword').value;
     const errorDiv = document.getElementById('adminLoginError');
-    if (!password) { errorDiv.textContent = 'Enter admin password.'; errorDiv.style.display = 'block'; return; }
+    const btn = document.querySelector('#adminLoginGate button');
+    
+    errorDiv.style.display = 'none';
+    if (!password) {
+      errorDiv.textContent = 'Please enter the admin password.';
+      errorDiv.style.display = 'block';
+      return;
+    }
+
+    const originalBtnText = btn.textContent;
+    btn.textContent = 'VERIFYING...';
+    btn.disabled = true;
 
     try {
-      const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
-      if (error) throw error;
-      document.getElementById('adminLoginGate').style.display = 'none';
-      document.getElementById('adminContent').style.display = 'block';
-      loadAdminMembers();
-      loadNotices();
+      const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+      if (error) {
+        errorDiv.textContent = "Error: " + error.message;
+        errorDiv.style.display = 'block';
+      } else {
+        document.getElementById('adminLoginGate').style.display = 'none';
+        document.getElementById('adminContent').style.display = 'block';
+        loadAdminMembers();
+        loadNotices();
+      }
     } catch (err) {
-      errorDiv.textContent = "Error: " + err.message;
+      errorDiv.textContent = "Code Error: " + err.message;
       errorDiv.style.display = 'block';
+    } finally {
+      btn.textContent = originalBtnText;
+      btn.disabled = false;
     }
   }
 
   async function handleAdminUpload(event, type) {
     event.preventDefault();
     const btn = event.target.querySelector('button');
+    const originalBtnText = btn.textContent;
     btn.textContent = 'UPLOADING...';
     btn.disabled = true;
 
@@ -1825,53 +2118,221 @@
       if (type === 'notice') {
         const text = document.getElementById('noticeText').value;
         const today = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
-        await supabaseClient.from('notices').insert([{ text: text, date: today }]);
-        alert('Notice posted successfully!');
+        const { error } = await supabaseClient
+          .from('notices')
+          .insert([{ text: text, date: today }]);
+        if (error) throw error;
+        alert('Notice posted successfully to the member board!');
         loadNotices();
-      } else if (type === 'document' || type === 'image') {
+      } 
+      else if (type === 'document' || type === 'image') {
         const fileInput = type === 'document' ? document.getElementById('adminDoc') : document.getElementById('adminImg');
         const file = fileInput.files[0];
-        const fileName = `${Date.now()}_${file.name.replace(/[^a-zA-Z0-9]/g, '_')}`;
-        const folder = type === 'document' ? 'documents/' : 'internal-photos/';
-        await supabaseClient.storage.from('club_files').upload(`${folder}${fileName}`, file);
-        alert('Uploaded successfully!');
+        if (!file) throw new Error("No file selected.");
+
+        const fileExt = file.name.split('.').pop();
+        const safeName = file.name.replace(/[^a-zA-Z0-9]/g, '_');
+        const fileName = `${Date.now()}_${safeName}.${fileExt}`;
+        const folderPath = type === 'document' ? 'documents/' : 'internal-photos/';
+        const filePath = `${folderPath}${fileName}`;
+
+        const { error } = await supabaseClient
+          .storage
+          .from('club_files')
+          .upload(filePath, file);
+
+        if (error) throw error;
+        alert(`${type === 'document' ? 'PDF' : 'Image'} uploaded successfully!`);
         loadAdminFiles();
-        loadImages();
       }
-      event.target.reset();
+      event.target.reset(); 
     } catch (err) {
       alert(`Upload failed: ${err.message}`);
     } finally {
-      btn.textContent = 'UPLOAD';
+      btn.textContent = originalBtnText;
       btn.disabled = false;
     }
   }
 
-  const queryForm = document.getElementById('queryForm');
-  if (queryForm) {
-    queryForm.addEventListener('submit', function(e){
-      const userInput = document.getElementById('captchaInput').value.trim();
-      if (userInput !== generatedCaptcha) {
-        e.preventDefault();
-        alert("Incorrect security code. Please try again.");
-        refreshCaptcha();
-        document.getElementById('captchaInput').value = '';
+  const GITHUB_DOCS_PATH = 'documents';
+
+  function formatDocTitle(filename){
+    let name = filename.replace(/\.pdf$/i, '').replace(/[-_]+/g, ' ');
+    name = name.replace(/\b([a-zA-Z]+)(\d{2,4})?\b/g, (match, word, num) => {
+      if (/^fy$/i.test(word) && num) return 'FY ' + num;
+      if (/^fy\d{2,4}$/i.test(word)) return 'FY ' + word.slice(2);
+      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase() + (num || '');
+    });
+    return name;
+  }
+
+  async function loadPdfFolder(folderPath, containerId, emptyMsg){
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    try {
+      const res = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${folderPath}`);
+      if (!res.ok) throw new Error('GitHub API request failed');
+      const files = await res.json();
+      const pdfs = Array.isArray(files) ? files.filter(f => f.name.toLowerCase().endsWith('.pdf')) : [];
+      if (pdfs.length === 0) {
+        container.innerHTML = `<p style="font-size:12.5px; color:#9a927c;">${emptyMsg}</p>`;
+        return;
+      }
+      pdfs.sort((a, b) => a.name.localeCompare(b.name)).reverse();
+      container.innerHTML = pdfs.map(f => `
+        <a class="doc-item" href="${f.download_url}" target="_blank">
+          <span class="doc-icon">📄</span>
+          <span class="doc-info"><span class="doc-title">${formatDocTitle(f.name)}</span><span class="doc-sub">${(f.size/1024).toFixed(0)} KB &middot; PDF</span></span>
+          <span class="doc-dl">↓</span>
+        </a>`).join('');
+    } catch (err) {
+      container.innerHTML = '<p style="font-size:12.5px; color:#9a927c;">Couldn\'t load right now — please refresh the page.</p>';
+    }
+  }
+  function loadDocuments(){ return loadPdfFolder(GITHUB_DOCS_PATH, 'docList', 'No documents uploaded yet.'); }
+  function loadMinutes(){ return loadPdfFolder('minutes', 'minutesList', 'No minutes have been added yet.'); }
+
+  function openInternalLightbox(idx){
+    if (!INTERNAL_PHOTO_DATA[idx]) return;
+    document.getElementById('lightboxImg').src = INTERNAL_PHOTO_DATA[idx].url;
+    document.getElementById('lightbox').classList.add('active');
+  }
+
+  async function loadInternalPhotos(){
+    const container = document.getElementById('internalPhotosGrid');
+    if (!container) return;
+    try {
+      let allPhotos = [];
+      try {
+        const { data: sbFiles, error } = await supabaseClient
+          .storage
+          .from('club_files')
+          .list('internal-photos', { limit: 100, offset: 0, sortBy: { column: 'created_at', order: 'desc' } });
+        if (!error && sbFiles) {
+          const sbImages = sbFiles.filter(file => file.name.match(/\.(jpeg|jpg|gif|png|webp)$/i));
+          const formattedSb = sbImages.map(img => {
+            const { data: publicUrlData } = supabaseClient.storage.from('club_files').getPublicUrl('internal-photos/' + img.name);
+            return { url: publicUrlData.publicUrl, title: "Member Upload" };
+          });
+          allPhotos = [...allPhotos, ...formattedSb];
+        }
+      } catch (sbErr) {}
+
+      try {
+        const res = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/internal-photos`);
+        if (res.ok) {
+          const files = await res.json();
+          const ghImages = Array.isArray(files) ? files.filter(f => /\.(jpe?g|png|webp|gif)$/i.test(f.name)) : [];
+          const formattedGh = ghImages.map(f => ({ url: f.download_url, title: formatImageTitle(f.name) }));
+          allPhotos = [...allPhotos, ...formattedGh];
+        }
+      } catch (ghErr) {}
+
+      if (allPhotos.length === 0) {
+        container.innerHTML = '<p style="font-size:12.5px; color:#9a927c;">No internal photos uploaded yet.</p>';
+        return;
+      }
+
+      INTERNAL_PHOTO_DATA = allPhotos;
+      container.innerHTML = allPhotos.map((img, i) => `
+        <div class="ph ph-auto" data-cap="${img.title}" onclick="openInternalLightbox(${i})" style="cursor:pointer; overflow:hidden; border-radius:6px;">
+          <img src="${img.url}" alt="${img.title}" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+      `).join('');
+    } catch (err) {
+      container.innerHTML = '<p style="font-size:12.5px; color:#9a927c;">Couldn\'t load photos right now — please refresh.</p>';
+    }
+  }
+
+  function wireForm(formId, btnId, statusId, successMsg){
+    const form = document.getElementById(formId);
+    if (!form) return;
+    form.addEventListener('submit', async function(e){
+      e.preventDefault();
+      const btn = document.getElementById(btnId);
+      const status = document.getElementById(statusId);
+      const originalBtnText = btn.textContent;
+      btn.textContent = 'SENDING...';
+      btn.disabled = true;
+      status.style.display = 'none';
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          status.style.display = 'block';
+          status.style.background = 'rgba(51,85,63,0.12)';
+          status.style.color = 'var(--leaf)';
+          status.textContent = successMsg;
+          form.reset();
+        } else {
+          throw new Error('Form submission failed');
+        }
+      } catch (err) {
+        status.style.display = 'block';
+        status.style.background = 'rgba(181,41,46,0.12)';
+        status.style.color = 'var(--sindoor)';
+        status.textContent = "Something went wrong — please try again, or email us directly.";
+      } finally {
+        btn.textContent = originalBtnText;
+        btn.disabled = false;
       }
     });
   }
+  wireForm('queryForm', 'queryBtn', 'queryStatus', "Thank you — your query has been sent. We'll get back to you soon.");
 
-  function updateCountdown() {
-    const targetDate = new Date("October 17, 2026 00:00:00").getTime();
-    const now = new Date().getTime();
-    const distance = targetDate - now;
-    if (distance < 0) return;
-    document.getElementById("cdDays").textContent = String(Math.floor(distance / (1000 * 60 * 60 * 24))).padStart(2, '0');
-    document.getElementById("cdHours").textContent = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
-    document.getElementById("cdMins").textContent = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
-    document.getElementById("cdSecs").textContent = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, '0');
+  document.querySelectorAll('.yr-tab').forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+      document.querySelectorAll('.yr-tab').forEach(t=>t.classList.remove('active'));
+      document.querySelectorAll('.fy-panel').forEach(p=>p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.fy).classList.add('active');
+    });
+  });
+
+  function initCharts(){
+    const sindoor='#B5292E', marigold='#E0A233', leaf='#33553F', clay='#9C4E2C', indigo='#1B2A4A';
+    Chart.defaults.font.family = "'Work Sans', sans-serif";
+    Chart.defaults.color = '#6b6350';
+    Chart.defaults.font.size = 12;
+    const years = ['FY23','FY24','FY25','FY26'];
+
+    new Chart(document.getElementById('chartReceipts'), {
+      type:'bar',
+      data:{ labels:years, datasets:[
+        { label:'Receipts', data:[11734,29401,106158,116237], backgroundColor:marigold, borderRadius:2 },
+        { label:'Payments', data:[10052,28495,19479,94419], backgroundColor:indigo, borderRadius:2 }
+      ]},
+      options:{ responsive:true, maintainAspectRatio:false,
+        plugins:{ legend:{ position:'top', align:'end', labels:{ boxWidth:10, usePointStyle:true, pointStyle:'circle' } } },
+        scales:{ y:{ grid:{ color:'rgba(32,38,59,0.08)' }, ticks:{ callback:(v)=>'₹'+(v/1000)+'k' } }, x:{ grid:{ display:false } } } }
+    });
+    new Chart(document.getElementById('chartSurplus'), {
+      type:'line',
+      data:{ labels:years, datasets:[{ label:'Net Surplus (₹)', data:[525,887,1986,2258], borderColor:sindoor, backgroundColor:'rgba(181,41,46,0.12)', borderWidth:2.5, fill:true, tension:0.35, pointBackgroundColor:sindoor, pointRadius:5 }] },
+      options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:false } },
+        scales:{ y:{ grid:{ color:'rgba(32,38,59,0.08)' }, ticks:{ callback:(v)=>'₹'+v } }, x:{ grid:{ display:false } } } }
+    });
+    new Chart(document.getElementById('chartCash'), {
+      type:'bar',
+      data:{ labels:years, datasets:[
+        { label:'Cash-in-hand', data:[1682,906,1056,5062], backgroundColor:clay, borderRadius:2, stack:'s' },
+        { label:'Cash-at-bank', data:[0,0,85623,16756], backgroundColor:leaf, borderRadius:2, stack:'s' }
+      ]},
+      options:{ responsive:true, maintainAspectRatio:false,
+        plugins:{ legend:{ position:'top', align:'end', labels:{ boxWidth:10, usePointStyle:true, pointStyle:'circle' } } },
+        scales:{ y:{ grid:{ color:'rgba(32,38,59,0.08)' }, ticks:{ callback:(v)=>'₹'+(v/1000)+'k' }, stacked:true }, x:{ grid:{ display:false }, stacked:true } } }
+    });
+    new Chart(document.getElementById('chartExpense'), {
+      type:'doughnut',
+      data:{ labels:['Building construction','Puja expenses','Periodicals & education','Misc./ travel/ utilities','Audit fees'],
+        datasets:[{ data:[67119,18550,1852,5398,1500], backgroundColor:[indigo, sindoor, marigold, clay, leaf], borderColor:'#F7F1E3', borderWidth:2 }] },
+      options:{ responsive:true, maintainAspectRatio:false,
+        plugins:{ legend:{ position:'bottom', labels:{ boxWidth:10, usePointStyle:true, pointStyle:'circle', font:{size:11} } } } }
+    });
   }
-  setInterval(updateCountdown, 1000);
-  document.addEventListener("DOMContentLoaded", updateCountdown);
 </script>
 </body>
 </html>
