@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dihibaliharpur Tarun Sangha - Currently Unavailable</title>
+<link rel="icon" href="logo.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&family=Work+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/52396248c1.js" crossorigin="anonymous"></script>
+
+<style>
+  :root {
+    --paper:#F7F1E3; --ink:#20263B; --indigo:#1B2A4A;
+    --sindoor:#B5292E; --marigold:#E0A233;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background: radial-gradient(circle at center, #16213e, #101a33);
+    color: var(--paper);
+    font-family: 'Work Sans', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+    padding: 20px;
+  }
+  .maintenance-box {
+    max-width: 500px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(224, 162, 51, 0.3);
+    border-radius: 16px;
+    padding: 40px 30px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  }
+  .logo-img {
+    height: 70px;
+    width: auto;
+    margin: 0 auto 20px auto;
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
+  }
+  h1 {
+    font-family: 'Tiro Bangla', serif;
+    font-size: 28px;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  .bengali-title {
+    font-family: 'Tiro Bangla', serif;
+    font-size: 22px;
+    color: var(--marigold);
+    margin-bottom: 20px;
+  }
+  p {
+    font-size: 14.5px;
+    color: rgba(247, 241, 227, 0.8);
+    line-height: 1.6;
+    margin-bottom: 30px;
+  }
+  .spinner {
+    font-size: 40px;
+    color: var(--marigold);
+    animation: spin 2s linear infinite;
+    margin-bottom: 10px;
+  }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  .status-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(247, 241, 227, 0.6);
+  }
+</style>
+</head>
+<body>
+  <div class="maintenance-box">
+    <img src="logo.png" alt="DTS Logo" class="logo-img" onerror="this.style.display='none'">
+    <div class="spinner">
+      <i class="fas fa-spinner"></i>
+    </div>
+    <h1>We Are Currently Unavailable</h1>
+    <div class="bengali-title">সংরক্ষিত রক্ষণাবেক্ষণ কাজ চলছে</div>
+    <p>Our website is currently unavailable due to scheduled maintenance and updates. We will be back online shortly. Thank you for your patience and support!</p>
+    <div class="status-text">Dihibaliharpur Tarun Sangha &middot; Reg. No. S0034236</div>
+  </div>
+</body>
+</html>
