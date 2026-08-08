@@ -457,7 +457,7 @@
 
     <nav id="siteNav">
       <div class="wrap nav-top">
-        <a class="nav-brand" onclick="showPage('home')" style="text-decoration:none !important;"><img src="logo.png" alt="DTS logo" style="height:32px; width:auto; margin-right:8px; vertical-align:middle;"><span data-en="Dihibaliharpur Tarun Sangha" data-bn="ডিহিবলিহারপুর তরুণ সংঘ">Dihibaliharpur Tarun Sangha</span> <span data-en="Estd. 1990" data-bn="স্থাপিত ১৯৯০">Estd. 1990</span></a>
+        <a class="nav-brand" onclick="showPage('home')" style="text-decoration:none !important;"><img src="logo.png" alt="DTS logo" style="height:32px; width:auto; margin-right:8px; vertical-align:middle;"><span data-en="Dihibaliharpur Tarun Sangha" data-bn="ডিহিবলিহারপুর তরুণ সংঘ">Dihibaliharpur Tarun Sangha</span> <span data-en="Estd. 1990" data-bn="স্থাপিত ১৯৯0">Estd. 1990</span></a>
         <button class="nav-hamburger" id="navHamburger" onclick="toggleMobileNav()" aria-label="Menu"><span></span><span></span><span></span></button>
       </div>
       <div class="wrap" style="position:relative;">
@@ -895,7 +895,7 @@
 
         <div id="loginGate" class="card" style="max-width:380px;">
           <h3>Members Login</h3>
-          <p class="note">Enter the shared member password and security code to access.</p>
+          <p class="note">Enter your member password and security code to access.</p>
           
           <input type="email" id="memberEmail" value="members@tarunsangha.com" readonly style="width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:13px; margin-top:6px; background:rgba(32,38,59,0.05); color:#7a7260; cursor:not-allowed;">
           <input type="password" id="memberPassword" placeholder="Member Password" onkeydown="if(event.key==='Enter'){checkMemberPassword();}" style="width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:13px; margin-top:12px;">
@@ -1291,11 +1291,11 @@
             </div>
           </div>
 
-          <!-- Admin Tab: FY-wise Donations Control -->
+          <!-- Admin Tab: FY-wise Donations Control (Cash / Online Status Recording) -->
           <div id="admin-tab-donations" class="admin-portal-panel" style="display:none;">
             <div class="mo-layout">
               <div class="mo-main">
-                <div class="section-head"><h2>Record Donation / Dues (FY-wise)</h2><span class="tag">Financial Control</span></div>
+                <div class="section-head"><h2>Record Cash or Online Payment / Dues</h2><span class="tag">Financial Control</span></div>
                 <div class="card" style="margin-bottom:20px;">
                   <form onsubmit="handleDonationSave(event)">
                     <div class="mag-form-row">
@@ -1334,13 +1334,14 @@
                     </div>
                     <div class="mag-form-row">
                       <label>Amount (₹) *</label>
-                      <input type="number" id="adminDonationAmount" required placeholder="100">
+                      <input type="number" id="adminDonationAmount" required placeholder="25" value="25">
                     </div>
                     <div class="mag-form-row">
-                      <label>Status *</label>
+                      <label>Payment Mode / Status *</label>
                       <select id="adminDonationStatus" required>
-                        <option value="Paid">Paid</option>
-                        <option value="Due">Due</option>
+                        <option value="Paid (Cash)">Paid (Cash / Offline Entry)</option>
+                        <option value="Paid (Online)">Paid (Online UPI)</option>
+                        <option value="Due">Due (Pending)</option>
                       </select>
                     </div>
                     <button type="submit" class="form-submit-btn" style="padding:10px 22px; background:var(--leaf); color:var(--paper); border:none; border-radius:6px; cursor:pointer;">SAVE RECORD</button>
@@ -1361,8 +1362,8 @@
               </div>
               <div class="mo-side">
                 <div class="card" style="border-top:3px solid var(--marigold);">
-                  <h3>Donations Info</h3>
-                  <p style="font-size:12.5px; color:#5c563f; margin-top:8px;">Members are automatically synchronized from your directory. If marked as 'Due', it will blink on the member portal.</p>
+                  <h3>Admin Dues Control</h3>
+                  <p style="font-size:12.5px; color:#5c563f; margin-top:8px;">When you record a cash or online payment here, the member will instantly see 'Paid' status in their individual portal and can download their official payment receipt.</p>
                 </div>
               </div>
             </div>
@@ -1668,7 +1669,7 @@
     }
   }
 
-  // --- INDIVIDUAL MEMBER LOOKUP & PAYMENT STATUS LOGIC ---
+  // --- INDIVIDUAL MEMBER LOOKUP & AUTOMATED 12-MONTH CALENDAR REFLECTION ---
   async function loadLookupMembersDropdown() {
     const select = document.getElementById('lookupMemberSelect');
     if (!select) return;
@@ -1700,33 +1701,47 @@
     detailsEl.innerHTML = 'Checking payment records...';
     card.style.display = 'block';
 
+    const monthsList = ["April", "May", "June", "July", "August", "September", "October", "November", "December", "January", "February", "March"];
+    const fyYear = "2026-2027";
+    const defaultAmount = 25;
+
     try {
       const { data, error } = await supabaseClient
         .from('member_donations')
         .select('*')
-        .eq('member_name', memberName)
-        .order('created_at', { ascending: false });
+        .eq('member_name', memberName);
 
       if (error) throw error;
 
-      if (!data || data.length === 0) {
-        detailsEl.innerHTML = `<span style="color:var(--clay);">No dues or payment records found for this member yet.</span>`;
-        return;
+      let paidMonthsMap = {};
+      if (data) {
+        data.forEach(d => {
+          if (d.status && d.status.includes('Paid')) {
+            paidMonthsMap[d.month] = d;
+          }
+        });
       }
 
-      let html = '<table class="gb-table"><thead><tr><th>FY Year</th><th>Month</th><th>Amount</th><th>Status</th><th>Action</th></tr></thead><tbody>';
+      let html = '<table class="gb-table"><thead><tr><th>FY Year</th><th>Month</th><th>Amount</th><th>Status</th><th>Action / Payment Option</th></tr></thead><tbody>';
       
-      data.forEach(d => {
-        const isPaid = (d.status === 'Paid');
+      monthsList.forEach(m => {
+        let record = paidMonthsMap[m];
+        let isPaid = !!record;
+        let amount = record ? record.amount : defaultAmount;
+        let statusText = isPaid ? record.status : 'Due';
+
         html += `<tr>
-          <td><strong>${escapeHtml(d.fy_year || '2026-2027')}</strong></td>
-          <td>${escapeHtml(d.month)}</td>
-          <td>₹${escapeHtml(String(d.amount))}</td>
-          <td><span style="color:${isPaid ? 'var(--leaf)' : 'var(--sindoor)'}; font-weight:bold;">${escapeHtml(d.status)} ${isPaid ? '✓' : '⚠️'}</span></td>
+          <td><strong>${fyYear}</strong></td>
+          <td>${m}</td>
+          <td>₹${amount}</td>
+          <td><span style="color:${isPaid ? 'var(--leaf)' : 'var(--sindoor)'}; font-weight:bold;">${statusText} ${isPaid ? '✓' : '⚠️'}</span></td>
           <td>
             ${isPaid 
-              ? `<button onclick="downloadSinglePdfReceipt('${escapeHtml(d.fy_year || '2026-2027')}', '${escapeHtml(d.month)}', '${escapeHtml(d.member_name)}', '${d.amount}')" style="padding:4px 10px; background:var(--marigold); color:var(--indigo); border:none; border-radius:4px; font-size:11px; cursor:pointer;"><i class="fas fa-file-pdf"></i> Download Receipt</button>`
-              : `<button onclick="simulateOnlinePayment('${d.id}', '${escapeHtml(d.member_name)}', '${escapeHtml(d.month)}')" style="padding:4px 10px; background:#27ae60; color:#fff; border:none; border-radius:4px; font-size:11px; cursor:pointer;"><i class="fas fa-rupee-sign"></i> Pay Now</button>`
+              ? `<button onclick="downloadSinglePdfReceipt('${fyYear}', '${m}', '${escapeHtml(memberName)}', '${amount}')" style="padding:4px 10px; background:var(--marigold); color:var(--indigo); border:none; border-radius:4px; font-size:11px; cursor:pointer;"><i class="fas fa-file-pdf"></i> Download Receipt</button>`
+              : `<div style="display:flex; gap:4px; flex-wrap:wrap;">
+                   <a href="upi://pay?pa=8972217940m@pnb&pn=DihibaliharpurTarunSangha&cu=INR&am=${amount}&tn=Chanda_${m}" target="_blank" style="padding:4px 8px; background:#27ae60; color:#fff; border-radius:4px; font-size:10.5px; text-decoration:none;"><i class="fas fa-qrcode"></i> Pay Online</a>
+                   <button onclick="promptCashPayment('${escapeHtml(memberName)}', '${m}', '${amount}')" style="padding:4px 8px; background:var(--clay); color:#fff; border:none; border-radius:4px; font-size:10.5px; cursor:pointer;"><i class="fas fa-hand-holding-usd"></i> Pay Cash</button>
+                 </div>`
             }
           </td>
         </tr>`;
@@ -1739,26 +1754,8 @@
     }
   }
 
-  // --- AUTOMATED SUCCESS/FAIL PAYMENT SIMULATION ---
-  async function simulateOnlinePayment(recordId, memberName, month) {
-    let confirmPay = confirm(`Simulating Secure Payment Gateway for ${memberName} (${month}).\n\nClick OK to simulate SUCCESSFUL payment.\nClick Cancel to simulate FAILED payment.`);
-    
-    if (confirmPay) {
-      try {
-        const { error } = await supabaseClient
-          .from('member_donations')
-          .update({ status: 'Paid' })
-          .eq('id', recordId);
-
-        if (error) throw error;
-        alert("Payment Successful! Status updated to Paid. You can now download your official PDF receipt.");
-        checkIndividualMemberStatus(); 
-      } catch (err) {
-        alert("Error updating payment status: " + err.message);
-      }
-    } else {
-      alert("Payment Failed / Cancelled. Status remains Due. Please try again.");
-    }
+  function promptCashPayment(member, month, amount) {
+    alert(`Cash Payment Notice:\n\nDear ${member},\nPlease deposit the cash amount of ₹${amount} for ${month} directly to the Treasurer (Mr. Sandip Roy / Club Office).\n\nYour payment status will be updated to 'Paid' by the Treasurer in the admin panel shortly.`);
   }
 
   // --- WHATSAPP NOTICE BROADCAST (Admin Authorized Only) ---
@@ -1796,7 +1793,6 @@
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
-    // Clean Black & White Professional Official Receipt Style with Border
     doc.setLineWidth(0.5);
     doc.rect(10, 10, 190, 277);
 
@@ -2951,7 +2947,7 @@
       const { error } = await supabaseClient.from('member_donations').insert([{ fy_year: fyYear, month: month, member_name: memberName, amount: amount, status: status }]);
       if (error) throw error;
       alert("Donation/Due record saved successfully!");
-      document.getElementById('adminDonationAmount').value = '';
+      // Removed clearing amount since 25 is typical
       loadAdminDonations();
     } catch (err) {
       alert("Error saving record: " + err.message);
@@ -2974,7 +2970,7 @@
           <td>${escapeHtml(d.month)}</td>
           <td>${escapeHtml(d.member_name)}</td>
           <td>₹${escapeHtml(String(d.amount))}</td>
-          <td><span style="color:${d.status==='Due'?'var(--sindoor)':'var(--leaf)'}; font-weight:600;">${escapeHtml(d.status)}</span></td>
+          <td><span style="color:${d.status.includes('Paid')?'var(--leaf)':'var(--sindoor)'}; font-weight:600;">${escapeHtml(d.status)}</span></td>
           <td><button onclick="deleteDonationRecord('${d.id}')" style="padding:4px 8px; background:var(--sindoor); color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px;">Delete</button></td>
         </tr>
       `).join('');
@@ -3273,7 +3269,7 @@
   }
   
   async function checkAdminPassword() {
-    const email = document.getElementById('adminEmail').value;
+    const email = document.getElementById('adminEmail').value.trim();
     const password = document.getElementById('adminPassword').value;
     const errorDiv = document.getElementById('adminLoginError');
     const btn = document.querySelector('#adminLoginGate button');
