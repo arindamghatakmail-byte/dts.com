@@ -366,6 +366,36 @@
   .mag-form-row label{ font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:#7a7260; display:block; margin-bottom:6px; }
   .mag-form-row input, .mag-form-row select, .mag-form-row textarea{ width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:6px; font-family:'Work Sans',sans-serif; font-size:13.5px; resize:vertical; background:#fff; }
 
+  /* ---------- Single Line Mobile Utility Bar Fix ---------- */
+  @media (max-width: 768px) {
+    .hbtno {
+      font-size: 10.5px;
+      padding: 4px 0;
+      white-space: nowrap;
+    }
+    .hbtno-wrap {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+      padding: 0 10px;
+      overflow-x: auto;
+      scrollbar-width: none; /* Hide scrollbar for clean look */
+    }
+    .hbtno-wrap::-webkit-scrollbar {
+      display: none;
+    }
+    .usac {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 10px;
+    }
+    .usac a {
+      margin-right: 8px !important;
+    }
+  }
+     
   /* ---------- join us page ---------- */
   .join-hero{ max-width:700px; }
   .join-hero-bn{ font-size:19px; color:var(--indigo); font-family:'Work Sans',sans-serif; }
