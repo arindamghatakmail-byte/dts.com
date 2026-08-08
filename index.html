@@ -1725,8 +1725,8 @@
           <td><span style="color:${isPaid ? 'var(--leaf)' : 'var(--sindoor)'}; font-weight:bold;">${escapeHtml(d.status)} ${isPaid ? '✓' : '⚠️'}</span></td>
           <td>
             ${isPaid 
-              ? `<button onclick="downloadSinglePdfReceipt('${escapeHtml(d.fy_year || '2026-2027')}', '${escapeHtml(d.month)}', '${escapeHtml(d.member_name)}', '${d.amount}')" style="background:var(--marigold); color:var(--indigo); border:none; padding:4px 10px; border-radius:4px; font-size:11px; cursor:pointer;"><i class="fas fa-file-pdf"></i> Receipt</button>`
-              : `<button onclick="simulateOnlinePayment('${d.id}', '${escapeHtml(d.member_name)}', '${escapeHtml(d.month)}')" style="background:#27ae60; color:#fff; border:none; padding:4px 10px; border-radius:4px; font-size:11px; cursor:pointer;"><i class="fas fa-rupee-sign"></i> Pay Now</button>`
+              ? `<button onclick="downloadSinglePdfReceipt('${escapeHtml(d.fy_year || '2026-2027')}', '${escapeHtml(d.month)}', '${escapeHtml(d.member_name)}', '${d.amount}')" style="padding:4px 10px; background:var(--marigold); color:var(--indigo); border:none; border-radius:4px; font-size:11px; cursor:pointer;"><i class="fas fa-file-pdf"></i> Download Receipt</button>`
+              : `<button onclick="simulateOnlinePayment('${d.id}', '${escapeHtml(d.member_name)}', '${escapeHtml(d.month)}')" style="padding:4px 10px; background:#27ae60; color:#fff; border:none; border-radius:4px; font-size:11px; cursor:pointer;"><i class="fas fa-rupee-sign"></i> Pay Now</button>`
             }
           </td>
         </tr>`;
@@ -1752,7 +1752,7 @@
 
         if (error) throw error;
         alert("Payment Successful! Status updated to Paid. You can now download your official PDF receipt.");
-        checkIndividualMemberStatus(); // Refresh lookup view
+        checkIndividualMemberStatus(); 
       } catch (err) {
         alert("Error updating payment status: " + err.message);
       }
@@ -1774,9 +1774,9 @@
     window.open(whatsappUrl, '_blank');
   }
 
-  // --- PROFESSIONAL COLORED PDF RECEIPT GENERATOR ---
+  // --- FAIL-SAFE PDF RECEIPT GENERATOR ---
   function getBase64ImageFromUrl(imageUrl) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       const img = new Image();
       img.crossOrigin = 'anonymous';
       img.onload = function() {
@@ -1787,7 +1787,7 @@
         ctx.drawImage(img, 0, 0);
         resolve(canvas.toDataURL('image/png'));
       };
-      img.onerror = function(error) { resolve(null); }; 
+      img.onerror = function() { resolve(null); }; 
       img.src = imageUrl;
     });
   }
@@ -1796,82 +1796,63 @@
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
-    doc.setFillColor(27, 42, 74); 
-    doc.rect(0, 0, 210, 42, "F");
-
-    doc.setFillColor(224, 162, 51); 
-    doc.rect(0, 42, 210, 3, "F");
+    // Clean Black & White Professional Official Receipt Style with Border
+    doc.setLineWidth(0.5);
+    doc.rect(10, 10, 190, 277);
 
     try {
       const imgData = await getBase64ImageFromUrl("logo.png");
       if (imgData) {
-        doc.addImage(imgData, 'PNG', 15, 8, 26, 26);
+        doc.addImage(imgData, 'PNG', 18, 16, 20, 20);
       }
     } catch(e) {}
 
-    doc.setTextColor(255, 255, 255);
     doc.setFont("Helvetica", "bold");
     doc.setFontSize(16);
-    doc.text("DIHIBALIHARPUR TARUN SANGHA", 105, 17, { align: "center" });
+    doc.setTextColor(0, 0, 0);
+    doc.text("DIHIBALIHARPUR TARUN SANGHA", 105, 22, { align: "center" });
 
-    doc.setFontSize(9.5);
-    doc.setFont("Helvetica", "normal");
-    doc.setTextColor(224, 162, 51); 
-    doc.text("Reg. No. S0034236 | Daspur, Paschim Medinipur, West Bengal", 105, 29, { align: "center" });
-    
     doc.setFontSize(10);
-    doc.setTextColor(247, 241, 227);
+    doc.setFont("Helvetica", "normal");
+    doc.text("Reg. No. S0034236 | Daspur, Paschim Medinipur, West Bengal", 105, 29, { align: "center" });
     doc.text("OFFICIAL MEMBER DUES & DONATION RECEIPT", 105, 36, { align: "center" });
 
-    doc.setTextColor(240, 237, 225);
-    doc.setFontSize(18);
-    doc.setFont("Helvetica", "bold");
-    doc.text("OFFICIAL RECEIPT - DIHIBALIHARPUR TARUN SANGHA", 105, 130, { align: "center" });
+    doc.setLineWidth(0.3);
+    doc.line(10, 42, 200, 42);
 
-    doc.setFontSize(10.5);
+    doc.setFontSize(11);
     doc.setFont("Helvetica", "bold");
-    doc.setTextColor(32, 38, 59);
-    doc.text("Date: " + new Date().toLocaleDateString('en-GB'), 20, 56);
-    doc.text("Receipt ID: DTS-REC-" + Math.floor(100000 + Math.random() * 900000), 125, 56);
+    doc.text("Date: " + new Date().toLocaleDateString('en-GB'), 18, 52);
+    doc.text("Receipt ID: DTS-REC-" + Math.floor(100000 + Math.random() * 900000), 120, 52);
 
-    let startY = 66;
-    doc.setFillColor(181, 41, 46); 
-    doc.rect(20, startY, 170, 9, "F");
+    let startY = 62;
+    doc.setFillColor(240, 240, 240);
+    doc.rect(18, startY, 174, 10, "FD");
 
-    doc.setTextColor(255, 255, 255);
     doc.setFont("Helvetica", "bold");
-    doc.text("FY Year", 25, startY + 6);
-    doc.text("Month", 65, startY + 6);
-    doc.text("Member Name", 105, startY + 6);
-    doc.text("Amount (Rs.)", 155, startY + 6);
+    doc.text("FY Year", 22, startY + 7);
+    doc.text("Month", 65, startY + 7);
+    doc.text("Member Name", 110, startY + 7);
+    doc.text("Amount (Rs.)", 155, startY + 7);
 
     doc.setFont("Helvetica", "normal");
-    doc.setTextColor(32, 38, 59);
-    let currentY = startY + 16;
+    let currentY = startY + 18;
     
-    doc.text(fy, 25, currentY);
-    doc.text(month, 65, currentY);
-    doc.text(member, 105, currentY);
-    doc.text("Rs. " + amount, 155, currentY);
+    let cleanAmount = String(amount).replace(/[^\d.,]/g, '');
+    doc.text(String(fy), 22, currentY);
+    doc.text(String(month), 65, currentY);
+    doc.text(String(member), 110, currentY);
+    doc.text("Rs. " + cleanAmount, 155, currentY);
     
     doc.setLineWidth(0.2);
-    doc.setColor(200, 200, 200);
-    doc.line(20, currentY + 3, 190, currentY + 3);
-
-    doc.setLineWidth(0.5);
-    doc.setColor(27, 42, 74);
-    doc.line(20, currentY + 15, 190, currentY + 15);
+    doc.line(18, currentY + 5, 192, currentY + 5);
 
     doc.setFont("Helvetica", "bold");
-    doc.setTextColor(51, 85, 63); 
-    doc.text("Status: Verified & Acknowledged by Treasurer", 20, currentY + 25);
+    doc.text("Status: Verified & Acknowledged by Treasurer", 18, currentY + 25);
 
-    doc.setFont("Helvetica", "bold");
-    doc.setTextColor(27, 42, 74);
-    doc.text("Authorized Signatory", 135, currentY + 38);
+    doc.text("Authorized Signatory", 130, currentY + 45);
     doc.setFont("Helvetica", "normal");
-    doc.setFontSize(9.5);
-    doc.text("Dihibaliharpur Tarun Sangha", 135, currentY + 44);
+    doc.text("Dihibaliharpur Tarun Sangha", 130, currentY + 51);
 
     doc.save(`Tarun_Sangha_Receipt_${member}_${month}.pdf`);
   }
