@@ -470,24 +470,18 @@
 <div id="live-site-content">
 
     <div class="hbtno">
-      <div class="hbtno" style="font-size: 10.5px; padding: 3px 0;">
       <div class="wrap hbtno-wrap">
         <div class="usac">
-          <!-- Home Symbol Only -->
-          <a onclick="showPage('home')" style="cursor:pointer; margin-right: 14px; text-decoration:none !important;" title="Home"><i style="color:var(--marigold); font-size: 13px;" class="fas fa-home"></i></a>
-          
-          <i style="color:var(--marigold);" class="fas fa-user"></i> <a onclick="showPage('members-only')" style="cursor:pointer; margin-right: 14px; text-decoration:none !important;" data-en="Member" data-bn="সদস্য">Member</a>
-          
+          <i style="color:var(--marigold);" class="fas fa-home"></i> <a onclick="showPage('home')" style="cursor:pointer; margin-right: 14px; text-decoration:none !important;" data-en="Home" data-bn="হোম">Home</a>
+          <i style="color:var(--marigold);" class="fas fa-user"></i> <a onclick="showPage('members-only')" style="cursor:pointer; margin-right: 14px; text-decoration:none !important;" data-en="Member Login" data-bn="সদস্য লগইন">Member Login</a>
           <i style="color:var(--marigold);" class="fas fa-wallet"></i> <a onclick="showPage('treasurer')" style="cursor:pointer; margin-right: 14px; text-decoration:none !important;" data-en="Treasurer" data-bn="কোষাধ্যক্ষ">Treasurer</a>
-          
-          <i style="color:var(--marigold);" class="fas fa-lock"></i> <a onclick="showPage('admin')" style="cursor:pointer; text-decoration:none !important;" data-en="Admin" data-bn="অ্যাডমিন">Admin</a>
+          <i style="color:var(--marigold);" class="fas fa-lock"></i> <a onclick="showPage('admin')" style="cursor:pointer; text-decoration:none !important;" data-en="Admin Login" data-bn="অ্যাডমিন লগইন">Admin Login</a>
         </div>
-        
-        <!-- Language Toggle Switcher with Language Symbol Icon -->
-        <div style="font-family:'JetBrains Mono',monospace; font-size:11px; display: flex; align-items: center;">
-          <i class="fas fa-language" style="color:var(--marigold); margin-right:6px; font-size: 13px;" title="Language"></i>
-          <button onclick="setLanguage('en')" id="langBtnEn" style="background:var(--marigold); color:var(--indigo); border:none; padding:1px 6px; border-radius:3px; font-weight:bold; cursor:pointer; margin-right:3px;">EN</button>
-          <button onclick="setLanguage('bn')" id="langBtnBn" style="background:rgba(255,255,255,0.1); color:#fff; border:none; padding:1px 6px; border-radius:3px; cursor:pointer;">বাংলা</button>
+        <!-- Language Toggle Switcher -->
+        <div style="font-family:'JetBrains Mono',monospace; font-size:11.5px;">
+          <span style="color:rgba(247,241,227,0.6); margin-right:6px;">Lang:</span>
+          <button onclick="setLanguage('en')" id="langBtnEn" style="background:var(--marigold); color:var(--indigo); border:none; padding:2px 8px; border-radius:4px; font-weight:bold; cursor:pointer; margin-right:4px;">EN</button>
+          <button onclick="setLanguage('bn')" id="langBtnBn" style="background:rgba(255,255,255,0.1); color:#fff; border:none; padding:2px 8px; border-radius:4px; cursor:pointer;">বাংলা</button>
         </div>
       </div>
     </div>
