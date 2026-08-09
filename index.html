@@ -3213,7 +3213,12 @@
       container.innerHTML = itemsHtml + itemsHtml;
     });
   }
-     
+  // --- ADMIN FILE MANAGER REFRESH STUB ---
+  function loadAdminFiles() {
+    // This runs after a successful upload to refresh media lists
+    if (typeof loadDocuments === 'function') loadDocuments();
+    if (typeof loadInternalPhotos === 'function') loadInternalPhotos();
+  }   
   async function loadMagazine(){
     const container = document.getElementById('magazineList');
     if (!container) return;
