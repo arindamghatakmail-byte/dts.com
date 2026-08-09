@@ -3564,7 +3564,87 @@
     document.getElementById('lightboxImg').src = INTERNAL_PHOTO_DATA[idx].url;
     document.getElementById('lightbox').classList.add('active');
   }
+  // ==========================================
+  // RESTORED ADMIN FILE MANAGEMENT FUNCTIONS
+  // ==========================================
+  
+  async function loadAdminFiles() {
+    loadAdminPdfList();
+    loadAdminPhotoList();
+  }
 
+  async function loadAdminPdfList() {
+    const container = document.getElementById('adminDocList');
+    if (!container) return;
+    
+    container.innerHTML = '<p style="font-size:12px; color:#9a927c;">Loading documents...</p>';
+    
+    try {
+      const { data, error } = await supabaseClient.storage.from('club_files').list('documents/', { limit: 100 });
+      if (error) throw error;
+      
+      const validFiles = data ? data.filter(f => f.name && f.name !== '.emptyFolderPlaceholder') : [];
+      
+      if (validFiles.length === 0) {
+        container.innerHTML = '<p style="font-size:12px; color:#9a927c;">No documents uploaded yet.</p>';
+        return;
+      }
+      
+      container.innerHTML = validFiles.map(file => `
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--line);">
+          <span style="font-size:13px; font-family:'JetBrains Mono',monospace;">${escapeHtml(file.name)}</span>
+          <button onclick="deleteStorageFile('documents/${file.name}')" style="padding:3px 8px; background:var(--sindoor); color:#fff; border:none; border-radius:4px; font-size:11px; cursor:pointer;">Delete</button>
+        </div>
+      `).join('');
+    } catch (err) {
+      container.innerHTML = '<p style="font-size:12px; color:var(--sindoor);">Error loading documents.</p>';
+    }
+  }
+
+  async function loadAdminPhotoList() {
+    const container = document.getElementById('adminPhotoList');
+    if (!container) return;
+    
+    container.innerHTML = '<p style="font-size:12px; color:#9a927c;">Loading photos...</p>';
+    
+    try {
+      const { data, error } = await supabaseClient.storage.from('club_files').list('internal-photos/', { limit: 100 });
+      if (error) throw error;
+      
+      const validFiles = data ? data.filter(f => f.name && f.name !== '.emptyFolderPlaceholder') : [];
+      
+      if (validFiles.length === 0) {
+        container.innerHTML = '<p style="font-size:12px; color:#9a927c;">No internal photos uploaded yet.</p>';
+        return;
+      }
+      
+      container.innerHTML = validFiles.map(file => `
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--line);">
+          <span style="font-size:13px; font-family:'JetBrains Mono',monospace;">${escapeHtml(file.name)}</span>
+          <button onclick="deleteStorageFile('internal-photos/${file.name}')" style="padding:3px 8px; background:var(--sindoor); color:#fff; border:none; border-radius:4px; font-size:11px; cursor:pointer;">Delete</button>
+        </div>
+      `).join('');
+    } catch (err) {
+      container.innerHTML = '<p style="font-size:12px; color:var(--sindoor);">Error loading photos.</p>';
+    }
+  }
+
+  async function deleteStorageFile(filePath) {
+    if (!confirm("Are you sure you want to delete this file permanently?")) return;
+    try {
+      const { error } = await supabaseClient.storage.from('club_files').remove([filePath]);
+      if (error) throw error;
+      
+      alert("File deleted successfully!");
+      
+      // Refresh the lists to make the deleted file disappear instantly
+      loadAdminFiles();
+      if(typeof loadDocuments === 'function') loadDocuments();
+      if(typeof loadInternalPhotos === 'function') loadInternalPhotos();
+    } catch (err) {
+      alert("Error deleting file: " + err.message);
+    }
+  }
   async function loadInternalPhotos(){
     const container = document.getElementById('internalPhotosGrid');
     if (!container) return;
@@ -3619,7 +3699,7 @@
       document.getElementById(tab.dataset.fy).classList.add('active');
     });
   });
-
+     
 </script>
 </body>
 </html>
