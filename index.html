@@ -3169,7 +3169,8 @@
     }
   }
 
-  async function loadNotices(){
+  async function loadNotices()
+  {
     const containers = [document.getElementById('noticeList'), document.getElementById('adminNoticeList')];
     try {
       const { data: dbNotices, error } = await supabaseClient
