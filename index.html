@@ -19,21 +19,33 @@
 <script src="https://kit.fontawesome.com/52396248c1.js" crossorigin="anonymous"></script>
 
 <!-- ==========================================
-     MAGIC SCRIPT: URL PASSKEY LOGIC
+     SECURE MAGIC SCRIPT: SUPABASE AUTH CHECK
      ========================================== -->
 <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const isAdmin = urlParams.get('access') === 'dts-admin-2026';
-    
-    if (isAdmin) {
-        document.documentElement.style.setProperty('--live-display', 'block');
-        document.documentElement.style.setProperty('--maint-display', 'none');
-        document.documentElement.style.setProperty('--body-bg', '#F7F1E3');
-    } else {
-        document.documentElement.style.setProperty('--live-display', 'none');
-        document.documentElement.style.setProperty('--maint-display', 'flex');
-        document.documentElement.style.setProperty('--body-bg', 'radial-gradient(circle at center, #16213e, #101a33)');
-    }
+    // By default, show maintenance and hide live site until proven authenticated
+    document.documentElement.style.setProperty('--live-display', 'none');
+    document.documentElement.style.setProperty('--maint-display', 'flex');
+    document.documentElement.style.setProperty('--body-bg', 'radial-gradient(circle at center, #16213e, #101a33)');
+
+    // Check if a secure Supabase session already exists in browser storage
+    window.addEventListener('DOMContentLoaded', async () => {
+        try {
+            const SUPABASE_URL = 'https://gnxptgaaoxljygnidjwg.supabase.co'; 
+            const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdueHB0Z2Fhb3hsanlnbmlkandnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ5ODE2MzUsImV4cCI6MjEwMDU1NzYzNX0.FzxWzLiah4gexcvSL43PnN3LLIPWL3E-Fmtwqkb6le8';
+            const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            
+            const { data: { session } } = await client.auth.getSession();
+            
+            // If an authorized admin/treasurer session is active, unlock the site!
+            if (session) {
+                document.documentElement.style.setProperty('--live-display', 'block');
+                document.documentElement.style.setProperty('--maint-display', 'none');
+                document.documentElement.style.setProperty('--body-bg', '#F7F1E3');
+            }
+        } catch (e) {
+            console.log("Session check skipped");
+        }
+    });
 </script>
 
 <style>
@@ -3531,6 +3543,11 @@
         errorDiv.textContent = "Error: " + error.message;
         errorDiv.style.display = 'block';
       } else {
+        // --- UNLOCK THE LIVE SITE VISUALLY UPON SUCCESSFUL LOGIN ---
+        document.documentElement.style.setProperty('--live-display', 'block');
+        document.documentElement.style.setProperty('--maint-display', 'none');
+        document.documentElement.style.setProperty('--body-bg', '#F7F1E3');
+
         document.getElementById('adminLoginGate').style.display = 'none';
         document.getElementById('adminContent').style.display = 'block';
         loadAdminQueries();
