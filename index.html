@@ -472,14 +472,16 @@
    <div class="hbtno">
       <div class="wrap hbtno-wrap">
         <div class="usac">
-          <!-- Home Symbol -->
-          <a onclick="showPage('home')" style="cursor:pointer; margin-right: 14px; text-decoration:none !important;" title="Home"><i style="color:var(--marigold); font-size: 13px;" class="fas fa-home"></i></a>
-          
           <i style="color:var(--marigold);" class="fas fa-user"></i> <a onclick="showPage('members-only')" style="cursor:pointer; margin-right: 14px; text-decoration:none !important;" data-en="Member" data-bn="সদস্য">Member</a>
           
           <i style="color:var(--marigold);" class="fas fa-wallet"></i> <a onclick="showPage('treasurer')" style="cursor:pointer; margin-right: 14px; text-decoration:none !important;" data-en="Treasurer" data-bn="কোষাধ্যক্ষ">Treasurer</a>
           
-          <i style="color:var(--marigold);" class="fas fa-lock"></i> <a onclick="showPage('admin')" style="cursor:pointer; text-decoration:none !important;" data-en="Admin" data-bn="অ্যাডমিন">Admin</a>
+          <i style="color:var(--marigold);" class="fas fa-lock"></i> <a onclick="showPage('admin')" style="cursor:pointer; margin-right: 14px; text-decoration:none !important;" data-en="Admin" data-bn="অ্যাডমিন">Admin</a>
+
+          <!-- Home Icon placed right after Admin -->
+          <a onclick="showPage('home')" style="cursor:pointer; margin-left: 4px; text-decoration:none !important; display:inline-flex; align-items:center;" title="Home">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--marigold)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          </a>
         </div>
 
         <!-- Grey Utility Separator & Language Toggle Switcher with Globe Icon -->
