@@ -3179,25 +3179,14 @@
 
       if (error) throw error;
 
-      const oldNotices = [
-        { date: "04.09.2026", text: "Khuti Puja 2026 scheduled on 4th Sept 2026" },
-        { date: "04.07.2026", text: "New Elected Executive Committee, w.e.f. 04.07.2026" },
-        { date: "FY 2025–26", text: "Clubhouse wants to raise a Library Building Fund" },
-        { date: "2026", text: "Kobi Pronam – 2026 celebrated with a cultural programme" },
-        { date: "2026", text: "Basanta Utsav 2026 celebrated with colour and music" },
-        { date: "2025", text: "Organisation successfully celebrated Durga Pujo 2025" }
-      ];
-
-      const allNotices = [...(dbNotices || []), ...oldNotices];
-      
       containers.forEach(container => {
         if (!container) return;
-        if (!Array.isArray(allNotices) || allNotices.length === 0) {
+        if (!Array.isArray(dbNotices) || dbNotices.length === 0) {
           container.innerHTML = '<div class="notice-item"><div class="notice-text">No notices yet.</div></div>';
           return;
         }
         
-        const itemsHtml = allNotices.map((n, i) => `
+        const itemsHtml = dbNotices.map((n, i) => `
           <div class="notice-item">
             ${i === 0 ? '<span class="notice-pill">NEW</span>' : ''}
             <div class="notice-date">${escapeHtml(n.date || '')}</div>
@@ -3207,6 +3196,7 @@
         container.innerHTML = itemsHtml + itemsHtml;
       });
     } catch (err) {
+      console.error("Error loading notices:", err);
       containers.forEach(container => {
         if (container) container.innerHTML = '<div class="notice-item"><div class="notice-text">Couldn\'t load notices — please refresh.</div></div>';
       });
