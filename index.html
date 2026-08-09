@@ -3870,8 +3870,15 @@
 
   function editNotice(idx) {
     const n = adminNoticesCache[idx];
-    document.getElementById('editNoticeId').value = n.id; document.getElementById('noticeText').value = n.text;
-    document.getElementById('noticeSaveBtn').textContent = "UPDATE NOTICE"; document.getElementById('noticeCancelBtn').style.display = "inline-block"; window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (!n) return;
+    
+    // Fallback to index if id doesn't exist yet in Supabase row
+    document.getElementById('editNoticeId').value = n.id || ''; 
+    document.getElementById('noticeText').value = n.text || '';
+    
+    document.getElementById('noticeSaveBtn').textContent = "UPDATE NOTICE"; 
+    document.getElementById('noticeCancelBtn').style.display = "inline-block"; 
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   function resetNoticeForm() {
