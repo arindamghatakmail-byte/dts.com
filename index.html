@@ -93,6 +93,25 @@
     background: #fff !important;
   }
 }
+  @media print {
+  body * { visibility: hidden !important; }
+  .membership-print-card, .membership-print-card * { visibility: visible !important; }
+  .membership-print-card {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 10mm 12mm !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: #fff !important;
+  }
+  .print-hide { display: none !important; }
+  body { background: #fff !important; margin: 0 !important; padding: 0 !important; }
+  @page { size: A4; margin: 5mm; }
+}
   /* ==========================================
    COMPLETE PRINT SETTINGS (SINGLE PAGE FORM)
    ========================================== */
@@ -1755,114 +1774,122 @@
     <!-- ============ JOIN US ============ -->
     <div class="page" id="page-join">
       <main class="wrap" style="padding-top:20px;">
-        <div class="join-hero print-hide">
-          <div class="join-hero-bn">আমাদের সংঘে যোগ দিতে চান বা দান করতে চান?</div>
-          <h2 class="page-title" style="margin-top:6px;">Join Us & Support Our Mission</h2>
-          <p class="page-lede" style="max-width:640px;">Fill out the official membership application below, or support our social welfare and construction activities.</p>
-        </div>
-
-        <!-- SECTION 1: EMBEDDED MEMBERSHIP APPLICATION FORM -->
-        <div class="section-head print-hide" style="margin-top:24px;"><h2>Membership Application Form</h2><span class="tag">Digital Form & Instructions</span></div>
         
-        <!-- MEMBERSHIP FORM CARD (Prints cleanly on 1 page) -->
-        <div class="card membership-print-card" style="max-width:750px; margin:0 auto; background:var(--paper); border:2px solid var(--indigo); border-radius:12px; padding:24px; box-shadow:0 12px 30px rgba(0,0,0,0.1); position:relative; margin-bottom: 40px;">
+        <!-- MEMBERSHIP FORM CARD -->
+        <div class="card membership-print-card" style="max-width:780px; margin:0 auto; background:var(--paper); border:2px solid var(--indigo); border-radius:12px; padding:28px; box-shadow:0 12px 30px rgba(0,0,0,0.1); position:relative; margin-bottom: 40px;">
           
           <!-- Receipt Style Header -->
-          <div style="display: flex; align-items: center; border-bottom: 2px solid var(--indigo); padding-bottom: 14px; margin-bottom: 16px; gap: 20px; flex-wrap: wrap;">
-            <img src="logo.png" alt="DTS Logo" style="height: 55px; width: auto;" onerror="this.style.display='none'">
+          <div style="display: flex; align-items: center; border-bottom: 2px solid var(--indigo); padding-bottom: 12px; margin-bottom: 14px; gap: 20px; flex-wrap: wrap;">
+            <img src="logo.png" alt="DTS Logo" style="height: 50px; width: auto;" onerror="this.style.display='none'">
             <div style="flex-grow: 1; text-align: center;">
-              <h3 style="font-family: 'Tiro Bangla', serif; font-size: 21px; color: var(--indigo); text-transform: uppercase; margin-bottom: 2px;">ডিহিবলিহারপুর তরুণ সংঘ</h3>
-              <p style="font-size: 10.5px; font-family: 'JetBrains Mono', monospace; color: #5c563f;">Dihibaliharpur Tarun Sangha &middot; Reg. No. S0034236</p>
-              <p style="font-size: 9.5px; font-family: 'JetBrains Mono', monospace; color: var(--sindoor);">Dihibaliharpur, Daspur, Paschim Medinipur, West Bengal 721211</p>
+              <h3 style="font-family: 'Tiro Bangla', serif; font-size: 20px; color: var(--indigo); text-transform: uppercase; margin-bottom: 2px;">ডিহিবলিহারপুর তরুণ সংঘ</h3>
+              <p style="font-size: 10px; font-family: 'JetBrains Mono', monospace; color: #5c563f;">Dihibaliharpur Tarun Sangha &middot; Reg. No. S0034236</p>
+              <p style="font-size: 9px; font-family: 'JetBrains Mono', monospace; color: var(--sindoor);">Dihibaliharpur, Daspur, Paschim Medinipur, West Bengal 721211</p>
             </div>
           </div>
 
-          <div style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; background: var(--sindoor); color: #fff; padding: 5px 10px; border-radius: 4px; text-transform: uppercase; text-align: center; margin-bottom: 16px; letter-spacing: 0.1em;">Official Membership Application Form</div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; background: var(--sindoor); color: #fff; padding: 4px 8px; border-radius: 4px; text-transform: uppercase; text-align: center; margin-bottom: 14px; letter-spacing: 0.1em;">Official Membership Application Form</div>
 
-          <div class="print-hide" style="background: var(--paper-dim); border-left: 4px solid var(--marigold); padding: 10px 14px; font-size: 12.5px; margin-bottom: 18px; border-radius: 0 6px 6px 0; color: var(--ink);">
+          <div class="print-hide" style="background: var(--paper-dim); border-left: 4px solid var(--marigold); padding: 8px 12px; font-size: 12px; margin-bottom: 14px; border-radius: 0 6px 6px 0; color: var(--ink);">
             <strong>Instructions:</strong> Fill out your details below, click <strong>Print / Save as PDF</strong>, sign the printed copy, and deposit it in person at the club office.
           </div>
 
           <form onsubmit="event.preventDefault();">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px;">
-              <div style="grid-column: span 2;">
-                <label style="display:block; font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; color:var(--indigo); margin-bottom:4px; font-weight:600;">Full Name (সদস্যের নাম) *</label>
-                <input type="text" required placeholder="Enter your full name" style="width:100%; padding:8px 10px; border:1px solid var(--line); border-radius:6px; font-family:'Work Sans',sans-serif; font-size:13.5px; background:#fff;">
-              </div>
-
+            <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
+              
+              <!-- Row 1: Full Name -->
               <div>
-                <label style="display:block; font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; color:var(--indigo); margin-bottom:4px; font-weight:600;">Date of Birth (জন্ম তারিখ) *</label>
-                <input type="date" required style="width:100%; padding:8px 10px; border:1px solid var(--line); border-radius:6px; font-family:'Work Sans',sans-serif; font-size:13.5px; background:#fff;">
+                <label style="display:block; font-family:'JetBrains Mono',monospace; font-size:10.5px; text-transform:uppercase; color:var(--indigo); margin-bottom:3px; font-weight:600;">Full Name (সদস্যের নাম) *</label>
+                <input type="text" required placeholder="Enter your full name" style="width:100%; padding:7px 10px; border:1px solid var(--line); border-radius:6px; font-family:'Work Sans',sans-serif; font-size:13px; background:#fff;">
               </div>
 
+              <!-- Row 2: DOB & Contact -->
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <div>
+                  <label style="display:block; font-family:'JetBrains Mono',monospace; font-size:10.5px; text-transform:uppercase; color:var(--indigo); margin-bottom:3px; font-weight:600;">Date of Birth (জন্ম তারিখ) *</label>
+                  <input type="date" required style="width:100%; padding:7px 10px; border:1px solid var(--line); border-radius:6px; font-family:'Work Sans',sans-serif; font-size:13px; background:#fff;">
+                </div>
+                <div>
+                  <label style="display:block; font-family:'JetBrains Mono',monospace; font-size:10.5px; text-transform:uppercase; color:var(--indigo); margin-bottom:3px; font-weight:600;">Contact Number (মোবাইল নম্বর) *</label>
+                  <input type="tel" required placeholder="10-digit mobile number" style="width:100%; padding:7px 10px; border:1px solid var(--line); border-radius:6px; font-family:'Work Sans',sans-serif; font-size:13px; background:#fff;">
+                </div>
+              </div>
+
+              <!-- Row 3: Aadhaar Card & Blood Group -->
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <div>
+                  <label style="display:block; font-family:'JetBrains Mono',monospace; font-size:10.5px; text-transform:uppercase; color:var(--indigo); margin-bottom:3px; font-weight:600;">Aadhaar Card Number (আধার নম্বর)</label>
+                  <input type="text" placeholder="12-digit Aadhaar number" maxlength="12" style="width:100%; padding:7px 10px; border:1px solid var(--line); border-radius:6px; font-family:'Work Sans',sans-serif; font-size:13px; background:#fff;">
+                </div>
+                <div>
+                  <label style="display:block; font-family:'JetBrains Mono',monospace; font-size:10.5px; text-transform:uppercase; color:var(--indigo); margin-bottom:3px; font-weight:600;">Blood Group (রক্তের গ্রুপ)</label>
+                  <select style="width:100%; padding:7px 10px; border:1px solid var(--line); border-radius:6px; font-family:'Work Sans',sans-serif; font-size:13px; background:#fff;">
+                    <option value="">Select Blood Group</option>
+                    <option value="A+">A+</option><option value="A-">A-</option>
+                    <option value="B+">B+</option><option value="B-">B-</option>
+                    <option value="O+">O+</option><option value="O-">O-</option>
+                    <option value="AB+">AB+</option><option value="AB-">AB-</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Row 4: Occupation -->
               <div>
-                <label style="display:block; font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; color:var(--indigo); margin-bottom:4px; font-weight:600;">Contact Number (মোবাইল নম্বর) *</label>
-                <input type="tel" required placeholder="10-digit mobile number" style="width:100%; padding:8px 10px; border:1px solid var(--line); border-radius:6px; font-family:'Work Sans',sans-serif; font-size:13.5px; background:#fff;">
+                <label style="display:block; font-family:'JetBrains Mono',monospace; font-size:10.5px; text-transform:uppercase; color:var(--indigo); margin-bottom:3px; font-weight:600;">Occupation (পেশা)</label>
+                <input type="text" placeholder="e.g. Service, Business, Student, Farming" style="width:100%; padding:7px 10px; border:1px solid var(--line); border-radius:6px; font-family:'Work Sans',sans-serif; font-size:13px; background:#fff;">
               </div>
 
-              <div style="grid-column: span 2;">
-                <label style="display:block; font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; color:var(--indigo); margin-bottom:4px; font-weight:600;">Residential Address (স্থায়ী ঠিকানা) *</label>
-                <textarea rows="2" required placeholder="Village, P.O., P.S., District, Pin Code" style="width:100%; padding:8px 10px; border:1px solid var(--line); border-radius:6px; font-family:'Work Sans',sans-serif; font-size:13.5px; background:#fff; resize:vertical;"></textarea>
+              <!-- Address Breakdown Rows -->
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <div>
+                  <label style="display:block; font-family:'JetBrains Mono',monospace; font-size:10.5px; text-transform:uppercase; color:var(--indigo); margin-bottom:3px; font-weight:600;">Country (দেশ)</label>
+                  <input type="text" value="India" style="width:100%; padding:7px 10px; border:1px solid var(--line); border-radius:6px; font-family:'Work Sans',sans-serif; font-size:13px; background:#fff;">
+                </div>
+                <div>
+                  <label style="display:block; font-family:'JetBrains Mono',monospace; font-size:10.5px; text-transform:uppercase; color:var(--indigo); margin-bottom:3px; font-weight:600;">State (রাজ্য)</label>
+                  <input type="text" value="West Bengal" style="width:100%; padding:7px 10px; border:1px solid var(--line); border-radius:6px; font-family:'Work Sans',sans-serif; font-size:13px; background:#fff;">
+                </div>
               </div>
 
-              <div>
-                <label style="display:block; font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; color:var(--indigo); margin-bottom:4px; font-weight:600;">Occupation (পেশা)</label>
-                <input type="text" placeholder="e.g. Service, Business, Student" style="width:100%; padding:8px 10px; border:1px solid var(--line); border-radius:6px; font-family:'Work Sans',sans-serif; font-size:13.5px; background:#fff;">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <div>
+                  <label style="display:block; font-family:'JetBrains Mono',monospace; font-size:10.5px; text-transform:uppercase; color:var(--indigo); margin-bottom:3px; font-weight:600;">District (জেলা) *</label>
+                  <input type="text" value="Paschim Medinipur" style="width:100%; padding:7px 10px; border:1px solid var(--line); border-radius:6px; font-family:'Work Sans',sans-serif; font-size:13px; background:#fff;">
+                </div>
+                <div>
+                  <label style="display:block; font-family:'JetBrains Mono',monospace; font-size:10.5px; text-transform:uppercase; color:var(--indigo); margin-bottom:3px; font-weight:600;">Block / Municipality (ব্লক / পৌরসভা)</label>
+                  <input type="text" placeholder="e.g. Daspur-II" style="width:100%; padding:7px 10px; border:1px solid var(--line); border-radius:6px; font-family:'Work Sans',sans-serif; font-size:13px; background:#fff;">
+                </div>
               </div>
 
-              <div>
-                <label style="display:block; font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; color:var(--indigo); margin-bottom:4px; font-weight:600;">Blood Group (রক্তের গ্রুপ)</label>
-                <select style="width:100%; padding:8px 10px; border:1px solid var(--line); border-radius:6px; font-family:'Work Sans',sans-serif; font-size:13.5px; background:#fff;">
-                  <option value="">Select Blood Group</option>
-                  <option value="A+">A+</option><option value="A-">A-</option>
-                  <option value="B+">B+</option><option value="B-">B-</option>
-                  <option value="O+">O+</option><option value="O-">O-</option>
-                  <option value="AB+">AB+</option><option value="AB-">AB-</option>
-                </select>
+              <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 10px;">
+                <div>
+                  <label style="display:block; font-family:'JetBrains Mono',monospace; font-size:10.5px; text-transform:uppercase; color:var(--indigo); margin-bottom:3px; font-weight:600;">Village / Ward (গ্রাম / ওয়ার্ড) *</label>
+                  <input type="text" placeholder="Village / House / Ward No." style="width:100%; padding:7px 10px; border:1px solid var(--line); border-radius:6px; font-family:'Work Sans',sans-serif; font-size:13px; background:#fff;">
+                </div>
+                <div>
+                  <label style="display:block; font-family:'JetBrains Mono',monospace; font-size:10.5px; text-transform:uppercase; color:var(--indigo); margin-bottom:3px; font-weight:600;">PIN Code *</label>
+                  <input type="text" placeholder="Pin" maxlength="6" style="width:100%; padding:7px 10px; border:1px solid var(--line); border-radius:6px; font-family:'Work Sans',sans-serif; font-size:13px; background:#fff;">
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Expanded Signature & Seal Section -->
+            <div style="display: flex; justify-content: space-between; margin-top: 35px; padding-top: 25px; border-top: 1px dashed var(--line); font-size: 11px; font-family: 'JetBrains Mono', monospace;">
+              <div style="text-align: center; width: 220px; border-top: 1px solid var(--indigo); padding-top: 6px; margin-top: 25px;">
+                Full Signature of the Applicant
+              </div>
+              <div style="text-align: center; width: 220px; border-top: 1px solid var(--indigo); padding-top: 6px; margin-top: 25px;">
+                Secretary / President Seal & Signature
               </div>
             </div>
 
-            <div style="display: flex; justify-content: space-between; margin-top: 25px; padding-top: 15px; border-top: 1px dashed var(--line); font-size: 11.5px; font-family: 'JetBrains Mono', monospace;">
-              <div style="text-align: center; width: 160px; border-top: 1px solid var(--indigo); padding-top: 4px;">Applicant's Signature</div>
-              <div style="text-align: center; width: 160px; border-top: 1px solid var(--indigo); padding-top: 4px;">Secretary / President Seal</div>
-            </div>
-
+            <!-- Print Button (Hidden on Print) -->
             <div class="print-hide" style="display: flex; gap: 12px; margin-top: 20px;">
               <button type="button" onclick="window.print()" style="flex: 1; padding: 11px; border: none; border-radius: 6px; font-weight: 600; font-family: 'JetBrains Mono', monospace; font-size: 12.5px; cursor: pointer; background: var(--indigo); color: var(--paper);">🖨️ PRINT / SAVE AS PDF</button>
             </div>
           </form>
-        </div>
-
-        <!-- SECTION 2: SUPPORT US & DONATE -->
-        <div class="section-head print-hide" style="margin-top:50px;"><h2>Support Us & Donate</h2><span class="tag">Banking & QR Details</span></div>
-        <div class="card print-hide" style="margin-bottom:30px; border-top: 3px solid #27ae60; background: #fff;">
-          <h3 style="color: var(--indigo); font-family: 'Tiro Bangla', serif; font-size: 20px; margin-bottom: 12px;">💚 Direct Support / Donation Details</h3>
-          <p style="font-size: 13.5px; color: #5c563f; margin-bottom: 20px;">Contribute directly to our building fund, poor relief programs, and blood donation camps.</p>
-          
-          <div style="background: var(--paper-dim); padding: 16px; border-radius: 8px; margin-bottom: 20px;">
-            <h4 style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--clay); text-transform:uppercase; margin-bottom:10px;">Bank Account Details</h4>
-            <p style="font-size: 13px; margin-bottom: 6px;"><strong>Account Name:</strong> Dihibaliharpur Tarun Sangha</p>
-            <p style="font-size: 13px; margin-bottom: 6px;"><strong>Bank Name:</strong> Punjab National Bank</p>
-            <p style="font-size: 13px; margin-bottom: 6px;"><strong>Account Number:</strong> 0188200100013068</p>
-            <p style="font-size: 13px; margin-bottom: 6px;"><strong>IFSC Code:</strong> PUNB0018820</p>
-            <p style="font-size: 13px; margin-bottom: 0px;"><strong>Branch:</strong> Dasspur(018820), Paschim Medinipur</p>
-          </div>
-
-          <div style="text-align: center; background: var(--paper-dim); padding: 20px; border-radius: 8px; border: 1px dashed var(--marigold);">
-            <h4 style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--clay); text-transform:uppercase; margin-bottom:12px;">Scan QR Code or Pay Direct</h4>
-            <img src="qr-code.png" alt="Scan to Donate QR Code" style="max-width: 180px; width: 100%; height: auto; margin: 0 auto 16px auto; border-radius: 6px;" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'180\' height=\'180\'><rect width=\'100%\' height=\'100%\' fill=\'%23ddd\'/><text x=\'50%\' y=\'50%\' font-size=\'13\' fill=\'%23666\' dominant-baseline=\'middle\' text-anchor=\'middle\'>Upload QR Code</text></svg>'">
-            <a href="upi://pay?pa=8972217940m@pnb&pn=Dihibaliharpur%20Tarun%20Sangha&cu=INR" style="display: inline-block; width: 100%; max-width: 260px; padding: 12px 20px; background: #27ae60; color: #fff; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; border-radius: 24px;">⚡ PAY NOW (UPI)</a>
-          </div>
-        </div>
-
-        <!-- Android App Direct Download Card -->
-        <div class="join-download-card print-hide" style="margin: 40px 0 20px 0; background: linear-gradient(135deg, #1B2A4A, #101a33); display: flex; align-items: center; gap: 18px; padding: 22px 26px; border-radius: 14px; box-shadow: 0 16px 34px rgba(27,42,74,0.22); flex-wrap: wrap;">
-          <div class="join-download-icon" style="font-size: 32px; flex-shrink: 0;">📱</div>
-          <div class="join-download-info" style="flex-grow: 1; min-width: 200px;">
-            <h3 style="color: var(--paper); font-family: 'Tiro Bangla', serif; font-weight: 400; font-size: 18px;">Official Android App (.APK)</h3>
-            <p style="color: rgba(247,241,227,0.7); font-size: 12px; margin-top: 4px;">Install Tarun Sangha directly on your phone &middot; Fast &amp; lightweight</p>
-          </div>
-          <a href="dts-app.apk" download class="join-download-btn" style="flex-shrink: 0; background: #27ae60; color: #fff; text-decoration: none !important; font-family: 'JetBrains Mono', monospace; font-size: 12.5px; font-weight: 600; padding: 12px 20px; border-radius: 8px;">DOWNLOAD APP ↓</a>
         </div>
 
       </main>
