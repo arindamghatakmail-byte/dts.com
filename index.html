@@ -51,6 +51,11 @@
   img{ max-width:100%; display:block; }
   a{ text-decoration:none !important; }
   a:hover, a:focus{ text-decoration:none !important; }
+  @media(max-width:800px){ 
+  .brand-full { display: none !important; }
+  .brand-mobile { display: inline !important; }
+  .nav-brand span{ display:inline; } /* Overrides the previous hiding rule for other spans like Estd */
+}
 
   /* ==========================================
      ULTRA-MODERN GLOWING DASHBOARD SELECTORS
@@ -498,7 +503,12 @@
      
     <nav id="siteNav">
       <div class="wrap nav-top">
-        <a class="nav-brand" onclick="showPage('home')" style="text-decoration:none !important;"><img src="logo.png" alt="DTS logo" style="height:32px; width:auto; margin-right:8px; vertical-align:middle;"><span data-en="Dihibaliharpur Tarun Sangha" data-bn="ডিহিবলিহারপুর তরুণ সংঘ">Dihibaliharpur Tarun Sangha</span> <span data-en="Estd. 1990" data-bn="স্থাপিত ১৯৯0">Estd. 1990</span></a>
+        <a class="nav-brand" onclick="showPage('home')" style="text-decoration:none !important;">
+  <img src="logo.png" alt="DTS logo" style="height:32px; width:auto; margin-right:8px; vertical-align:middle;">
+  <span class="brand-full" data-en="Dihibaliharpur Tarun Sangha" data-bn="ডিহিবলিহারপুর তরুণ সংঘ">Dihibaliharpur Tarun Sangha</span> 
+  <span class="brand-mobile" style="display:none; font-family:'Tiro Bangla',serif; font-size:16px; color:var(--paper);">DTS</span>
+  <span data-en="Estd. 1990" data-bn="স্থাপিত ১৯৯0">Estd. 1990</span>
+</a>
         <button class="nav-hamburger" id="navHamburger" onclick="toggleMobileNav()" aria-label="Menu"><span></span><span></span><span></span></button>
       </div>
       <div class="wrap" style="position:relative;">
