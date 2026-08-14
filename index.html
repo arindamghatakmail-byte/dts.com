@@ -354,8 +354,9 @@
   .hcc-sep{ color:var(--sindoor); font-size:14px; padding-top:1px; }
   .hcc-date{ font-family:'JetBrains Mono',monospace; font-size:8.5px; color:rgba(247,241,227,0.6); margin-top:6px; }
   @media(max-width:820px){
-    .hero-corner-countdown{ top:10px; right:12px; min-width:0; padding:5px 9px; border-radius:9px; }
-    .hcc-label, .hcc-title, .hcc-date, .hcc-unit small{ display:none; }
+    .hero-corner-countdown{ top:10px; right:12px; min-width:0; max-width:150px; padding:6px 10px; border-radius:9px; }
+    .hcc-label, .hcc-date, .hcc-unit small{ display:none; }
+    .hcc-title{ font-size:9.5px; margin-bottom:5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     .hcc-digits{ gap:2px; }
     .hcc-unit{ min-width:auto; }
     .hcc-unit span{ font-size:11.5px; }
