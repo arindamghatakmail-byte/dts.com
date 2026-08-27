@@ -51,6 +51,25 @@
   }
   waveifyText('.title-modern');
 
+//--- Theme Toggle Dark/White ---//
+const toggleBtn = document.getElementById('theme-toggle');
+const html = document.documentElement;
+
+// Set correct icon on load (theme itself was already set inline in <head>)
+updateIcon(html.getAttribute('data-theme'));
+
+toggleBtn.addEventListener('click', () => {
+  const current = html.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  updateIcon(next);
+});
+
+function updateIcon(theme) {
+  toggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+}
+
   // --- CSV EXPORT HELPER ---
   function downloadCSV(filename, headers, rows) {
     const escapeCell = (val) => {
