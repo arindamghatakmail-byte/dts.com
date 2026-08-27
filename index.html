@@ -40,8 +40,18 @@
 <script src="passkey.js"></script>
 
 <link rel="stylesheet" href="styles.css">
+<!-- Theme script goes in head, BEFORE stylesheet content renders, to avoid a flash -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const theme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
 </head>
 <body>
+<button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
 
 <!-- ==========================================
      PUBLIC VIEW: THE MAINTENANCE SCREEN
