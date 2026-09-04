@@ -766,7 +766,7 @@
         <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap;">
           <div>
             <h2 class="page-title">Treasurer Dashboard</h2>
-            <p class="page-lede">Secure portal for Mr. Sandip Roy to manage and verify monthly member dues.</p>
+            <p class="page-lede">Secure portal for the Treasurer to manage and verify monthly member dues.</p>
           </div>
           <button id="treasurerLogoutBtn" onclick="logoutPortal('treasurer')" style="display:none; flex-shrink:0; padding:9px 16px; background:var(--sindoor); color:#fff; border:none; border-radius:8px; font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:600; cursor:pointer; letter-spacing:.04em;"><i class="fas fa-right-from-bracket"></i> LOGOUT</button>
         </div>
@@ -775,7 +775,7 @@
           <div class="split-login-left">
             <div class="split-login-icon">💰</div>
             <h2>Hello, Treasurer!</h2>
-            <p>Record monthly dues, verify payments, and manage new member applications — secure access for Mr. Sandip Roy.</p>
+            <p>Record monthly dues, verify payments, and manage new member applications — secure access for the Treasurer.</p>
           </div>
           <div class="split-login-right">
             <h3>Treasurer Login</h3>
@@ -1040,7 +1040,7 @@
                     <input type="hidden" id="editEventImageUrl">
                     <div class="mag-form-row">
                       <label>Event Title *</label>
-                      <input type="text" id="adminEventTitle" required placeholder="e.g. Khuti Puja 2026">
+                      <input type="text" id="adminEventTitle" required placeholder="Event Name">
                     </div>
                     <div class="mag-form-row">
                       <label>Event Date & Time (Select exact time) *</label>
@@ -1114,11 +1114,11 @@
                     </div>
                     <div class="mag-form-row">
                       <label>Designation *</label>
-                      <input type="text" id="memberDesignation" required placeholder="Enter your Designation e.g. Member / Secretary">
+                      <input type="text" id="memberDesignation" required placeholder="Enter your Designation">
                     </div>
                     <div class="mag-form-row">
                       <label>Occupation (Optional)</label>
-                      <input type="text" id="memberOccupation" placeholder="Enter your Occupation e.g. Service / Business">
+                      <input type="text" id="memberOccupation" placeholder="Enter your Occupation">
                     </div>
                     <div class="mag-form-row">
                       <label>Date of Birth (Optional)</label>
@@ -1129,8 +1129,8 @@
                       <input type="text" id="memberPhone" placeholder="XXXXXXXXX">
                     </div>
                     <div class="mag-form-row">
-                      <label>Member Since (Optional, e.g. "2020")</label>
-                      <input type="text" id="memberSince" placeholder="e.g. 2020">
+                      <label>Member Since (Optional)</label>
+                      <input type="text" id="memberSince" placeholder="Enter Joining Year">
                     </div>
                     <div class="mag-form-row">
                       <label>Short Bio (Optional, shown on Committee Card)</label>
@@ -1412,13 +1412,13 @@
                   <p style="font-size:12px; color:#7a7260; margin-bottom:18px;">When ON, every visitor sees the maintenance screen instead of the live site — except anyone who has unlocked preview access below.</p>
 
                   <div class="mag-form-row">
-                    <label>Website Version Badge (shown next to logo, e.g. "2.0")</label>
+                    <label>Website Version Badge</label>
                     <input type="text" id="siteVersionInput" placeholder="2.0">
                   </div>
 
                   <div class="mag-form-row">
-                    <label>Team Preview Code (unlocks the site during maintenance)</label>
-                    <input type="text" id="sitePasswordInput" placeholder="e.g. dihibaliharpur-preview-2026">
+                    <label>Team Preview Code</label>
+                    <input type="text" id="sitePasswordInput" placeholder="**************">
                     <p style="font-size:11px; color:#9a927c; margin-top:6px;">Changing this immediately invalidates any old code — anyone previously unlocked will need to re-enter the new one.</p>
                   </div>
 
@@ -1615,29 +1615,29 @@
               <!-- Row 4: Occupation -->
               <div>
                 <label style="display:block; font-family:'JetBrains Mono',monospace; font-size:10.5px; text-transform:uppercase; color:var(--indigo); margin-bottom:3px; font-weight:600;">Occupation (পেশা)</label>
-                <input type="text" id="appOccupation" placeholder="e.g. Service, Business, Student, Farming" style="width:100%; padding:7px 10px; border:1px solid var(--line); border-radius:6px; font-family:'Work Sans',sans-serif; font-size:13px; background:#fff;">
+                <input type="text" id="appOccupation" placeholder="Enter Your Occupation" style="width:100%; padding:7px 10px; border:1px solid var(--line); border-radius:6px; font-family:'Work Sans',sans-serif; font-size:13px; background:#fff;">
               </div>
 
               <!-- Address Breakdown Rows -->
               <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                 <div>
                   <label style="display:block; font-family:'JetBrains Mono',monospace; font-size:10.5px; text-transform:uppercase; color:var(--indigo); margin-bottom:3px; font-weight:600;">Country (দেশ)</label>
-                  <input type="text" id="appCountry" value="India" style="width:100%; padding:7px 10px; border:1px solid var(--line); border-radius:6px; font-family:'Work Sans',sans-serif; font-size:13px; background:#fff;">
+                  <input type="text" id="appCountry" value="India" readonly style="width:100%; padding:7px 10px; border:1px solid var(--line); border-radius:6px; font-family:'Work Sans',sans-serif; font-size:13px; background:#fff;">
                 </div>
                 <div>
                   <label style="display:block; font-family:'JetBrains Mono',monospace; font-size:10.5px; text-transform:uppercase; color:var(--indigo); margin-bottom:3px; font-weight:600;">State (রাজ্য)</label>
-                  <input type="text" id="appState" value="West Bengal" style="width:100%; padding:7px 10px; border:1px solid var(--line); border-radius:6px; font-family:'Work Sans',sans-serif; font-size:13px; background:#fff;">
+                  <input type="text" id="appState" value="West Bengal" readonly style="width:100%; padding:7px 10px; border:1px solid var(--line); border-radius:6px; font-family:'Work Sans',sans-serif; font-size:13px; background:#fff;">
                 </div>
               </div>
 
               <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                 <div>
                   <label style="display:block; font-family:'JetBrains Mono',monospace; font-size:10.5px; text-transform:uppercase; color:var(--indigo); margin-bottom:3px; font-weight:600;">District (জেলা) *</label>
-                  <input type="text" id="appDistrict" value="Paschim Medinipur" style="width:100%; padding:7px 10px; border:1px solid var(--line); border-radius:6px; font-family:'Work Sans',sans-serif; font-size:13px; background:#fff;">
+                  <input type="text" id="appDistrict" placeholder="Enter District Name" style="width:100%; padding:7px 10px; border:1px solid var(--line); border-radius:6px; font-family:'Work Sans',sans-serif; font-size:13px; background:#fff;">
                 </div>
                 <div>
                   <label style="display:block; font-family:'JetBrains Mono',monospace; font-size:10.5px; text-transform:uppercase; color:var(--indigo); margin-bottom:3px; font-weight:600;">Block / Municipality (ব্লক / পৌরসভা)</label>
-                  <input type="text" id="appBlock" placeholder="e.g. Daspur-II" style="width:100%; padding:7px 10px; border:1px solid var(--line); border-radius:6px; font-family:'Work Sans',sans-serif; font-size:13px; background:#fff;">
+                  <input type="text" id="appBlock" placeholder="Enter Block/Ward Name" style="width:100%; padding:7px 10px; border:1px solid var(--line); border-radius:6px; font-family:'Work Sans',sans-serif; font-size:13px; background:#fff;">
                 </div>
               </div>
 
@@ -1762,7 +1762,7 @@
     <div class="page" id="page-emergency">
       <main class="wrap" style="padding-top:40px;">
         <h2 class="page-title">Emergency Contacts</h2>
-        <p class="page-lede">Save these to your phone. Numbers marked "Local" were sourced from official district records — please verify with your own local knowledge before relying on them in an actual emergency.</p>
+        <p class="page-lede">Save these to your phone today to be safe tomorrow .</p>
         <div id="emergencyContactsGrid" class="emergency-grid">
           <p style="font-size:13px; color:#9a927c;">Loading emergency contacts…</p>
         </div>
