@@ -1,0 +1,25 @@
+{
+  "id": "./",
+  "name": "Dihibaliharpur Tarun Sangha",
+  "short_name": "DTS",
+  "description": "A Forum of Sports and Culture - Dihibaliharpur Tarun Sangha",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F7F1E3",
+  "theme_color": "#1B2A4A",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "logo.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
