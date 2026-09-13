@@ -606,7 +606,7 @@
     if (window.__siteSettings) applyVersionBadge(window.__siteSettings);
 
     const hash = window.location.hash.replace('#', '');
-    const validPages = ['home', 'aim', 'members', 'finances', 'events', 'activities', 'gallery', 'magazine', 'members-only', 'treasurer', 'admin', 'join', 'contact', 'emergency'];
+    const validPages = ['home', 'aim', 'members', 'finances', 'events', 'activities', 'gallery', 'magazine', 'members-only', 'my-account', 'treasurer', 'admin', 'join', 'contact', 'emergency'];
 
     if (hash && validPages.includes(hash)) {
       showPage(hash, false); 
