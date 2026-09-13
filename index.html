@@ -123,6 +123,7 @@
           <a class="tab-link" data-page="gallery" onclick="showPage('gallery')"><i class="fas fa-images nav-icon"></i><span data-en="Gallery" data-bn="গ্যালারি">Gallery</span></a>
           <a class="tab-link" data-page="magazine" onclick="showPage('magazine')"><i class="fas fa-book-open nav-icon"></i><span data-en="Magazine" data-bn="বিভাস পত্রিকা">Magazine</span></a>
           <a class="tab-link" data-page="members-only" onclick="showPage('members-only')"><i class="fas fa-user-lock nav-icon"></i><span data-en="Members Login" data-bn="সদস্য পোর্টাল">Members Login</span></a>
+          <a class="tab-link" data-page="my-account" onclick="showPage('my-account')"><i class="fas fa-id-badge nav-icon"></i><span data-en="My Account" data-bn="আমার অ্যাকাউন্ট">My Account</span></a>
           <a class="tab-link" data-page="treasurer" onclick="showPage('treasurer')"><i class="fas fa-wallet nav-icon"></i><span data-en="Treasurer" data-bn="কোষাধ্যক্ষ">Treasurer</span></a>
           <a class="tab-link" data-page="admin" onclick="showPage('admin')"><i class="fas fa-lock nav-icon"></i><span data-en="Admin" data-bn="অ্যাডমিন">Admin</span></a>
           <a class="tab-link" data-page="join" onclick="showPage('join')"><i class="fas fa-handshake nav-icon"></i><span data-en="Join Us" data-bn="যুক্ত হন">Join Us</span></a>
@@ -760,7 +761,128 @@
         </div>
       </main>
     </div>
+<!-- ============ My Account (Personal Member Dashboard) ============ -->
+<div class="page" id="page-my-account">
+  <main class="wrap" style="padding-top:40px;">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap;">
+      <div>
+        <h2 class="page-title">My Account</h2>
+        <p class="page-lede">Your personal dashboard — dues status, magazine submissions, and profile details, under your own login.</p>
+      </div>
+      <button id="myAccountLogoutBtn" onclick="myAccountLogout()" style="display:none; flex-shrink:0; padding:9px 16px; background:var(--sindoor); color:#fff; border:none; border-radius:8px; font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:600; cursor:pointer; letter-spacing:.04em;"><i class="fas fa-right-from-bracket"></i> LOGOUT</button>
+    </div>
 
+    <div id="myAccountGate">
+      <div style="display:flex; gap:8px; margin-bottom:20px;">
+        <button type="button" id="maTabLoginBtn" onclick="switchMyAccountGateTab('login')" class="split-login-btn" style="width:auto; padding:8px 20px;">Login</button>
+        <button type="button" id="maTabRegisterBtn" onclick="switchMyAccountGateTab('register')" style="width:auto; padding:8px 20px; background:transparent; color:var(--indigo); border:1px solid var(--line); border-radius:6px; cursor:pointer; font-weight:600; opacity:0.6;">Register</button>
+      </div>
+
+      <div id="maLoginPanel" class="card" style="max-width:440px;">
+        <h3 style="font-family:'Tiro Bangla',serif; color:var(--indigo); margin-bottom:12px;">Member Login</h3>
+        <p class="note">Log in with the phone number on your member record and the password you set.</p>
+        <div class="mag-form-row">
+          <label>Phone Number *</label>
+          <input type="text" id="maLoginPhone" placeholder="10-digit mobile number">
+        </div>
+        <div class="mag-form-row">
+          <label>Password *</label>
+          <input type="password" id="maLoginPassword" placeholder="Your password" onkeydown="if(event.key==='Enter'){myAccountLogin();}">
+        </div>
+        <div id="maLoginError" style="display:none; color:var(--sindoor); font-size:12.5px; margin-bottom:10px;"></div>
+        <button type="button" onclick="myAccountLogin()" class="split-login-btn">Log in</button>
+      </div>
+
+      <div id="maRegisterPanel" class="card" style="max-width:440px; display:none;">
+        <h3 style="font-family:'Tiro Bangla',serif; color:var(--indigo); margin-bottom:12px;">First-Time Registration</h3>
+        <p class="note">Already a member of the Sangha? Confirm your identity and set a password.</p>
+        <div class="mag-form-row">
+          <label>Select Your Name *</label>
+          <select id="maRegName">
+            <option value="">Select your name from directory</option>
+          </select>
+        </div>
+        <div class="mag-form-row">
+          <label>Phone Number on Record *</label>
+          <input type="text" id="maRegPhone" placeholder="Must match the number on your member record">
+        </div>
+        <div class="mag-form-row">
+          <label>Set Password *</label>
+          <input type="password" id="maRegPassword" placeholder="At least 6 characters">
+        </div>
+        <div class="mag-form-row">
+          <label>Confirm Password *</label>
+          <input type="password" id="maRegPasswordConfirm" placeholder="Re-enter password">
+        </div>
+        <div id="maRegError" style="display:none; color:var(--sindoor); font-size:12.5px; margin-bottom:10px;"></div>
+        <div id="maRegSuccess" style="display:none; color:var(--leaf); font-size:12.5px; margin-bottom:10px;"></div>
+        <button type="button" onclick="myAccountRegister()" class="split-login-btn">Create Account</button>
+      </div>
+    </div>
+
+    <div id="myAccountContent" style="display:none;">
+      <div class="dashboard-nav-wrapper">
+        <label for="myAccountNavSelect"><i class="fas fa-compass" style="color:var(--marigold);"></i> Navigate My Account</label>
+        <select id="myAccountNavSelect" class="modern-select" onchange="switchMyAccountTab(this.value)">
+          <option value="ma-tab-dues">💰 My Dues & Receipts</option>
+          <option value="ma-tab-magazine">✍️ Submit to Bibhas</option>
+          <option value="ma-tab-profile">👤 My Profile</option>
+        </select>
+      </div>
+
+      <div id="ma-tab-dues" class="member-portal-panel">
+        <div class="section-head"><h2 id="maDuesName">My Dues</h2><span class="tag">FY 2026–27</span></div>
+        <div class="card" id="maDuesContainer" style="overflow-x:auto;">
+          <p style="font-size:13px; color:#9a927c;">Loading your dues status…</p>
+        </div>
+      </div>
+
+      <div id="ma-tab-magazine" class="member-portal-panel" style="display:none;">
+        <div class="section-head"><h2>Submit to বিভাস</h2><span class="tag">Bibhas Magazine</span></div>
+        <div class="card" style="max-width:720px;">
+          <form id="myAccountMagazineForm" onsubmit="submitMyAccountMagazinePost(event)">
+            <div class="mag-form-row">
+              <label>Title of Your Piece</label>
+              <input type="text" name="title" required>
+            </div>
+            <div class="mag-form-row">
+              <label>Category</label>
+              <select name="category" required>
+                <option value="">Select one</option>
+                <option value="Poetry">Poetry</option>
+                <option value="Story">Story</option>
+                <option value="Prose">Prose</option>
+                <option value="Essay">Essay</option>
+                <option value="President's/Secretary's Corner">President's/Secretary's Corner</option>
+              </select>
+            </div>
+            <div class="mag-form-row">
+              <label>Your Writing</label>
+              <div id="myAccountQuillEditor" style="height:220px; background:#fff;"></div>
+            </div>
+            <button type="submit" id="myAccountMagazineBtn" class="form-submit-btn" style="padding:10px 22px; background:var(--sindoor); color:var(--paper); border:none; border-radius:6px; cursor:pointer;">PUBLISH TO BIBHAS</button>
+            <div id="myAccountMagazineStatus" style="display:none; margin-top:14px; padding:12px 14px; border-radius:6px; font-size:13px;"></div>
+          </form>
+        </div>
+      </div>
+
+      <div id="ma-tab-profile" class="member-portal-panel" style="display:none;">
+        <div class="section-head"><h2>My Profile</h2><span class="tag">Editable Details</span></div>
+        <div class="card" style="max-width:560px;">
+          <form onsubmit="saveMyAccountProfile(event)">
+            <div class="mag-form-row"><label>Name</label><input type="text" id="maProfileName" disabled></div>
+            <div class="mag-form-row"><label>Address</label><input type="text" id="maProfileAddress"></div>
+            <div class="mag-form-row"><label>Occupation</label><input type="text" id="maProfileOccupation"></div>
+            <div class="mag-form-row"><label>Phone Number</label><input type="text" id="maProfilePhone"></div>
+            <div class="mag-form-row"><label>Short Bio</label><textarea id="maProfileBio" rows="3" style="width:100%; padding:10px; border:1px solid var(--line); border-radius:8px; font-family:'Work Sans',sans-serif;"></textarea></div>
+            <div id="maProfileStatus" style="display:none; margin-top:10px; padding:10px; border-radius:6px; font-size:13px;"></div>
+            <button type="submit" class="form-submit-btn" style="padding:10px 22px; background:var(--leaf); color:#fff; border:none; border-radius:6px; cursor:pointer; margin-top:6px;">SAVE CHANGES</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
     <!-- ============ Treasurer Login & Dashboard ============ -->
     <div class="page" id="page-treasurer">
       <main class="wrap" style="padding-top:40px;">
@@ -1859,6 +1981,7 @@
 <script type="module" src="public.js"></script>
 <script type="module" src="member.js"></script>
 <script type="module" src="treasurer.js"></script>
+<script type="module" src="admin.js"></script>
 <script type="module" src="admin.js"></script>
 <script>
   if ('serviceWorker' in navigator) {
