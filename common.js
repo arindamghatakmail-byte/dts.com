@@ -799,7 +799,7 @@
 
 
   export async function loadNotices(){
-    const containers = [document.getElementById('noticeList'), document.getElementById('adminNoticeList')];
+    const containers = [document.getElementById('noticeList'), document.getElementById('adminNoticeList'), document.getElementById('maNoticeList')];
     const oldNotices = [
       { date: "04.07.2026", text: "New Elected Executive Committee, w.e.f. 04.07.2026" },
       { date: "FY 2025–26", text: "Clubhouse wants to raise a Library Building Fund" },
