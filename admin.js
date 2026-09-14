@@ -38,6 +38,7 @@ import { fetchCountdownEvents, loadCommitteeCards, loadMagazine, loadPublicMembe
       loadAdminFiles();
       loadAdminNoticesTable();
       loadAdminMagazineTable();
+      loadPasswordResetRequests();
     }
   });
 
@@ -510,7 +511,60 @@ import { fetchCountdownEvents, loadCommitteeCards, loadMagazine, loadPublicMembe
       alert('Error clearing past events: ' + err.message);
     }
   }
+  async function loadPasswordResetRequests() {
+  const tbody = document.getElementById('adminResetRequestsTableBody');
+  if (!tbody) return;
+  try {
+    const { data, error } = await supabaseClient.rpc('list_pending_password_resets');
+    if (error) throw error;
+    if (!data || data.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color:#9a927c;">No pending requests.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = data.map(r => `
+      <tr>
+        <td>${new Date(r.requested_at).toLocaleString()}</td>
+        <td>${escapeHtml(r.member_name)}</td>
+        <td>
+          <button onclick="approvePasswordReset('${r.id}')" style="padding:4px 10px; background:var(--leaf); color:#fff; border:none; border-radius:4px; font-size:11px; cursor:pointer; margin-right:6px;">Approve</button>
+          <button onclick="rejectPasswordReset('${r.id}')" style="padding:4px 10px; background:var(--sindoor); color:#fff; border:none; border-radius:4px; font-size:11px; cursor:pointer;">Reject</button>
+        </td>
+      </tr>
+    `).join('');
+  } catch (err) {
+    tbody.innerHTML = `<tr><td colspan="3" style="color:var(--sindoor);">Error loading requests.</td></tr>`;
+  }
+}
 
+async function approvePasswordReset(id) {
+  if (!confirm('Approve this reset? The member will need to register a brand-new password from scratch.')) return;
+  try {
+    const { data, error } = await supabaseClient.rpc('admin_approve_password_reset', { p_request_id: id });
+    if (error) throw error;
+    if (data === 'ok') {
+      logActivity('Approved password reset', id);
+      loadPasswordResetRequests();
+    } else {
+      alert('Could not approve: ' + data);
+    }
+  } catch (err) {
+    alert('Error: ' + err.message);
+  }
+}
+
+async function rejectPasswordReset(id) {
+  if (!confirm('Reject this reset request?')) return;
+  try {
+    const { error } = await supabaseClient.rpc('admin_reject_password_reset', { p_request_id: id });
+    if (error) throw error;
+    loadPasswordResetRequests();
+  } catch (err) {
+    alert('Error: ' + err.message);
+  }
+}
+
+window.approvePasswordReset = approvePasswordReset;
+window.rejectPasswordReset = rejectPasswordReset;
 
   function switchAdminTab(panelId) {
     document.querySelectorAll('.admin-portal-panel').forEach(p => p.style.display = 'none'); const target = document.getElementById(panelId); if (target) target.style.display = 'block';
@@ -529,6 +583,7 @@ import { fetchCountdownEvents, loadCommitteeCards, loadMagazine, loadPublicMembe
     if (panelId === 'admin-tab-newmembers') loadMembershipApplications('adminMembershipAppsTableBody');
     if (panelId === 'admin-tab-storage') loadStorageUsage();
     if (panelId === 'admin-tab-activity') loadActivityLog();
+    if (panelId === 'admin-tab-activity') loadPasswordResetRequests();
   }
 
 
