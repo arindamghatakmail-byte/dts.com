@@ -772,53 +772,102 @@
       <button id="myAccountLogoutBtn" onclick="myAccountLogout()" style="display:none; flex-shrink:0; padding:9px 16px; background:var(--sindoor); color:#fff; border:none; border-radius:8px; font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:600; cursor:pointer; letter-spacing:.04em;"><i class="fas fa-right-from-bracket"></i> LOGOUT</button>
     </div>
 
-    <div id="myAccountGate">
-      <div style="display:flex; gap:8px; margin-bottom:20px;">
-        <button type="button" id="maTabLoginBtn" onclick="switchMyAccountGateTab('login')" class="split-login-btn" style="width:auto; padding:8px 20px;">Login</button>
-        <button type="button" id="maTabRegisterBtn" onclick="switchMyAccountGateTab('register')" class="split-register-btn" style="width:auto; padding:8px 20px;">Register</button>
+    <!-- =====================================================================
+     REPLACE the entire existing <div id="myAccountGate"> ... </div>
+     block in index.html with everything below.
+     ===================================================================== -->
+
+<div id="myAccountGate">
+  <div class="ma-auth-shell">
+
+    <div id="maTabTrack" class="ma-tab-track" data-active="login">
+      <div class="ma-tab-indicator"></div>
+      <button type="button" class="ma-tab-btn" data-tab="login" id="maTabLoginBtn" onclick="switchMyAccountGateTab('login')">LOGIN</button>
+      <button type="button" class="ma-tab-btn" data-tab="register" id="maTabRegisterBtn" onclick="switchMyAccountGateTab('register')">REGISTER</button>
+    </div>
+
+    <div class="ma-panel-stack">
+
+      <!-- LOGIN -->
+      <div id="maLoginPanel" class="ma-panel is-active">
+        <div class="ma-auth-icon"><i class="fas fa-user-lock"></i></div>
+        <h3 style="text-align:center; font-family:'Tiro Bangla',serif; color:var(--indigo); margin-bottom:6px;">Welcome Back</h3>
+        <p style="text-align:center; font-size:12.5px; color:#9a927c; margin-bottom:22px;">Log in with your phone number and password.</p>
+
+        <div id="maLoginError" class="ma-msg error"></div>
+
+        <div class="ma-field">
+          <input type="text" id="maLoginPhone" placeholder=" " inputmode="numeric" maxlength="10">
+          <label>Phone Number</label>
+        </div>
+        <div class="ma-field">
+          <input type="password" id="maLoginPassword" placeholder=" " onkeydown="if(event.key==='Enter'){myAccountLogin();}">
+          <label>Password</label>
+        </div>
+
+        <div class="ma-forgot-link"><a onclick="toggleForgotPasswordPanel(true)">Forgot password?</a></div>
+
+        <button type="button" onclick="myAccountLogin()" class="ma-submit-btn" id="maLoginBtn">LOG IN</button>
       </div>
 
-      <div id="maLoginPanel" class="card" style="max-width:440px;">
-        <h3 style="font-family:'Tiro Bangla',serif; color:var(--indigo); margin-bottom:12px;">Member Login</h3>
-        <p class="note">Log in with the phone number on your member record and the password you set.</p>
-        <div class="mag-form-row">
-          <label>Phone Number *</label>
-          <input type="text" id="maLoginPhone" placeholder="10-digit mobile number">
-        </div>
-        <div class="mag-form-row">
-          <label>Password *</label>
-          <input type="password" id="maLoginPassword" placeholder="Your password" onkeydown="if(event.key==='Enter'){myAccountLogin();}">
-        </div>
-        <div id="maLoginError" style="display:none; color:var(--sindoor); font-size:12.5px; margin-bottom:10px;"></div>
-        <button type="button" onclick="myAccountLogin()" class="split-login-btn">Log in</button>
-      </div>
+      <!-- REGISTER -->
+      <div id="maRegisterPanel" class="ma-panel">
+        <div class="ma-auth-icon"><i class="fas fa-user-plus"></i></div>
+        <h3 style="text-align:center; font-family:'Tiro Bangla',serif; color:var(--indigo); margin-bottom:6px;">Create Your Account</h3>
+        <p style="text-align:center; font-size:12.5px; color:#9a927c; margin-bottom:22px;">Already a member? Verify your identity and set a password.</p>
 
-      <div id="maRegisterPanel" class="card" style="max-width:440px; display:none;">
-        <h3 style="font-family:'Tiro Bangla',serif; color:var(--indigo); margin-bottom:12px;">First-Time Registration</h3>
-        <p class="note">Already a member of the Sangha? Confirm your identity and set a password.</p>
-        <div class="mag-form-row">
-          <label>Select Your Name *</label>
+        <div id="maRegError" class="ma-msg error"></div>
+        <div id="maRegSuccess" class="ma-msg success"></div>
+
+        <div class="ma-field-static">
+          <label>SELECT YOUR NAME</label>
           <select id="maRegName">
             <option value="">Select your name from directory</option>
           </select>
         </div>
-        <div class="mag-form-row">
-          <label>Phone Number on Record *</label>
-          <input type="text" id="maRegPhone" placeholder="Must match the number on your member record">
+        <div class="ma-field">
+          <input type="text" id="maRegPhone" placeholder=" " inputmode="numeric" maxlength="10">
+          <label>Phone Number on Record</label>
         </div>
-        <div class="mag-form-row">
-          <label>Set Password *</label>
-          <input type="password" id="maRegPassword" placeholder="At least 6 characters">
+        <div class="ma-field">
+          <input type="password" id="maRegPassword" placeholder=" ">
+          <label>Set Password (min. 6 chars)</label>
         </div>
-        <div class="mag-form-row">
-          <label>Confirm Password *</label>
-          <input type="password" id="maRegPasswordConfirm" placeholder="Re-enter password">
+        <div class="ma-field">
+          <input type="password" id="maRegPasswordConfirm" placeholder=" ">
+          <label>Confirm Password</label>
         </div>
-        <div id="maRegError" style="display:none; color:var(--sindoor); font-size:12.5px; margin-bottom:10px;"></div>
-        <div id="maRegSuccess" style="display:none; color:var(--leaf); font-size:12.5px; margin-bottom:10px;"></div>
-        <button type="button" onclick="myAccountRegister()" class="split-login-btn">Create Account</button>
+
+        <button type="button" onclick="myAccountRegister()" class="ma-submit-btn" id="maRegBtn">CREATE ACCOUNT</button>
       </div>
+
+      <!-- FORGOT PASSWORD -->
+      <div id="maForgotPanel" class="ma-panel">
+        <div class="ma-auth-icon"><i class="fas fa-key"></i></div>
+        <h3 style="text-align:center; font-family:'Tiro Bangla',serif; color:var(--indigo); margin-bottom:6px;">Reset Your Password</h3>
+        <p style="text-align:center; font-size:12.5px; color:#9a927c; margin-bottom:22px;">Confirm your identity below — an admin will need to approve the reset.</p>
+
+        <div id="maForgotStatus" class="ma-msg"></div>
+
+        <div class="ma-field-static">
+          <label>SELECT YOUR NAME</label>
+          <select id="maForgotName">
+            <option value="">Select your name from directory</option>
+          </select>
+        </div>
+        <div class="ma-field">
+          <input type="text" id="maForgotPhone" placeholder=" " inputmode="numeric" maxlength="10">
+          <label>Phone Number on Record</label>
+        </div>
+
+        <button type="button" onclick="requestPasswordReset()" class="ma-submit-btn" id="maForgotBtn">REQUEST RESET</button>
+
+        <div class="ma-back-link"><a onclick="toggleForgotPasswordPanel(false)">← Back to login</a></div>
+      </div>
+
     </div>
+  </div>
+</div>
 
     <div id="myAccountContent" style="display:none;">
       <div class="dashboard-nav-wrapper">
