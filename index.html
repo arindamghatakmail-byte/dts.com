@@ -1176,6 +1176,7 @@
               <option value="admin-tab-newmembers">🆕 New Member Control</option>
               <option value="admin-tab-storage">💾 Storage Usage</option>
               <option value="admin-tab-activity">📜 Activity Log</option>
+              <option value="admin-tab-resets">🔑 Password Reset Requests</option>
             </select>
           </div>
 
@@ -1773,6 +1774,18 @@
               <p style="font-size:11px; color:#9a927c; margin-top:10px;">Showing the most recent 200 entries.</p>
             </div>
           </div>
+             <!-- Admin Tab: Reset -->
+          <div id="admin-tab-resets" class="admin-portal-panel" style="display:none;">
+            <div class="section-head"><h2>Password Reset Requests</h2><span class="tag">Pending Approval</span></div>
+            <div class="card" style="overflow-x:auto;">
+             <table class="gb-table">
+               <thead><tr><th>Requested</th><th>Member</th><th>Action</th></tr></thead>
+             <tbody id="adminResetRequestsTableBody">
+                <tr><td colspan="3" style="text-align:center; color:#9a927c;">Loading requests...</td></tr>
+             </tbody>
+           </table>
+         </div>
+        </div>
 
         </div>
       </main>
