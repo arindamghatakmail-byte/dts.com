@@ -824,9 +824,12 @@
       <div class="dashboard-nav-wrapper">
         <label for="myAccountNavSelect"><i class="fas fa-compass" style="color:var(--marigold);"></i> Navigate My Account</label>
         <select id="myAccountNavSelect" class="modern-select" onchange="switchMyAccountTab(this.value)">
-          <option value="ma-tab-dues">💰 My Dues & Receipts</option>
-          <option value="ma-tab-magazine">✍️ Submit to Bibhas</option>
-          <option value="ma-tab-profile">👤 My Profile</option>
+        <option value="ma-tab-dues">💰 My Dues & Receipts</option>
+        <option value="ma-tab-magazine">✍️ Submit to Bibhas</option>
+        <option value="ma-tab-profile">👤 My Profile</option>
+        <option value="ma-tab-docs">📄 Documents, Minutes & Notices</option>
+        <option value="ma-tab-directory">👥 Members Directory</option>
+        <option value="ma-tab-idcard">🪪 My Membership Card</option>
         </select>
       </div>
 
@@ -880,6 +883,69 @@
           </form>
         </div>
       </div>
+         <!-- Tab: Documents, Minutes, Internal Photos & Notice Board -->
+<div id="ma-tab-docs" class="member-portal-panel" style="display:none;">
+  <div class="mo-layout">
+    <div class="mo-main">
+      <div class="section-head"><h2>Meeting Minutes</h2><span class="tag">My Account</span></div>
+      <div class="card" style="margin-bottom:20px;">
+        <div class="doc-list" id="maMinutesList">
+          <p style="font-size:12.5px; color:#9a927c;">Loading minutes…</p>
+        </div>
+      </div>
+
+      <div class="section-head"><h2>Internal Photos</h2><span class="tag">My Account</span></div>
+      <div class="card" style="margin-bottom:20px;">
+        <div class="photo-grid" id="maInternalPhotosGrid" style="grid-template-columns:repeat(4,1fr); grid-auto-rows:110px;">
+          <p style="font-size:12.5px; color:#9a927c;">Loading photos…</p>
+        </div>
+      </div>
+
+      <div class="section-head"><h2>Documents</h2><span class="tag">Annual Reports &amp; Audited Statements</span></div>
+      <div class="card" style="margin-bottom:20px;">
+        <div class="doc-list" id="docList">
+          <p style="font-size:12.5px; color:#9a927c;">Loading documents…</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mo-side">
+      <div class="notice-board">
+        <div class="notice-head"><span><span class="notice-dot"></span> NOTICE BOARD</span></div>
+        <div class="notice-scroll-wrap">
+          <div class="notice-list" id="maNoticeList">
+            <div class="notice-item"><div class="notice-text">Loading notices…</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Tab: Members Directory -->
+<div id="ma-tab-directory" class="member-portal-panel" style="display:none;">
+  <div class="section-head"><h2>Members Directory</h2><span class="tag">All Members</span></div>
+  <div class="card" style="overflow-x:auto;">
+    <table class="gb-table">
+      <thead>
+        <tr><th>#</th><th>Name</th><th>Designation</th><th>Address</th><th>Occupation</th><th>DOB</th><th>Phone</th></tr>
+      </thead>
+      <tbody id="maDirectoryTableBody">
+        <tr><td colspan="7" style="text-align:center; color:#9a927c;">Loading members...</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Tab: My Membership Card -->
+<div id="ma-tab-idcard" class="member-portal-panel" style="display:none;">
+  <div class="section-head"><h2>My Membership Card</h2><span class="tag">Downloadable ID</span></div>
+  <div class="card" style="max-width:480px; text-align:center; padding:32px 24px;">
+    <i class="fas fa-id-badge" style="font-size:42px; color:var(--marigold); margin-bottom:14px;"></i>
+    <p style="font-size:13.5px; color:#7a7260; margin-bottom:20px;">Download your official Dihibaliharpur Tarun Sangha membership card as a PDF — includes your photo, membership details, and a scannable QR code.</p>
+    <button type="button" onclick="downloadMyIdCard()" class="split-login-btn" style="width:auto; padding:12px 28px;"><i class="fas fa-download"></i> Download My ID Card</button>
+  </div>
+</div>
     </div>
   </main>
 </div>
