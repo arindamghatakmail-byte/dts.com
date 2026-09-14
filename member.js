@@ -400,8 +400,8 @@ import { displayLightbox, formatImageTitle, loadLookupMembersDropdown, loadMagaz
     displayLightbox(INTERNAL_PHOTO_DATA[idx].url, INTERNAL_PHOTO_DATA[idx].title);
   }
 
-  export async function loadInternalPhotos(){
-    const container = document.getElementById('internalPhotosGrid');
+ export async function loadInternalPhotos(containerId = 'internalPhotosGrid'){
+    const container = document.getElementById(containerId);
     if (!container) return;
     try {
       let allPhotos = [];
