@@ -397,13 +397,30 @@ async function loadMyAccountDirectory() {
 
 // --- Member ID Card — reuses the exact same PDF generator the Admin
 // dashboard already uses, just always pointed at your own record. ---
-function downloadMyIdCard() {
+function waitForJsPdf(timeoutMs = 4000) {
+  return new Promise((resolve) => {
+    if (window.jspdf) { resolve(true); return; }
+    const start = Date.now();
+    const check = setInterval(() => {
+      if (window.jspdf) {
+        clearInterval(check);
+        resolve(true);
+      } else if (Date.now() - start > timeoutMs) {
+        clearInterval(check);
+        resolve(false);
+      }
+    }, 200);
+  });
+}
+
+async function downloadMyIdCard() {
   if (!currentMyAccountMember) {
     alert('Your session data isn\'t loaded yet — please log out and log back in, then try again.');
     return;
   }
-  if (!window.jspdf) {
-    alert('The PDF library hasn\'t finished loading yet. Please wait a moment and try again.');
+  const ready = await waitForJsPdf();
+  if (!ready) {
+    alert('The PDF library failed to load from the CDN. Check your internet connection, or that an ad-blocker isn\'t blocking cdnjs.cloudflare.com, then reload the page and try again.');
     return;
   }
   generateMemberIdCard({ ...currentMyAccountMember, id: currentMyAccountMember.member_id });
