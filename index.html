@@ -768,7 +768,33 @@
         <h2 class="page-title">My Account</h2>
         <p class="page-lede">Your personal dashboard — dues status, magazine submissions, and profile details, under your own login.</p>
       </div>
-      <button id="myAccountLogoutBtn" onclick="myAccountLogout()" style="display:none; flex-shrink:0; padding:9px 16px; background:var(--sindoor); color:#fff; border:none; border-radius:8px; font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:600; cursor:pointer; letter-spacing:.04em;"><i class="fas fa-right-from-bracket"></i> LOGOUT</button>
+      <!-- =====================================================================
+     FIX 1 — Avatar in the dashboard header
+     Find this in the My Account page header (near the top):
+ 
+     <div>
+       <h2 class="page-title">My Account</h2>
+       <p class="page-lede">...</p>
+     </div>
+     <button id="myAccountLogoutBtn" ...>...</button>
+ 
+     Replace the outer wrapping <div style="display:flex; ..."> row with
+     this (adds a circular avatar/placeholder to the left of the title):
+     ===================================================================== -->
+ 
+<div style="display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;">
+  <div style="display:flex; align-items:center; gap:14px;">
+    <div style="position:relative; width:56px; height:56px; flex-shrink:0;">
+      <img class="ma-avatar-img" src="" alt="Profile photo" style="display:none; width:56px; height:56px; border-radius:50%; object-fit:cover; border:2px solid var(--marigold);">
+      <div class="ma-avatar-placeholder" style="display:flex; width:56px; height:56px; border-radius:50%; background:var(--indigo); color:var(--marigold); align-items:center; justify-content:center; font-size:20px; border:2px solid var(--marigold);"><i class="fas fa-user"></i></div>
+    </div>
+    <div>
+      <h2 class="page-title" style="margin-bottom:2px;">My Account</h2>
+      <p class="page-lede" style="margin-bottom:0;">Your personal dashboard — dues status, magazine submissions, documents, and profile details, under your own login.</p>
+    </div>
+  </div>
+  <button id="myAccountLogoutBtn" onclick="myAccountLogout()" style="display:none; flex-shrink:0; padding:9px 16px; background:var(--sindoor); color:#fff; border:none; border-radius:8px; font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:600; cursor:pointer; letter-spacing:.04em;"><i class="fas fa-right-from-bracket"></i> LOGOUT</button>
+</div>
     </div>
 
     <!-- =====================================================================
@@ -927,6 +953,22 @@
             <div class="mag-form-row"><label>Phone Number</label><input type="text" id="maProfilePhone"></div>
             <div class="mag-form-row"><label>Short Bio</label><textarea id="maProfileBio" rows="3" style="width:100%; padding:10px; border:1px solid var(--line); border-radius:8px; font-family:'Work Sans',sans-serif;"></textarea></div>
             <div id="maProfileStatus" style="display:none; margin-top:10px; padding:10px; border-radius:6px; font-size:13px;"></div>
+            <!-- =====================================================================
+     FIX 2 — Photo upload in the Profile tab
+     Find this in ma-tab-profile:
+ 
+     <div class="mag-form-row"><label>Name</label><input type="text" id="maProfileName" disabled></div>
+ 
+     Add this line right BEFORE it (still inside the same <form>):
+     ===================================================================== -->
+ 
+<div style="text-align:center; margin-bottom:20px;">
+  <img class="ma-avatar-img" src="" alt="Profile photo" style="display:none; width:90px; height:90px; border-radius:50%; object-fit:cover; border:3px solid var(--marigold); margin-bottom:10px;">
+  <div class="ma-avatar-placeholder" style="display:flex; width:90px; height:90px; border-radius:50%; background:var(--indigo); color:var(--marigold); align-items:center; justify-content:center; font-size:32px; border:3px solid var(--marigold); margin:0 auto 10px;"><i class="fas fa-user"></i></div>
+  <label for="maPhotoInput" style="display:inline-block; padding:8px 16px; background:var(--marigold); color:var(--indigo); border-radius:6px; font-size:12px; font-weight:700; cursor:pointer;"><i class="fas fa-camera"></i> Change Photo (JPG only)</label>
+  <input type="file" id="maPhotoInput" accept="image/jpeg" style="display:none;" onchange="uploadMyProfilePhoto(this)">
+  <div id="maPhotoStatus" class="ma-msg" style="max-width:320px; margin:10px auto 0;"></div>
+</div>
             <button type="submit" class="form-submit-btn" style="padding:10px 22px; background:var(--leaf); color:#fff; border:none; border-radius:6px; cursor:pointer; margin-top:6px;">SAVE CHANGES</button>
           </form>
         </div>
@@ -951,7 +993,7 @@
 
       <div class="section-head"><h2>Documents</h2><span class="tag">Annual Reports &amp; Audited Statements</span></div>
       <div class="card" style="margin-bottom:20px;">
-        <div class="doc-list" id="docList">
+        <div class="doc-list" id="maDocList">
           <p style="font-size:12.5px; color:#9a927c;">Loading documents…</p>
         </div>
       </div>
