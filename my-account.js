@@ -5,8 +5,8 @@
 // and the member-account-migration.sql functions to exist in Supabase.
 // =====================================================================
 
-import { escapeHtml, loadNotices, loadPdfFolder, logActivity, supabaseClient } from './common.js';
-import { generateMemberIdCard, loadDocuments, loadInternalPhotos } from './member.js';
+import { escapeHtml, GITHUB_DOCS_PATH, loadNotices, loadPdfFolder, logActivity, supabaseClient } from './common.js';
+import { generateMemberIdCard, loadInternalPhotos } from './member.js';
 
 let myAccountToken = null;
 let currentMyAccountMember = null;
@@ -35,7 +35,6 @@ document.addEventListener('app:init', function() {
 document.addEventListener('page:shown', function(e) {
   if (e.detail.name === 'my-account') {
     loadMyAccountRegisterDropdown();
-    restoreMyAccountSession();
   }
 });
 
@@ -233,7 +232,6 @@ async function myAccountLogin() {
     }
     const session = data[0];
     myAccountToken = session.token;
-    localStorage.setItem('dts_my_account_token', myAccountToken);
     logActivity('Logged in', 'My Account — ' + session.name);
     await enterMyAccountDashboard();
   } catch (err) {
@@ -242,18 +240,6 @@ async function myAccountLogin() {
   } finally {
     btn.innerHTML = originalHtml;
     btn.disabled = false;
-  }
-}
-
-
-async function restoreMyAccountSession() {
-  const saved = localStorage.getItem('dts_my_account_token');
-  if (!saved) return;
-  myAccountToken = saved;
-  const ok = await enterMyAccountDashboard();
-  if (!ok) {
-    localStorage.removeItem('dts_my_account_token');
-    myAccountToken = null;
   }
 }
 
@@ -276,6 +262,7 @@ async function enterMyAccountDashboard() {
     document.getElementById('maProfileOccupation').value = m.occupation || '';
     document.getElementById('maProfilePhone').value = m.phone || '';
     document.getElementById('maProfileBio').value = m.bio || '';
+    updateMyAccountAvatarDisplays(m.photo_url);
 
     loadMyAccountDues(m.name);
     return true;
@@ -285,11 +272,92 @@ async function enterMyAccountDashboard() {
 }
 
 
+// Shows the member's photo (or a placeholder icon) in the dashboard
+// header and on the Profile tab, wherever those elements exist.
+function updateMyAccountAvatarDisplays(photoUrl) {
+  document.querySelectorAll('.ma-avatar-img').forEach(img => {
+    if (photoUrl) { img.src = photoUrl; img.style.display = 'block'; }
+    else { img.style.display = 'none'; }
+  });
+  document.querySelectorAll('.ma-avatar-placeholder').forEach(el => {
+    el.style.display = photoUrl ? 'none' : 'flex';
+  });
+}
+
+
+// Compress + shrink an image client-side and hand back a small base64
+// JPEG data URL — stored directly in members_directory.photo_url via
+// the RPC below, so no Supabase Storage bucket/permissions are needed
+// (My Account never gets a real authenticated Supabase session).
+function compressImageToDataUrl(file, maxDimension = 400, quality = 0.8) {
+  return new Promise((resolve, reject) => {
+    if (!file || !file.type || !file.type.startsWith('image/')) { reject(new Error('Please choose an image file.')); return; }
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        let { width, height } = img;
+        if (width > maxDimension || height > maxDimension) {
+          if (width > height) { height = Math.round(height * (maxDimension / width)); width = maxDimension; }
+          else { width = Math.round(width * (maxDimension / height)); height = maxDimension; }
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+        resolve(canvas.toDataURL('image/jpeg', quality));
+      };
+      img.onerror = () => reject(new Error('Could not read that image.'));
+      img.src = e.target.result;
+    };
+    reader.onerror = () => reject(new Error('Could not read that file.'));
+    reader.readAsDataURL(file);
+  });
+}
+
+
+async function uploadMyProfilePhoto(inputEl) {
+  const file = inputEl.files && inputEl.files[0];
+  if (!file) return;
+  const statusEl = document.getElementById('maPhotoStatus');
+  statusEl.style.display = 'block';
+  statusEl.className = 'ma-msg';
+  statusEl.textContent = 'Uploading...';
+
+  try {
+    if (!/^image\/(jpeg|jpg)$/i.test(file.type)) {
+      throw new Error('Please choose a JPG image.');
+    }
+    const dataUrl = await compressImageToDataUrl(file);
+    const { data, error } = await supabaseClient.rpc('update_member_photo', {
+      p_token: myAccountToken, p_photo_data: dataUrl
+    });
+    if (error) throw error;
+
+    if (data === 'ok') {
+      statusEl.className = 'ma-msg success';
+      statusEl.textContent = 'Profile photo updated.';
+      currentMyAccountMember.photo_url = dataUrl;
+      updateMyAccountAvatarDisplays(dataUrl);
+    } else {
+      statusEl.className = 'ma-msg error';
+      statusEl.textContent = 'Your session expired — please log in again.';
+      myAccountLogout();
+    }
+  } catch (err) {
+    statusEl.className = 'ma-msg error';
+    statusEl.textContent = 'Error: ' + err.message;
+  } finally {
+    inputEl.value = '';
+  }
+}
+
+
 // --- Documents, Minutes, Internal Photos & Notice Board (read-only, same
 // GitHub-backed content as the shared Members Login — just its own IDs
 // so both pages can exist without colliding) ---
 function loadMyAccountDocsPanel() {
-  loadDocuments(); // targets #docList, already unique to this panel's markup
+  loadPdfFolder(GITHUB_DOCS_PATH, 'maDocList', 'No documents uploaded yet.'); // was colliding with the shared portal's #docList
   loadPdfFolder('minutes', 'maMinutesList', 'No minutes have been added yet.');
   loadInternalPhotos('maInternalPhotosGrid');
   loadNotices(); // also fills #maNoticeList once that id exists in the page
@@ -330,7 +398,14 @@ async function loadMyAccountDirectory() {
 // --- Member ID Card — reuses the exact same PDF generator the Admin
 // dashboard already uses, just always pointed at your own record. ---
 function downloadMyIdCard() {
-  if (!currentMyAccountMember) return;
+  if (!currentMyAccountMember) {
+    alert('Your session data isn\'t loaded yet — please log out and log back in, then try again.');
+    return;
+  }
+  if (!window.jspdf) {
+    alert('The PDF library hasn\'t finished loading yet. Please wait a moment and try again.');
+    return;
+  }
   generateMemberIdCard({ ...currentMyAccountMember, id: currentMyAccountMember.member_id });
 }
 
@@ -345,9 +420,12 @@ async function loadMyAccountDues(memberName) {
   const defaultAmount = 25;
 
   try {
-    const { data, error } = await supabaseClient.from('member_donations').select('*').eq('member_name', memberName);
+    const { data, error } = await supabaseClient.from('member_donations').select('*').eq('member_name', memberName).order('id', { ascending: true });
     if (error) throw error;
 
+    // Ordered oldest -> newest, so if a member has more than one row for the
+    // same month (a correction, a duplicate entry), the LAST one processed
+    // here is always the most recent — no more random paid/due flips.
     let paidMonthsMap = {};
     (data || []).forEach(d => { if (d.status && d.status.includes('Paid')) paidMonthsMap[d.month] = d; });
 
@@ -478,7 +556,6 @@ async function myAccountLogout() {
   if (myAccountToken) {
     try { await supabaseClient.rpc('member_logout', { p_token: myAccountToken }); } catch (e) { /* ignore */ }
   }
-  localStorage.removeItem('dts_my_account_token');
   myAccountToken = null;
   currentMyAccountMember = null;
   document.getElementById('myAccountContent').style.display = 'none';
@@ -501,3 +578,4 @@ window.saveMyAccountProfile = saveMyAccountProfile;
 window.switchMyAccountTab = switchMyAccountTab;
 window.myAccountLogout = myAccountLogout;
 window.downloadMyIdCard = downloadMyIdCard;
+window.uploadMyProfilePhoto = uploadMyProfilePhoto;
