@@ -42,7 +42,32 @@ import { displayLightbox, formatImageTitle, loadLookupMembersDropdown, loadMagaz
     if (e.detail.type === 'member') refreshMemberCaptcha();
   });
 
+   function getDesignationAbbrev(designation) {
+    const map = {
+      'president': 'PSDT',
+      'vice president': 'VPST',
+      'vice-president': 'VPST',
+      'general secretary': 'GSEC',
+      'secretary': 'SEC',
+      'joint secretary': 'JSEC',
+      'assistant secretary': 'ASEC',
+      'treasurer': 'TRES',
+      'assistant treasurer': 'ATRES',
+      'advisor': 'ADV',
+      'founder': 'FND',
+      'founder member': 'FND',
+      'cultural secretary': 'CSEC',
+      'sports secretary': 'SSEC',
+      'executive member': 'EXEC',
+      'member': 'MEM'
+    };
+    const key = (designation || '').trim().toLowerCase();
+    if (map[key]) return map[key];
+    const initials = key.split(/\s+/).filter(Boolean).map(w => w[0]).join('').toUpperCase();
+    return initials.length >= 2 ? initials.slice(0, 4) : 'MEM';
+  }
 
+</parameter>
   export async function generateMemberIdCard(m) {
     if (!m) return;
     const { jsPDF } = window.jspdf;
@@ -95,7 +120,7 @@ import { displayLightbox, formatImageTitle, loadLookupMembersDropdown, loadMagaz
 
     // Unique ID number — derived from the member's database id, so it's
     // automatically unique and needs no extra column or manual entry
-    const idNo = "DTS-" + String(m.member_no || m.id).padStart(5, '0');
+    const idNo = "DTS-" + getDesignationAbbrev(m.designation) + "-" + String(m.member_no || 0).padStart(3, '0');
 
     // Profile photo (or placeholder circle)
     try {
