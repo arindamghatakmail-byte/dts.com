@@ -575,10 +575,12 @@ async function myAccountLogout() {
   }
   myAccountToken = null;
   currentMyAccountMember = null;
+  document.getElementById('myAccountGate').style.display = 'block';
   document.getElementById('myAccountContent').style.display = 'none';
   document.getElementById('myAccountLogoutBtn').style.display = 'none';
   document.getElementById('maLoginPhone').value = '';
   document.getElementById('maLoginPassword').value = '';
+  updateMyAccountAvatarDisplays(null);
   switchMyAccountGateTab('login');
 }
 
