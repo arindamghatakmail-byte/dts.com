@@ -115,3 +115,125 @@
   background:rgba(51,85,63,0.1);
   color:var(--leaf);
 }
+
+/* ===================================================================
+   PUJO MOMENTS — photo feed, reactions, comments
+   =================================================================== */
+.dp-feed-card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:12px;
+  overflow:hidden;
+  margin-bottom:20px;
+}
+.dp-feed-img{
+  width:100%;
+  max-height:420px;
+  object-fit:cover;
+  display:block;
+}
+.dp-feed-caption{
+  padding:12px 14px 0;
+  font-size:13.5px;
+  color:var(--indigo);
+}
+.dp-feed-rx-summary{
+  padding:8px 14px 0;
+  font-size:12px;
+  color:#7a7260;
+}
+.dp-reaction-tray{
+  display:flex;
+  gap:4px;
+  padding:10px 14px;
+  border-bottom:1px solid var(--line);
+}
+.dp-reaction-btn{
+  background:transparent;
+  border:1px solid var(--line);
+  border-radius:20px;
+  font-size:18px;
+  padding:4px 10px;
+  cursor:pointer;
+  transition:transform .15s ease, background .15s ease;
+}
+.dp-reaction-btn:hover:not(:disabled){
+  transform:scale(1.15);
+  background:rgba(240,169,59,0.12);
+}
+.dp-reaction-btn:disabled{
+  opacity:0.5;
+  cursor:not-allowed;
+}
+.dp-reaction-btn.dp-reacted{
+  background:var(--marigold);
+  border-color:var(--marigold);
+}
+.dp-comments-list{
+  padding:10px 14px;
+  font-size:12.5px;
+  color:#4a4534;
+  max-height:140px;
+  overflow-y:auto;
+}
+.dp-comment-box{
+  padding:10px 14px 14px;
+  border-top:1px solid var(--line);
+}
+.dp-comment-name-input{
+  width:100%;
+  padding:6px 10px;
+  border:1px solid var(--line);
+  border-radius:6px;
+  font-size:12px;
+  margin-bottom:6px;
+}
+.dp-comment-box input[type="text"]{
+  flex:1;
+  padding:8px 10px;
+  border:1px solid var(--line);
+  border-radius:6px;
+  font-size:13px;
+}
+.dp-qr-box{
+  text-align:center;
+  padding:20px;
+}
+.dp-qr-box img{
+  border:1px solid var(--line);
+  border-radius:8px;
+  margin-bottom:10px;
+}
+
+/* ===================================================================
+   APARAJEETA — page-flip magazine viewer
+   =================================================================== */
+.dp-magazine-wrap{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:16px;
+  padding:20px 0;
+}
+#aparajeetaViewer{
+  margin:0 auto;
+}
+.dp-flip-nav{
+  display:flex;
+  gap:16px;
+  align-items:center;
+}
+.dp-flip-nav button{
+  background:var(--indigo);
+  color:#fff;
+  border:none;
+  border-radius:50%;
+  width:44px;
+  height:44px;
+  font-size:18px;
+  cursor:pointer;
+}
+.dp-flip-nav button:hover{
+  background:var(--marigold);
+  color:var(--indigo);
+}
