@@ -437,7 +437,7 @@ async function loadMyAccountDues(memberName) {
   const defaultAmount = 25;
 
   try {
-    const { data, error } = await supabaseClient.from('member_donations').select('*').eq('member_name', memberName).order('id', { ascending: true });
+    const { data, error } = await supabaseClient.from('member_donations').select('*').eq('member_name', memberName).eq('fy_year', fyYear).order('id', { ascending: true });
     if (error) throw error;
 
     // Ordered oldest -> newest, so if a member has more than one row for the
