@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Durga Pujo 2026 — Dihibaliharpur Tarun Sangha</title>
+<meta name="description" content="Durga Pujo 2026 at Dihibaliharpur Tarun Sangha — puja calendar, RSVP, committee contacts, and the cultural program.">
+<link rel="canonical" href="https://arindamghatakmail-byte.github.io/dts.com/durga-pujo.html">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Dihibaliharpur Tarun Sangha">
+<meta property="og:title" content="Durga Pujo 2026 — Dihibaliharpur Tarun Sangha">
+<meta property="og:description" content="Puja calendar, RSVP, committee contacts, and the cultural program for this year's celebration.">
+<meta property="og:image" content="https://arindamghatakmail-byte.github.io/dts.com/logo.png">
+<meta property="og:url" content="https://arindamghatakmail-byte.github.io/dts.com/durga-pujo.html">
+
+<link rel="icon" href="logo.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&family=Work+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Yatra+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="durga-pujo.css">
+</head>
+<body>
+
+<!-- Simple standalone header — links back to the main site instead of
+     using the SPA's showPage() navigation, since this page lives outside it. -->
+<div class="hbtno">
+  <div class="wrap hbtno-wrap">
+    <a href="index.html" style="cursor:pointer; text-decoration:none !important; color:rgba(247,241,227,0.85);"><i class="fas fa-arrow-left"></i> Back to Main Site</a>
+  </div>
+</div>
+<nav id="siteNav">
+  <div class="wrap" style="display:flex; align-items:center; justify-content:space-between; padding:14px 0;">
+    <a href="index.html" style="text-decoration:none !important; display:flex; align-items:center; gap:10px;">
+      <img src="logo.png" alt="Dihibaliharpur Tarun Sangha" style="height:34px;">
+      <span style="font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--paper); letter-spacing:.04em;">DIHIBALIHARPUR TARUN SANGHA</span>
+    </a>
+  </div>
+</nav>
+
+<div id="page-durga-pujo" class="page" style="display:block;">
+  <main class="wrap" style="padding-top:40px; padding-bottom:60px;">
+
+    <div class="dp-hero-band">
+      <h2>দুর্গা পূজা 2026</h2>
+      <p>Dihibaliharpur Tarun Sangha's Durga Pujo celebration — dates, RSVP, contacts, and the cultural program.</p>
+    </div>
+
+    <!-- Puja Calendar -->
+    <div class="section-head"><h2>Puja Calendar</h2><span class="tag">Mahalaya to Vijaya Dashami</span></div>
+    <div class="card" style="margin-bottom:16px; overflow-x:auto;">
+      <div style="display:flex; gap:10px;">
+        <div class="dp-date-card"><div class="dp-dnum">10</div><div class="dp-dmon">OCT</div><div class="dp-dlabel">Mahalaya</div></div>
+        <div class="dp-date-card"><div class="dp-dnum">15</div><div class="dp-dmon">OCT</div><div class="dp-dlabel">Chaturthi</div></div>
+        <div class="dp-date-card"><div class="dp-dnum">16</div><div class="dp-dmon">OCT</div><div class="dp-dlabel">Panchami</div></div>
+        <div class="dp-date-card dp-active"><div class="dp-dnum">17</div><div class="dp-dmon">OCT</div><div class="dp-dlabel">Shashthi</div></div>
+        <div class="dp-date-card dp-active"><div class="dp-dnum">18</div><div class="dp-dmon">OCT</div><div class="dp-dlabel">Saptami</div></div>
+        <div class="dp-date-card dp-active"><div class="dp-dnum">19</div><div class="dp-dmon">OCT</div><div class="dp-dlabel">Ashtami</div></div>
+        <div class="dp-date-card dp-active"><div class="dp-dnum">20</div><div class="dp-dmon">OCT</div><div class="dp-dlabel">Navami</div></div>
+        <div class="dp-date-card dp-active"><div class="dp-dnum">21</div><div class="dp-dmon">OCT</div><div class="dp-dlabel">Dashami</div></div>
+      </div>
+    </div>
+
+    <div class="dp-divider">✿ ✿ ✿</div>
+
+    <!-- RSVP -->
+    <div class="section-head"><h2>RSVP</h2><span class="tag">Help us plan headcount</span></div>
+    <div class="card" style="max-width:520px; margin-bottom:16px;">
+      <form onsubmit="submitPujaRsvp(event)">
+        <div class="mag-form-row"><label>Your Name *</label><input type="text" name="name" required></div>
+        <div class="mag-form-row"><label>Phone Number *</label><input type="text" name="phone" inputmode="numeric" maxlength="10" required placeholder="10-digit number"></div>
+        <div class="mag-form-row"><label>Number of People *</label><input type="number" name="num_people" min="1" value="1" required></div>
+        <div class="mag-form-row">
+          <label>Which day(s) are you visiting? *</label>
+          <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:6px;">
+            <span class="dp-day-chip" data-day="Shashthi" onclick="toggleRsvpDay(this)">Shashthi</span>
+            <span class="dp-day-chip" data-day="Saptami" onclick="toggleRsvpDay(this)">Saptami</span>
+            <span class="dp-day-chip" data-day="Ashtami" onclick="toggleRsvpDay(this)">Ashtami</span>
+            <span class="dp-day-chip" data-day="Navami" onclick="toggleRsvpDay(this)">Navami</span>
+            <span class="dp-day-chip" data-day="Dashami" onclick="toggleRsvpDay(this)">Dashami</span>
+          </div>
+        </div>
+        <div id="dpRsvpStatus" class="dp-msg" style="display:none;"></div>
+        <button type="submit" id="dpRsvpBtn" class="split-login-btn">Submit RSVP</button>
+      </form>
+    </div>
+
+    <div class="dp-divider">✿ ✿ ✿</div>
+
+    <!-- Committee Contacts -->
+    <div class="section-head"><h2>Committee Contacts</h2><span class="tag">Who to call</span></div>
+    <div class="card" style="max-width:520px; margin-bottom:16px;" id="dpContactsList">
+      <p style="font-size:13px; color:#9a927c;">Loading contacts...</p>
+    </div>
+
+    <div class="dp-divider">✿ ✿ ✿</div>
+
+    <!-- Cultural Program -->
+    <div class="section-head"><h2>Cultural Program</h2><span class="tag">Sondhya Anushthan</span></div>
+    <div class="card" style="max-width:600px; margin-bottom:16px;" id="dpScheduleList">
+      <p style="font-size:13px; color:#9a927c;">Loading schedule...</p>
+    </div>
+    <div class="card" style="max-width:600px;">
+      <h3 style="font-family:'Tiro Bangla',serif; color:var(--indigo); margin-bottom:10px;">Apply to Perform</h3>
+      <form onsubmit="submitPerformanceApplication(event)">
+        <div class="mag-form-row"><label>Your Name *</label><input type="text" name="name" required></div>
+        <div class="mag-form-row"><label>Phone Number *</label><input type="text" name="phone" inputmode="numeric" maxlength="10" required placeholder="10-digit number"></div>
+        <div class="mag-form-row">
+          <label>Performance Type *</label>
+          <select name="performance_type" required>
+            <option value="">Select one</option>
+            <option value="Song">Song</option>
+            <option value="Dance">Dance</option>
+            <option value="Drama">Drama</option>
+            <option value="Recitation">Recitation</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="mag-form-row">
+          <label>Preferred Day</label>
+          <select name="preferred_day">
+            <option value="">No preference</option>
+            <option value="Saptami">Saptami</option>
+            <option value="Ashtami">Ashtami</option>
+            <option value="Navami">Navami</option>
+          </select>
+        </div>
+        <div class="mag-form-row"><label>Brief Description</label><textarea name="description" rows="2" style="width:100%; padding:10px; border:1px solid var(--line); border-radius:8px;"></textarea></div>
+        <div id="dpPerformStatus" class="dp-msg" style="display:none;"></div>
+        <button type="submit" id="dpPerformBtn" class="split-login-btn">Submit Application</button>
+      </form>
+    </div>
+
+  </main>
+</div>
+
+<footer style="background:var(--indigo); padding:24px 0; text-align:center;">
+  <p style="color:rgba(247,241,227,0.7); font-size:12px;">&copy; 2026 Dihibaliharpur Tarun Sangha &middot; <a href="index.html" style="color:var(--marigold);">Back to Main Site</a></p>
+</footer>
+
+<script type="module" src="common.js"></script>
+<script type="module" src="durga-pujo.js"></script>
+</body>
+</html>
