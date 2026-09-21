@@ -66,8 +66,6 @@ import { displayLightbox, formatImageTitle, loadLookupMembersDropdown, loadMagaz
     const initials = key.split(/\s+/).filter(Boolean).map(w => w[0]).join('').toUpperCase();
     return initials.length >= 2 ? initials.slice(0, 4) : 'MEM';
   }
-
-</parameter>
   export async function generateMemberIdCard(m) {
     if (!m) return;
     const { jsPDF } = window.jspdf;
