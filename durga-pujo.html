@@ -21,6 +21,11 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="durga-pujo.css">
+<script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
+<script>
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
+</script>
 </head>
 <body>
 
@@ -139,6 +144,50 @@
         <button type="submit" id="dpPerformBtn" class="split-login-btn">Submit Application</button>
       </form>
     </div>
+       <div class="dp-divider">✿ ✿ ✿</div>
+
+<!-- Pujo Moments -->
+<div class="section-head"><h2>Pujo Moments</h2><span class="tag">Share &amp; celebrate together</span></div>
+<div class="card" style="max-width:520px; margin-bottom:16px;">
+  <h3 style="font-family:'Tiro Bangla',serif; color:var(--indigo); margin-bottom:10px;">Share a Moment</h3>
+  <form id="uploadMomentForm" onsubmit="submitPujoMoment(event)">
+    <div class="mag-form-row">
+      <label>Photo *</label>
+      <input type="file" id="momentPhotoInput" accept="image/*" required>
+    </div>
+    <div class="mag-form-row">
+      <label>Caption</label>
+      <input type="text" name="caption" placeholder="What's happening in this photo?" maxlength="200">
+    </div>
+    <div id="momentUploadStatus" class="dp-msg" style="display:none;"></div>
+    <button type="submit" id="momentUploadBtn" class="split-login-btn">Share Moment</button>
+  </form>
+</div>
+
+<div id="pujoFeedContainer" style="max-width:520px; margin:0 auto 16px;">
+  <p style="text-align:center; font-size:13px; color:#9a927c;">Loading feed...</p>
+</div>
+
+<div class="card dp-qr-box" style="max-width:320px; margin:0 auto 28px;">
+  <p style="font-size:12px; color:#7a7260; margin-bottom:10px;">Print this for a venue poster — scanning it opens the Share a Moment form directly.</p>
+  <img src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https%3A%2F%2Farindamghatakmail-byte.github.io%2Fdts.com%2Fdurga-pujo.html%23pujoFeedContainer" alt="QR code to Pujo Moments" width="220" height="220">
+</div>
+
+<div class="dp-divider">✿ ✿ ✿</div>
+
+<!-- Aparajeeta Magazine -->
+<div class="section-head"><h2>অপরাজিতা</h2><span class="tag">Aparajeeta Magazine</span></div>
+<div class="card" style="max-width:760px; margin:0 auto;">
+  <div id="aparajeetaStatus" style="display:none; text-align:center; font-size:13px; color:#9a927c; padding:20px;"></div>
+  <div class="dp-magazine-wrap">
+    <div id="aparajeetaViewer"></div>
+    <div class="dp-flip-nav">
+      <button type="button" onclick="flipAparajeetaPrev()" aria-label="Previous page"><i class="fas fa-arrow-left"></i></button>
+      <span style="font-size:12px; color:#7a7260;">Click a page edge, or use these arrows</span>
+      <button type="button" onclick="flipAparajeetaNext()" aria-label="Next page"><i class="fas fa-arrow-right"></i></button>
+    </div>
+  </div>
+</div>
 
   </main>
 </div>
@@ -149,5 +198,7 @@
 
 <script type="module" src="common.js"></script>
 <script type="module" src="durga-pujo.js"></script>
+<script type="module" src="pujo-moments.js"></script>
+<script type="module" src="aparajeeta.js"></script>
 </body>
 </html>
