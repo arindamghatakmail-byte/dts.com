@@ -436,15 +436,19 @@ async function loadMyAccountDues(memberName) {
   const fyYear = "2026-2027";
   const defaultAmount = 25;
 
-  try {
-    const { data, error } = await supabaseClient.from('member_donations').select('*').eq('member_name', memberName).eq('fy_year', fyYear).order('id', { ascending: true });
+    try {
+    const { data, error } = await supabaseClient.from('member_donations').select('*').eq('fy_year', fyYear).order('id', { ascending: true });
     if (error) throw error;
 
-    // Ordered oldest -> newest, so if a member has more than one row for the
-    // same month (a correction, a duplicate entry), the LAST one processed
-    // here is always the most recent — no more random paid/due flips.
+    const normalize = (s) => (s || '').replace(/\s+/g, ' ').trim().toLowerCase();
+    const targetName = normalize(memberName);
+
     let paidMonthsMap = {};
-    (data || []).forEach(d => { if (d.status && d.status.includes('Paid')) paidMonthsMap[d.month] = d; });
+    (data || []).forEach(d => {
+      if (normalize(d.member_name) === targetName && d.status && d.status.includes('Paid')) {
+        paidMonthsMap[d.month] = d;
+      }
+    });
 
     let html = '<table class="gb-table"><thead><tr><th>FY Year</th><th>Month</th><th>Amount</th><th>Status</th><th>Action</th></tr></thead><tbody>';
     monthsList.forEach(m => {
