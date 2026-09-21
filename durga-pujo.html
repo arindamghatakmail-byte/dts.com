@@ -53,12 +53,12 @@
     <div class="card" style="margin-bottom:16px; overflow-x:auto;">
       <div style="display:flex; gap:10px;">
         <div class="dp-date-card"><div class="dp-dnum">10</div><div class="dp-dmon">OCT</div><div class="dp-dlabel">Mahalaya</div></div>
-        <div class="dp-date-card"><div class="dp-dnum">15</div><div class="dp-dmon">OCT</div><div class="dp-dlabel">Chaturthi</div></div>
-        <div class="dp-date-card"><div class="dp-dnum">16</div><div class="dp-dmon">OCT</div><div class="dp-dlabel">Panchami</div></div>
-        <div class="dp-date-card dp-active"><div class="dp-dnum">17</div><div class="dp-dmon">OCT</div><div class="dp-dlabel">Shashthi</div></div>
-        <div class="dp-date-card dp-active"><div class="dp-dnum">18</div><div class="dp-dmon">OCT</div><div class="dp-dlabel">Saptami</div></div>
+        <div class="dp-date-card dp-active"><div class="dp-dnum">15</div><div class="dp-dmon">OCT</div><div class="dp-dlabel">Panchami</div></div>
+        <div class="dp-date-card dp-active"><div class="dp-dnum">16</div><div class="dp-dmon">OCT</div><div class="dp-dlabel">Shashthi</div></div>
+        <div class="dp-date-card dp-active"><div class="dp-dnum">17</div><div class="dp-dmon">OCT</div><div class="dp-dlabel">Saptami(1st Day)</div></div>
+        <div class="dp-date-card dp-active"><div class="dp-dnum">18</div><div class="dp-dmon">OCT</div><div class="dp-dlabel">Saptami(2nd Day)</div></div>
         <div class="dp-date-card dp-active"><div class="dp-dnum">19</div><div class="dp-dmon">OCT</div><div class="dp-dlabel">Ashtami</div></div>
-        <div class="dp-date-card dp-active"><div class="dp-dnum">20</div><div class="dp-dmon">OCT</div><div class="dp-dlabel">Navami</div></div>
+        <div class="dp-date-card dp-active"><div class="dp-dnum">20</div><div class="dp-dmon">OCT</div><div class="dp-dlabel">Nabami</div></div>
         <div class="dp-date-card dp-active"><div class="dp-dnum">21</div><div class="dp-dmon">OCT</div><div class="dp-dlabel">Dashami</div></div>
       </div>
     </div>
@@ -75,10 +75,12 @@
         <div class="mag-form-row">
           <label>Which day(s) are you visiting? *</label>
           <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:6px;">
+            <span class="dp-day-chip" data-day="Panchami" onclick="toggleRsvpDay(this)">Panchami</span>
             <span class="dp-day-chip" data-day="Shashthi" onclick="toggleRsvpDay(this)">Shashthi</span>
-            <span class="dp-day-chip" data-day="Saptami" onclick="toggleRsvpDay(this)">Saptami</span>
+            <span class="dp-day-chip" data-day="Saptami(1st Day)" onclick="toggleRsvpDay(this)">Saptami(1st Day)</span>
+            <span class="dp-day-chip" data-day="Saptami(2nd Day)" onclick="toggleRsvpDay(this)">Saptami(2nd Day)</span>
             <span class="dp-day-chip" data-day="Ashtami" onclick="toggleRsvpDay(this)">Ashtami</span>
-            <span class="dp-day-chip" data-day="Navami" onclick="toggleRsvpDay(this)">Navami</span>
+            <span class="dp-day-chip" data-day="Nabami" onclick="toggleRsvpDay(this)">Nabami</span>
             <span class="dp-day-chip" data-day="Dashami" onclick="toggleRsvpDay(this)">Dashami</span>
           </div>
         </div>
@@ -122,7 +124,8 @@
           <label>Preferred Day</label>
           <select name="preferred_day">
             <option value="">No preference</option>
-            <option value="Saptami">Saptami</option>
+            <option value="Saptami(1st Day)">Saptami(1st Day)</option>
+            <option value="Saptami(2nd Day)">Saptami(2nd Day)</option>
             <option value="Ashtami">Ashtami</option>
             <option value="Navami">Navami</option>
           </select>
