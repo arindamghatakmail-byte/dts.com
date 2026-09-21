@@ -620,13 +620,15 @@
     setInterval(updateLiveClock, 1000);
 
     supabaseClient.rpc('increment_visit_count')
-      .then(({ data, error }) => {
-        if (error) throw error;
-        document.getElementById('visitorCount').innerText = data;
-      })
-      .catch(err => {
-        document.getElementById('visitorCount').innerText = "—";
-      });
+  .then(({ data, error }) => {
+    if (error) throw error;
+    const visitorCountEl = document.getElementById('visitorCount');
+    if (visitorCountEl) visitorCountEl.innerText = data;
+  })
+  .catch(err => {
+    const visitorCountEl = document.getElementById('visitorCount');
+    if (visitorCountEl) visitorCountEl.innerText = "—";
+  });
 
     // Each portal file (public/member/admin) handles its own startup work —
     // loading its content, wiring its captchas/editors — via this event,
