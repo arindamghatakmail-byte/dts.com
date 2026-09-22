@@ -1199,6 +1199,7 @@
               <option value="admin-tab-storage">💾 Storage Usage</option>
               <option value="admin-tab-activity">📜 Activity Log</option>
               <option value="admin-tab-resets">🔑 Password Reset Requests</option>
+              <option value="admin-tab-durgapujo">🎉 Durga Pujo 2026 Control</option>
             </select>
           </div>
 
@@ -1807,9 +1808,93 @@
              </tbody>
            </table>
          </div>
-        </div>
+         <!-- Admin Tab: Durga Pujo 2026 -->
+         <div id="admin-tab-durgapujo" class="admin-portal-panel" style="display:none;">
 
+  <!-- Committee Contacts -->
+  <div class="section-head"><h2>Committee Contacts</h2><span class="tag">Durga Pujo Hub</span></div>
+  <div class="card" style="margin-bottom:20px;">
+    <form id="pujaContactForm" onsubmit="handlePujaContactSave(event)">
+      <input type="hidden" id="editPujaContactId">
+      <div class="mag-form-row"><label>Role *</label><input type="text" id="pujaContactRole" required placeholder="e.g. Decoration In-charge"></div>
+      <div class="mag-form-row"><label>Name *</label><input type="text" id="pujaContactName" required></div>
+      <div class="mag-form-row"><label>Phone *</label><input type="text" id="pujaContactPhone" required></div>
+      <div class="mag-form-row"><label>Display Order</label><input type="number" id="pujaContactOrder" value="10"></div>
+      <button type="submit" class="form-submit-btn" style="padding:10px 22px; background:var(--leaf); color:#fff; border:none; border-radius:6px; cursor:pointer;">SAVE CONTACT</button>
+      <button type="button" id="pujaContactCancelBtn" onclick="resetPujaContactForm()" style="display:none; padding:10px 22px; background:#7a7260; color:#fff; border:none; border-radius:6px; cursor:pointer; margin-left:8px;">CANCEL</button>
+    </form>
+  </div>
+  <div class="card" style="margin-bottom:32px; overflow-x:auto;">
+    <table class="gb-table">
+      <thead><tr><th>Role</th><th>Name</th><th>Phone</th><th>Action</th></tr></thead>
+      <tbody id="adminPujaContactsTableBody"><tr><td colspan="4" style="text-align:center; color:#9a927c;">Loading...</td></tr></tbody>
+    </table>
+  </div>
+
+  <!-- Cultural Program Schedule -->
+  <div class="section-head"><h2>Cultural Program Schedule</h2><span class="tag">Published Lineup</span></div>
+  <div class="card" style="margin-bottom:20px;">
+    <form id="culturalScheduleForm" onsubmit="handleCulturalScheduleSave(event)">
+      <div class="mag-form-row">
+        <label>Day *</label>
+        <select id="scheduleDay" required>
+          <option value="Shashthi">Shashthi</option>
+          <option value="Saptami">Saptami</option>
+          <option value="Ashtami">Ashtami</option>
+          <option value="Navami">Navami</option>
+          <option value="Dashami">Dashami</option>
+        </select>
+      </div>
+      <div class="mag-form-row"><label>Time</label><input type="text" id="scheduleTime" placeholder="e.g. 7:30 PM"></div>
+      <div class="mag-form-row"><label>Performer Name *</label><input type="text" id="schedulePerformer" required></div>
+      <div class="mag-form-row"><label>Performance Type</label><input type="text" id="scheduleType" placeholder="e.g. Song, Dance"></div>
+      <div class="mag-form-row"><label>Display Order</label><input type="number" id="scheduleOrder" value="10"></div>
+      <button type="submit" class="form-submit-btn" style="padding:10px 22px; background:var(--marigold); color:var(--indigo); border:none; border-radius:6px; font-weight:600; cursor:pointer;">ADD TO SCHEDULE</button>
+    </form>
+  </div>
+  <div class="card" style="margin-bottom:32px; overflow-x:auto;">
+    <table class="gb-table">
+      <thead><tr><th>Day</th><th>Time</th><th>Performer</th><th>Type</th><th>Action</th></tr></thead>
+      <tbody id="adminCulturalScheduleTableBody"><tr><td colspan="5" style="text-align:center; color:#9a927c;">Loading...</td></tr></tbody>
+    </table>
+  </div>
+
+  <!-- Performance Applications -->
+  <div class="section-head"><h2>Performance Applications</h2><span class="tag">Review Submissions</span></div>
+  <div class="card" style="margin-bottom:32px; overflow-x:auto;">
+    <table class="gb-table">
+      <thead><tr><th>Name</th><th>Phone</th><th>Type</th><th>Preferred Day</th><th>Status</th><th>Action</th></tr></thead>
+      <tbody id="adminPerformanceAppsTableBody"><tr><td colspan="6" style="text-align:center; color:#9a927c;">Loading...</td></tr></tbody>
+    </table>
+  </div>
+
+  <!-- RSVPs -->
+  <div class="section-head"><h2>RSVPs</h2><span class="tag" id="pujaRsvpSummary">Loading...</span></div>
+  <div class="card" style="margin-bottom:32px; overflow-x:auto;">
+    <table class="gb-table">
+      <thead><tr><th>Name</th><th>Phone</th><th>People</th><th>Days</th></tr></thead>
+      <tbody id="adminPujaRsvpsTableBody"><tr><td colspan="4" style="text-align:center; color:#9a927c;">Loading...</td></tr></tbody>
+    </table>
+  </div>
+
+  <!-- Pujo Moments Moderation -->
+  <div class="section-head"><h2>Pujo Moments</h2><span class="tag">Moderation</span></div>
+  <div class="card" style="margin-bottom:32px;" id="adminPujoMomentsList">
+    <p style="font-size:13px; color:#9a927c;">Loading...</p>
+  </div>
+
+  <!-- Aparajeeta Publishing -->
+  <div class="section-head"><h2>Aparajeeta Magazine</h2><span class="tag">Publish Issue</span></div>
+  <div class="card" style="max-width:480px;">
+    <form onsubmit="handleAparajeetaUpload(event)">
+      <div class="mag-form-row"><label>Magazine PDF *</label><input type="file" id="aparajeetaPdfInput" accept="application/pdf" required></div>
+      <div id="aparajeetaUploadStatus" style="display:none; margin-bottom:10px; padding:10px; border-radius:6px; font-size:13px;"></div>
+      <button type="submit" class="form-submit-btn" style="padding:10px 22px; background:var(--sindoor); color:#fff; border:none; border-radius:6px; cursor:pointer;">PUBLISH ISSUE</button>
+    </form>
         </div>
+      </div>
+      </div>
+     </div>
       </main>
     </div>
 
