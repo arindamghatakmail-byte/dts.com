@@ -39,6 +39,11 @@ import { fetchCountdownEvents, loadCommitteeCards, loadMagazine, loadPublicMembe
       loadAdminNoticesTable();
       loadAdminMagazineTable();
       loadPasswordResetRequests();
+      loadPujaContacts();
+      loadCulturalScheduleAdmin();
+      loadPerformanceApplications();
+      loadPujaRsvps();
+      loadPujoMomentsAdmin();
     }
   });
 
@@ -1391,8 +1396,315 @@ window.rejectPasswordReset = rejectPasswordReset;
     const p = adminMagazineCache.find(x => String(x.id) === String(id));
     try { const { error } = await supabaseClient.from('magazine_posts').delete().eq('id', id); if (error) throw error; logActivity('Deleted magazine post', p ? p.title : ('id ' + id)); loadAdminMagazineTable(); loadMagazine(); loadMemberMagazineManager(); } catch (err) { alert("Error deleting post: " + err.message); }
   }
+  // =====================================================================
+// ADD TO admin.js — Durga Pujo 2026 admin controls: committee contacts,
+// cultural program schedule, performance applications, RSVPs, Pujo
+// Moments moderation, and publishing the Aparajeeta magazine.
+// Paste this block anywhere near your other loadAdmin... functions.
+// =====================================================================
+
+// --- Committee Contacts ---
+async function loadPujaContacts() {
+  const tbody = document.getElementById('adminPujaContactsTableBody');
+  if (!tbody) return;
+  try {
+    const { data, error } = await supabaseClient.from('puja_committee_contacts').select('*').order('display_order', { ascending: true });
+    if (error) throw error;
+    if (!data || data.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; color:#9a927c;">No contacts added yet.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = data.map(c => `
+      <tr>
+        <td>${escapeHtml(c.role)}</td>
+        <td>${escapeHtml(c.name)}</td>
+        <td>${escapeHtml(c.phone)}</td>
+        <td>
+          <button onclick='editPujaContact(${c.id}, ${JSON.stringify(c.role)}, ${JSON.stringify(c.name)}, ${JSON.stringify(c.phone)}, ${c.display_order})' style="padding:4px 8px; background:var(--indigo); color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px; margin-right:4px;">Edit</button>
+          <button onclick="deletePujaContact(${c.id})" style="padding:4px 8px; background:var(--sindoor); color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px;">Delete</button>
+        </td>
+      </tr>
+    `).join('');
+  } catch (err) {
+    tbody.innerHTML = '<tr><td colspan="4" style="color:var(--sindoor);">Error loading contacts.</td></tr>';
+  }
+}
+
+function editPujaContact(id, role, name, phone, order) {
+  document.getElementById('editPujaContactId').value = id;
+  document.getElementById('pujaContactRole').value = role;
+  document.getElementById('pujaContactName').value = name;
+  document.getElementById('pujaContactPhone').value = phone;
+  document.getElementById('pujaContactOrder').value = order;
+  document.getElementById('pujaContactCancelBtn').style.display = 'inline-block';
+}
+
+function resetPujaContactForm() {
+  document.getElementById('editPujaContactId').value = '';
+  document.getElementById('pujaContactForm').reset();
+  document.getElementById('pujaContactCancelBtn').style.display = 'none';
+}
+
+async function handlePujaContactSave(event) {
+  event.preventDefault();
+  const id = document.getElementById('editPujaContactId').value;
+  const role = document.getElementById('pujaContactRole').value.trim();
+  const name = document.getElementById('pujaContactName').value.trim();
+  const phone = document.getElementById('pujaContactPhone').value.trim();
+  const displayOrder = parseInt(document.getElementById('pujaContactOrder').value, 10) || 0;
+
+  try {
+    if (id) {
+      const { error } = await supabaseClient.from('puja_committee_contacts').update({ role, name, phone, display_order: displayOrder }).eq('id', id);
+      if (error) throw error;
+    } else {
+      const { error } = await supabaseClient.from('puja_committee_contacts').insert([{ role, name, phone, display_order: displayOrder }]);
+      if (error) throw error;
+    }
+    logActivity('Saved Puja committee contact', name);
+    resetPujaContactForm();
+    loadPujaContacts();
+  } catch (err) {
+    alert('Error: ' + err.message);
+  }
+}
+
+async function deletePujaContact(id) {
+  if (!confirm('Delete this contact?')) return;
+  try {
+    const { error } = await supabaseClient.from('puja_committee_contacts').delete().eq('id', id);
+    if (error) throw error;
+    loadPujaContacts();
+  } catch (err) {
+    alert('Error: ' + err.message);
+  }
+}
 
 
+// --- Cultural Program Schedule ---
+async function loadCulturalScheduleAdmin() {
+  const tbody = document.getElementById('adminCulturalScheduleTableBody');
+  if (!tbody) return;
+  try {
+    const { data, error } = await supabaseClient.from('cultural_program_schedule').select('*').order('display_order', { ascending: true });
+    if (error) throw error;
+    if (!data || data.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#9a927c;">No schedule published yet.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = data.map(s => `
+      <tr>
+        <td>${escapeHtml(s.day)}</td>
+        <td>${escapeHtml(s.time || '')}</td>
+        <td>${escapeHtml(s.performer_name)}</td>
+        <td>${escapeHtml(s.performance_type || '')}</td>
+        <td><button onclick="deleteCulturalScheduleEntry(${s.id})" style="padding:4px 8px; background:var(--sindoor); color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px;">Delete</button></td>
+      </tr>
+    `).join('');
+  } catch (err) {
+    tbody.innerHTML = '<tr><td colspan="5" style="color:var(--sindoor);">Error loading schedule.</td></tr>';
+  }
+}
+
+async function handleCulturalScheduleSave(event) {
+  event.preventDefault();
+  const day = document.getElementById('scheduleDay').value;
+  const time = document.getElementById('scheduleTime').value.trim();
+  const performerName = document.getElementById('schedulePerformer').value.trim();
+  const performanceType = document.getElementById('scheduleType').value.trim();
+  const displayOrder = parseInt(document.getElementById('scheduleOrder').value, 10) || 0;
+
+  try {
+    const { error } = await supabaseClient.from('cultural_program_schedule').insert([{
+      day, time, performer_name: performerName, performance_type: performanceType, display_order: displayOrder
+    }]);
+    if (error) throw error;
+    logActivity('Added to cultural schedule', performerName);
+    document.getElementById('culturalScheduleForm').reset();
+    loadCulturalScheduleAdmin();
+  } catch (err) {
+    alert('Error: ' + err.message);
+  }
+}
+
+async function deleteCulturalScheduleEntry(id) {
+  if (!confirm('Remove this entry from the schedule?')) return;
+  try {
+    const { error } = await supabaseClient.from('cultural_program_schedule').delete().eq('id', id);
+    if (error) throw error;
+    loadCulturalScheduleAdmin();
+  } catch (err) {
+    alert('Error: ' + err.message);
+  }
+}
+
+
+// --- Performance Applications (review, approve into schedule) ---
+async function loadPerformanceApplications() {
+  const tbody = document.getElementById('adminPerformanceAppsTableBody');
+  if (!tbody) return;
+  try {
+    const { data, error } = await supabaseClient.from('performance_applications').select('*').order('submitted_at', { ascending: false });
+    if (error) throw error;
+    if (!data || data.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#9a927c;">No applications yet.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = data.map(a => `
+      <tr>
+        <td>${escapeHtml(a.name)}</td>
+        <td><a href="tel:${escapeHtml(a.phone)}">${escapeHtml(a.phone)}</a></td>
+        <td>${escapeHtml(a.performance_type)}</td>
+        <td>${escapeHtml(a.preferred_day || '')}</td>
+        <td>${escapeHtml(a.status || 'pending')}</td>
+        <td>
+          <button onclick='addApplicationToSchedule(${a.id}, ${JSON.stringify(a.name)}, ${JSON.stringify(a.performance_type)}, ${JSON.stringify(a.preferred_day || '')})' style="padding:4px 8px; background:var(--leaf); color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px; margin-right:4px;">Add to Schedule</button>
+          <button onclick="deletePerformanceApplication(${a.id})" style="padding:4px 8px; background:var(--sindoor); color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px;">Delete</button>
+        </td>
+      </tr>
+    `).join('');
+  } catch (err) {
+    tbody.innerHTML = '<tr><td colspan="6" style="color:var(--sindoor);">Error loading applications.</td></tr>';
+  }
+}
+
+async function addApplicationToSchedule(id, name, type, day) {
+  const time = prompt('Enter a time slot for ' + name + ' (e.g. "7:30 PM"), or leave blank:');
+  try {
+    const { error: insertError } = await supabaseClient.from('cultural_program_schedule').insert([{
+      day: day || 'TBD', time: time || null, performer_name: name, performance_type: type
+    }]);
+    if (insertError) throw insertError;
+
+    const { error: updateError } = await supabaseClient.from('performance_applications').update({ status: 'approved' }).eq('id', id);
+    if (updateError) throw updateError;
+
+    logActivity('Approved performance application', name);
+    loadPerformanceApplications();
+    loadCulturalScheduleAdmin();
+  } catch (err) {
+    alert('Error: ' + err.message);
+  }
+}
+
+async function deletePerformanceApplication(id) {
+  if (!confirm('Delete this application?')) return;
+  try {
+    const { error } = await supabaseClient.from('performance_applications').delete().eq('id', id);
+    if (error) throw error;
+    loadPerformanceApplications();
+  } catch (err) {
+    alert('Error: ' + err.message);
+  }
+}
+
+
+// --- RSVPs (read-only + headcount summary) ---
+async function loadPujaRsvps() {
+  const tbody = document.getElementById('adminPujaRsvpsTableBody');
+  const summaryEl = document.getElementById('pujaRsvpSummary');
+  if (!tbody) return;
+  try {
+    const { data, error } = await supabaseClient.from('puja_rsvp').select('*').order('submitted_at', { ascending: false });
+    if (error) throw error;
+    if (!data || data.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; color:#9a927c;">No RSVPs yet.</td></tr>';
+      if (summaryEl) summaryEl.textContent = '';
+      return;
+    }
+    const totalPeople = data.reduce((sum, r) => sum + (r.num_people || 0), 0);
+    if (summaryEl) summaryEl.textContent = `${data.length} RSVPs · ${totalPeople} total people expected`;
+
+    tbody.innerHTML = data.map(r => `
+      <tr>
+        <td>${escapeHtml(r.name)}</td>
+        <td><a href="tel:${escapeHtml(r.phone)}">${escapeHtml(r.phone)}</a></td>
+        <td>${r.num_people}</td>
+        <td>${(r.days || []).map(d => escapeHtml(d)).join(', ')}</td>
+      </tr>
+    `).join('');
+  } catch (err) {
+    tbody.innerHTML = '<tr><td colspan="4" style="color:var(--sindoor);">Error loading RSVPs.</td></tr>';
+  }
+}
+
+
+// --- Pujo Moments moderation ---
+async function loadPujoMomentsAdmin() {
+  const container = document.getElementById('adminPujoMomentsList');
+  if (!container) return;
+  try {
+    const { data, error } = await supabaseClient.from('pujo_moments').select('*, pujo_comments(*)').order('created_at', { ascending: false });
+    if (error) throw error;
+    if (!data || data.length === 0) {
+      container.innerHTML = '<p style="font-size:13px; color:#9a927c;">No moments shared yet.</p>';
+      return;
+    }
+    container.innerHTML = data.map(m => `
+      <div style="display:flex; gap:12px; align-items:flex-start; padding:12px 0; border-bottom:1px solid var(--line);">
+        <img src="${escapeHtml(m.image_url)}" style="width:80px; height:80px; object-fit:cover; border-radius:6px; flex-shrink:0;">
+        <div style="flex-grow:1;">
+          <div style="font-size:13px; color:var(--indigo);">${escapeHtml(m.caption || '(no caption)')}</div>
+          <div style="font-size:11px; color:#9a927c; margin:4px 0;">${(m.pujo_comments || []).length} comment(s)</div>
+          <button onclick="deletePujoMoment(${m.id})" style="padding:4px 10px; background:var(--sindoor); color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:11px;">Delete Moment</button>
+        </div>
+      </div>
+    `).join('');
+  } catch (err) {
+    container.innerHTML = '<p style="color:var(--sindoor);">Error loading moments.</p>';
+  }
+}
+
+async function deletePujoMoment(id) {
+  if (!confirm('Delete this moment and all its comments/reactions?')) return;
+  try {
+    const { error } = await supabaseClient.from('pujo_moments').delete().eq('id', id);
+    if (error) throw error;
+    loadPujoMomentsAdmin();
+  } catch (err) {
+    alert('Error: ' + err.message);
+  }
+}
+
+
+// --- Aparajeeta magazine publishing ---
+async function handleAparajeetaUpload(event) {
+  event.preventDefault();
+  const fileInput = document.getElementById('aparajeetaPdfInput');
+  const statusEl = document.getElementById('aparajeetaUploadStatus');
+  const file = fileInput.files && fileInput.files[0];
+  statusEl.style.display = 'none';
+
+  if (!file || file.type !== 'application/pdf') {
+    statusEl.style.display = 'block';
+    statusEl.style.color = 'var(--sindoor)';
+    statusEl.textContent = 'Please choose a PDF file.';
+    return;
+  }
+
+  try {
+    const fileName = `aparajeeta-${Date.now()}.pdf`;
+    const { error: uploadError } = await supabaseClient.storage.from('aparajeeta-magazine').upload(fileName, file);
+    if (uploadError) throw uploadError;
+
+    const { data: urlData } = supabaseClient.storage.from('aparajeeta-magazine').getPublicUrl(fileName);
+
+    const { error: dbError } = await supabaseClient.from('aparajeeta_magazine').insert([{
+      title: 'অপরাজিতা', pdf_url: urlData.publicUrl
+    }]);
+    if (dbError) throw dbError;
+
+    logActivity('Published Aparajeeta magazine issue', fileName);
+    statusEl.style.display = 'block';
+    statusEl.style.color = 'var(--leaf)';
+    statusEl.textContent = 'Published! It will now show on the Durga Pujo hub page.';
+    fileInput.value = '';
+  } catch (err) {
+    statusEl.style.display = 'block';
+    statusEl.style.color = 'var(--sindoor)';
+    statusEl.textContent = 'Error: ' + err.message;
+  }
+}
 
   // --- Expose functions called directly from inline HTML event handlers ---
   // (ES modules don't add top-level declarations to `window` automatically,
@@ -1439,3 +1751,13 @@ window.rejectPasswordReset = rejectPasswordReset;
   window.resetNoticeForm = resetNoticeForm;
   window.saveSiteControl = saveSiteControl;
   window.switchAdminTab = switchAdminTab;
+  window.editPujaContact = editPujaContact;
+  window.resetPujaContactForm = resetPujaContactForm;
+  window.handlePujaContactSave = handlePujaContactSave;
+  window.deletePujaContact = deletePujaContact;
+  window.handleCulturalScheduleSave = handleCulturalScheduleSave;
+  window.deleteCulturalScheduleEntry = deleteCulturalScheduleEntry;
+  window.addApplicationToSchedule = addApplicationToSchedule;
+  window.deletePerformanceApplication = deletePerformanceApplication;
+  window.deletePujoMoment = deletePujoMoment;
+  window.handleAparajeetaUpload = handleAparajeetaUpload;
