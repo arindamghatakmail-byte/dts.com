@@ -75,7 +75,7 @@
     <!-- RSVP -->
     <div class="section-head"><h2>RSVP</h2><span class="tag">Help us plan headcount</span></div>
     <div class="card" style="max-width:520px; margin-bottom:16px;">
-      <form id="pujaRsvpForm" onsubmit="submitPujaRsvp(event)">
+      <form onsubmit="submitPujaRsvp(event)">
         <div class="mag-form-row"><label>Your Name *</label><input type="text" name="name" required></div>
         <div class="mag-form-row"><label>Phone Number *</label><input type="text" name="phone" inputmode="numeric" maxlength="10" required placeholder="10-digit number"></div>
         <div class="mag-form-row"><label>Number of People *</label><input type="number" name="num_people" min="1" value="1" required></div>
@@ -113,7 +113,7 @@
     </div>
     <div class="card" style="max-width:600px;">
       <h3 style="font-family:'Tiro Bangla',serif; color:var(--indigo); margin-bottom:10px;">Apply to Perform</h3>
-      <form id="performanceApplicationForm" onsubmit="submitPerformanceApplication(event)">
+      <form onsubmit="submitPerformanceApplication(event)">
         <div class="mag-form-row"><label>Your Name *</label><input type="text" name="name" required></div>
         <div class="mag-form-row"><label>Phone Number *</label><input type="text" name="phone" inputmode="numeric" maxlength="10" required placeholder="10-digit number"></div>
         <div class="mag-form-row">
