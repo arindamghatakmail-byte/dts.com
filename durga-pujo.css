@@ -24,6 +24,108 @@
 
 #page-durga-pujo > *{ position:relative; z-index:1; }
 
+/* ===================================================================
+   FALLING PETALS — ambient marigold petals, generated in durga-pujo.js.
+   Fixed + pointer-events:none so they never block clicks or scrolling.
+   =================================================================== */
+.dp-petals{
+  position:fixed;
+  inset:0;
+  z-index:5;
+  overflow:hidden;
+  pointer-events:none;
+}
+.dp-petal{
+  position:absolute;
+  top:-5vh;
+  width:12px;
+  height:12px;
+  border-radius:0 60% 0 60%;
+  opacity:0.8;
+  animation-name:dpPetalFall;
+  animation-timing-function:linear;
+  animation-iteration-count:infinite;
+  will-change:transform, opacity;
+}
+@keyframes dpPetalFall{
+  0%{ transform:translateY(0) translateX(0) rotate(0deg); opacity:0.9; }
+  100%{ transform:translateY(112vh) translateX(var(--dp-drift, 30px)) rotate(360deg); opacity:0.15; }
+}
+
+/* Respect reduced-motion: turn off all decorative animation at once. */
+@media (prefers-reduced-motion: reduce){
+  .dp-petals{ display:none; }
+  .dp-conch-wrap::before, .dp-conch-wrap::after{ animation:none; }
+  .dp-durga-wrap{ animation:none; }
+  .dp-halo-rays{ animation:none; }
+}
+
+/* ===================================================================
+   CONCH (SHANKHA) — pulsing sound-wave rings around a simple original
+   line-art conch icon, positioned in the top corner of the hero.
+   =================================================================== */
+.dp-conch-wrap{
+  position:absolute;
+  top:14px;
+  left:14px;
+  width:56px;
+  height:56px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.dp-conch-wrap::before,
+.dp-conch-wrap::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  border:1.5px solid rgba(255,255,255,0.55);
+  animation:dpConchRing 2.6s ease-out infinite;
+}
+.dp-conch-wrap::after{ animation-delay:1.3s; }
+@keyframes dpConchRing{
+  0%{ transform:scale(0.55); opacity:0.9; }
+  100%{ transform:scale(1.7); opacity:0; }
+}
+.dp-conch-icon{
+  position:relative;
+  z-index:1;
+  filter:drop-shadow(0 2px 4px rgba(0,0,0,0.25));
+}
+
+/* ===================================================================
+   DURGA EMBLEM — original geometric/symbolic line art (not a copied
+   illustration), floating gently in the corner of the hero band.
+   =================================================================== */
+.dp-durga-wrap{
+  position:absolute;
+  right:8px;
+  bottom:-14px;
+  width:104px;
+  opacity:0.92;
+  animation:dpDurgaFloat 4.5s ease-in-out infinite;
+  pointer-events:none;
+}
+.dp-durga-art{
+  width:100%;
+  height:auto;
+  display:block;
+  filter:drop-shadow(0 6px 10px rgba(0,0,0,0.25));
+}
+.dp-halo-rays{
+  transform-origin:100px 90px;
+  animation:dpHaloSpin 20s linear infinite;
+}
+@keyframes dpDurgaFloat{
+  0%, 100%{ transform:translateY(0); }
+  50%{ transform:translateY(-8px); }
+}
+@keyframes dpHaloSpin{
+  from{ transform:rotate(0deg); }
+  to{ transform:rotate(360deg); }
+}
+
 /* Anchors used by the quick-nav; not visible, just scroll targets that
    sit slightly above each section so the sticky bar doesn't cover it. */
 .dp-section-anchor{
