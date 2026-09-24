@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Durga Pujo 2026 — Dihibaliharpur Tarun Sangha</title>
-<meta name="description" content="Durga Pujo 2026 at Dihibaliharpur Tarun Sangha — puja calendar, RSVP, committee contacts, and the cultural program.">
+<meta name="description" content="Durga Pujo 2026 at Dihibaliharpur Tarun Sangha — puja calendar, timings, RSVP, committee contacts, and the cultural program.">
 <link rel="canonical" href="https://arindamghatakmail-byte.github.io/dts.com/durga-pujo.html">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Dihibaliharpur Tarun Sangha">
 <meta property="og:title" content="Durga Pujo 2026 — Dihibaliharpur Tarun Sangha">
-<meta property="og:description" content="Puja calendar, RSVP, committee contacts, and the cultural program for this year's celebration.">
+<meta property="og:description" content="Puja calendar, timings, RSVP, committee contacts, and the cultural program for this year's celebration.">
 <meta property="og:image" content="https://arindamghatakmail-byte.github.io/dts.com/logo.png">
 <meta property="og:url" content="https://arindamghatakmail-byte.github.io/dts.com/durga-pujo.html">
 
@@ -45,17 +45,32 @@
   </div>
 </nav>
 
+<!-- Quick-nav: jump straight to a section instead of scrolling the whole page -->
+<nav class="dp-quicknav" aria-label="Jump to section">
+  <div class="wrap dp-quicknav-inner">
+    <a href="#dp-calendar">Calendar</a>
+    <a href="#dp-timings">Timings</a>
+    <a href="#dp-rsvp">RSVP</a>
+    <a href="#dp-contacts">Contacts</a>
+    <a href="#dp-program">Program</a>
+    <a href="#dp-moments">Moments</a>
+    <a href="#dp-magazine">Magazine</a>
+  </div>
+</nav>
+
 <div id="page-durga-pujo" class="page" style="display:block;">
-  <main class="wrap" style="padding-top:40px; padding-bottom:60px;">
+  <main class="wrap" style="padding-top:32px; padding-bottom:60px;">
 
     <div class="dp-hero-band">
       <h2>দুর্গা পূজা 2026</h2>
       <p><strong>ডিহিবলিহারপুর সর্বজনীন দুর্গোৎসব - ৫ম বর্ষ</strong></p>
-      <p>Conducted By: Dihibaliharpur Tarun Sangha's & Villagers</p> 
-      <p>Durga Puja Celebration — Dates, RSVP, Contacts, & Cultural Programs</p>
+      <p>Conducted By: Dihibaliharpur Tarun Sangha's & Villagers</p>
+      <p>Durga Puja Celebration — Dates, Timings, RSVP, Contacts, & Cultural Programs</p>
+      <div id="dpCountdown" class="dp-countdown">Loading countdown…</div>
     </div>
 
     <!-- Puja Calendar -->
+    <div id="dp-calendar" class="dp-section-anchor"></div>
     <div class="section-head"><h2>Puja Calendar</h2><span class="tag">Mahalaya to Vijaya Dashami</span></div>
     <div class="card" style="margin-bottom:16px; overflow-x:auto;">
       <div style="display:flex; gap:10px;">
@@ -72,23 +87,37 @@
 
     <div class="dp-divider">✿ ✿ ✿</div>
 
+    <!-- Timings & Location — NEW. Fill in the real times below (marked TODO). -->
+    <div id="dp-timings" class="dp-section-anchor"></div>
+    <div class="section-head"><h2>Timings & Location</h2><span class="tag">Plan your visit</span></div>
+    <div class="card dp-timings-card" style="max-width:600px; margin-bottom:16px;">
+      <!-- TODO: replace the placeholder times below with your actual schedule -->
+      <div class="dp-timing-row"><i class="fas fa-hands-praying"></i><div><strong>Anjali</strong><span>Ashtami morning — at about 06:00 AM</span></div></div>
+      <div class="dp-timing-row"><i class="fas fa-fire"></i><div><strong>Sandhi Puja</strong><span>Ashtami–Nabami junction — at about 06:30 AM</span></div></div>
+      <div class="dp-timing-row"><i class="fas fa-bowl-rice"></i><div><strong>Prasad Distribution</strong><span>Daily After Puja</span></div></div>
+      <div class="dp-timing-row"><i class="fas fa-location-dot"></i><div><strong>Venue</strong><span>Dihibaliharpur, Daspur, Paschim Medinipur, West Bengal 721211 — <a href="https://maps.google.com/?q=Dihibaliharpur,Daspur,Paschim+Medinipur" target="_blank" rel="noopener">Open in Maps</a></span></div></div>
+    </div>
+
+    <div class="dp-divider">✿ ✿ ✿</div>
+
     <!-- RSVP -->
+    <div id="dp-rsvp" class="dp-section-anchor"></div>
     <div class="section-head"><h2>RSVP</h2><span class="tag">Help us plan headcount</span></div>
     <div class="card" style="max-width:520px; margin-bottom:16px;">
       <form onsubmit="submitPujaRsvp(event)">
-        <div class="mag-form-row"><label>Your Name *</label><input type="text" name="name" required></div>
-        <div class="mag-form-row"><label>Phone Number *</label><input type="text" name="phone" inputmode="numeric" maxlength="10" required placeholder="10-digit number"></div>
-        <div class="mag-form-row"><label>Number of People *</label><input type="number" name="num_people" min="1" value="1" required></div>
+        <div class="mag-form-row"><label for="rsvpName">Your Name *</label><input id="rsvpName" type="text" name="name" required></div>
+        <div class="mag-form-row"><label for="rsvpPhone">Phone Number *</label><input id="rsvpPhone" type="text" name="phone" inputmode="numeric" maxlength="10" pattern="[0-9]{10}" required placeholder="10-digit number"></div>
+        <div class="mag-form-row"><label for="rsvpNumPeople">Number of People *</label><input id="rsvpNumPeople" type="number" name="num_people" min="1" value="1" required></div>
         <div class="mag-form-row">
-          <label>Which day(s) are you visiting? *</label>
-          <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:6px;">
-            <span class="dp-day-chip" data-day="Panchami" onclick="toggleRsvpDay(this)">Panchami</span>
-            <span class="dp-day-chip" data-day="Shashthi" onclick="toggleRsvpDay(this)">Shashthi</span>
-            <span class="dp-day-chip" data-day="Saptami(1st Day)" onclick="toggleRsvpDay(this)">Saptami(1st Day)</span>
-            <span class="dp-day-chip" data-day="Saptami(2nd Day)" onclick="toggleRsvpDay(this)">Saptami(2nd Day)</span>
-            <span class="dp-day-chip" data-day="Ashtami" onclick="toggleRsvpDay(this)">Ashtami</span>
-            <span class="dp-day-chip" data-day="Nabami" onclick="toggleRsvpDay(this)">Nabami</span>
-            <span class="dp-day-chip" data-day="Dashami" onclick="toggleRsvpDay(this)">Dashami</span>
+          <span id="rsvpDaysLabel">Which day(s) are you visiting? *</span>
+          <div class="dp-day-chip-group" role="group" aria-labelledby="rsvpDaysLabel">
+            <label class="dp-day-chip"><input type="checkbox" name="days" value="Panchami"><span>Panchami</span></label>
+            <label class="dp-day-chip"><input type="checkbox" name="days" value="Shashthi"><span>Shashthi</span></label>
+            <label class="dp-day-chip"><input type="checkbox" name="days" value="Saptami(1st Day)"><span>Saptami(1st Day)</span></label>
+            <label class="dp-day-chip"><input type="checkbox" name="days" value="Saptami(2nd Day)"><span>Saptami(2nd Day)</span></label>
+            <label class="dp-day-chip"><input type="checkbox" name="days" value="Ashtami"><span>Ashtami</span></label>
+            <label class="dp-day-chip"><input type="checkbox" name="days" value="Nabami"><span>Nabami</span></label>
+            <label class="dp-day-chip"><input type="checkbox" name="days" value="Dashami"><span>Dashami</span></label>
           </div>
         </div>
         <div id="dpRsvpStatus" class="dp-msg" style="display:none;"></div>
@@ -99,6 +128,7 @@
     <div class="dp-divider">✿ ✿ ✿</div>
 
     <!-- Committee Contacts -->
+    <div id="dp-contacts" class="dp-section-anchor"></div>
     <div class="section-head"><h2>Committee Contacts</h2><span class="tag">Who to call</span></div>
     <div class="card" style="max-width:520px; margin-bottom:16px;" id="dpContactsList">
       <p style="font-size:13px; color:#9a927c;">Loading contacts...</p>
@@ -107,6 +137,7 @@
     <div class="dp-divider">✿ ✿ ✿</div>
 
     <!-- Cultural Program -->
+    <div id="dp-program" class="dp-section-anchor"></div>
     <div class="section-head"><h2>Cultural Program</h2><span class="tag">Sondhya Anushthan</span></div>
     <div class="card" style="max-width:600px; margin-bottom:16px;" id="dpScheduleList">
       <p style="font-size:13px; color:#9a927c;">Loading schedule...</p>
@@ -114,11 +145,11 @@
     <div class="card" style="max-width:600px;">
       <h3 style="font-family:'Tiro Bangla',serif; color:var(--indigo); margin-bottom:10px;">Apply to Perform</h3>
       <form onsubmit="submitPerformanceApplication(event)">
-        <div class="mag-form-row"><label>Your Name *</label><input type="text" name="name" required></div>
-        <div class="mag-form-row"><label>Phone Number *</label><input type="text" name="phone" inputmode="numeric" maxlength="10" required placeholder="10-digit number"></div>
+        <div class="mag-form-row"><label for="perfName">Your Name *</label><input id="perfName" type="text" name="name" required></div>
+        <div class="mag-form-row"><label for="perfPhone">Phone Number *</label><input id="perfPhone" type="text" name="phone" inputmode="numeric" maxlength="10" pattern="[0-9]{10}" required placeholder="10-digit number"></div>
         <div class="mag-form-row">
-          <label>Performance Type *</label>
-          <select name="performance_type" required>
+          <label for="perfType">Performance Type *</label>
+          <select id="perfType" name="performance_type" required>
             <option value="">Select one</option>
             <option value="Song">Song</option>
             <option value="Dance">Dance</option>
@@ -130,17 +161,17 @@
           </select>
         </div>
         <div class="mag-form-row">
-          <label>Preferred Day</label>
-          <select name="preferred_day">
+          <label for="perfDay">Preferred Day</label>
+          <select id="perfDay" name="preferred_day">
             <option value="">No preference</option>
             <option value="Shashthi">Shashthi</option>
             <option value="Saptami(1st Day)">Saptami(1st Day)</option>
             <option value="Saptami(2nd Day)">Saptami(2nd Day)</option>
             <option value="Ashtami">Ashtami</option>
-            <option value="Navami">Navami</option>
+            <option value="Nabami">Nabami</option>
           </select>
         </div>
-        <div class="mag-form-row"><label>Brief Description</label><textarea name="description" rows="2" style="width:100%; padding:10px; border:1px solid var(--line); border-radius:8px;"></textarea></div>
+        <div class="mag-form-row"><label for="perfDesc">Brief Description</label><textarea id="perfDesc" name="description" rows="2" style="width:100%; padding:10px; border:1px solid var(--line); border-radius:8px;"></textarea></div>
         <div id="dpPerformStatus" class="dp-msg" style="display:none;"></div>
         <button type="submit" id="dpPerformBtn" class="split-login-btn">Submit Application</button>
       </form>
@@ -148,17 +179,18 @@
        <div class="dp-divider">✿ ✿ ✿</div>
 
 <!-- Pujo Moments -->
+<div id="dp-moments" class="dp-section-anchor"></div>
 <div class="section-head"><h2>Pujo Moments</h2><span class="tag">Share &amp; celebrate together</span></div>
 <div class="card" style="max-width:520px; margin-bottom:16px;">
   <h3 style="font-family:'Tiro Bangla',serif; color:var(--indigo); margin-bottom:10px;">Share a Moment</h3>
   <form id="uploadMomentForm" onsubmit="submitPujoMoment(event)">
     <div class="mag-form-row">
-      <label>Photo *</label>
+      <label for="momentPhotoInput">Photo *</label>
       <input type="file" id="momentPhotoInput" accept="image/*" required>
     </div>
     <div class="mag-form-row">
-      <label>Caption</label>
-      <input type="text" name="caption" placeholder="What's happening in this photo?" maxlength="200">
+      <label for="momentCaption">Caption</label>
+      <input id="momentCaption" type="text" name="caption" placeholder="What's happening in this photo?" maxlength="200">
     </div>
     <div id="momentUploadStatus" class="dp-msg" style="display:none;"></div>
     <button type="submit" id="momentUploadBtn" class="split-login-btn">Share Moment</button>
@@ -171,12 +203,13 @@
 
 <div class="card dp-qr-box" style="max-width:320px; margin:0 auto 28px;">
   <p style="font-size:12px; color:#7a7260; margin-bottom:10px;">Print this for a venue poster — scanning it opens the Share a Moment form directly.</p>
-  <img src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https%3A%2F%2Farindamghatakmail-byte.github.io%2Fdts.com%2Fdurga-pujo.html%23pujoFeedContainer" alt="QR code to Pujo Moments" width="220" height="220">
+  <img src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https%3A%2F%2Farindamghatakmail-byte.github.io%2Fdts.com%2Fdurga-pujo.html%23uploadMomentForm" alt="QR code to Share a Moment form" width="220" height="220">
 </div>
 
 <div class="dp-divider">✿ ✿ ✿</div>
 
 <!-- Aparajeeta Magazine -->
+<div id="dp-magazine" class="dp-section-anchor"></div>
 <div class="section-head">
   <img src="aparajeeta-logo.png" alt="অপরাজিতা" style="height:70px; width:auto;" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
   <h2 style="display:none;">অপরাজিতা</h2>
