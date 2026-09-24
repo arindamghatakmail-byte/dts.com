@@ -3,13 +3,18 @@
 // the `site_settings` table. Falls back to "maintenance" if anything fails,
 // so a broken network call never accidentally exposes an unfinished site.
 (function () {
+     if (typeof supabase === 'undefined') {
+     document.documentElement.style.setProperty('--live-display', 'none');
+     document.documentElement.style.setProperty('--maint-display', 'flex');
+     return;
+   }
   const SUPABASE_URL = 'https://gnxptgaaoxljygnidjwg.supabase.co';
   const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdueHB0Z2Fhb3hsanlnbmlkandnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ5ODE2MzUsImV4cCI6MjEwMDU1NzYzNX0.FzxWzLiah4gexcvSL43PnN3LLIPWL3E-Fmtwqkb6le8';
   const gateClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
   const LOCAL_UNLOCK_KEY = 'dts_preview_pass_v1';
   const LOCAL_STATUS_CACHE_KEY = 'dts_site_status_cache_v1';
-
+  
   function showLive() {
     document.documentElement.style.setProperty('--live-display', 'block');
     document.documentElement.style.setProperty('--maint-display', 'none');
@@ -86,4 +91,9 @@
       }
     })
     .catch(() => { showMaintenance(); });
+
+  } catch (e) {
+    document.documentElement.style.setProperty('--live-display', 'none');
+    document.documentElement.style.setProperty('--maint-display', 'flex');
+  }
 })();
