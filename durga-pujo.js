@@ -1,5 +1,5 @@
 // =====================================================================
-// DURGA-PUJO.JS — Public "Durga Pujo 2026" hub: calendar, RSVP,
+// DURGA-PUJO.JS — Public "Durga Pujo 2026" hub: calendar, timings, RSVP,
 // committee contacts, and cultural program (view + apply to perform).
 // Everything on this page is open to the public, no login needed.
 // Requires common.js to be loaded first.
@@ -7,14 +7,50 @@
 
 import { escapeHtml, supabaseClient } from './common.js';
 
+// Puja calendar dates, used for the hero countdown. Keep in sync with
+// the date cards in durga-pujo.html if the schedule ever changes.
+const PUJA_DAYS = [
+  { label: 'Mahalaya', date: '2026-10-10' },
+  { label: 'Panchami', date: '2026-10-15' },
+  { label: 'Shashthi', date: '2026-10-16' },
+  { label: 'Saptami (1st Day)', date: '2026-10-17' },
+  { label: 'Saptami (2nd Day)', date: '2026-10-18' },
+  { label: 'Ashtami', date: '2026-10-19' },
+  { label: 'Nabami', date: '2026-10-20' },
+  { label: 'Dashami', date: '2026-10-21' },
+];
+
 document.addEventListener('app:init', function() {
+  renderPujaCountdown();
   loadCommitteeContacts();
   loadCulturalSchedule();
 });
 
 
-function toggleRsvpDay(chip) {
-  chip.classList.toggle('dp-day-selected');
+function renderPujaCountdown() {
+  const el = document.getElementById('dpCountdown');
+  if (!el) return;
+
+  const now = new Date();
+  const todayStr = now.toISOString().slice(0, 10);
+  const todayEntry = PUJA_DAYS.find(d => d.date === todayStr);
+
+  if (todayEntry) {
+    el.textContent = `Today is ${todayEntry.label} — শুভ ${todayEntry.label}!`;
+    return;
+  }
+
+  const celebrationStart = new Date(PUJA_DAYS[1].date + 'T00:00:00'); // Panchami
+  const celebrationEnd = new Date(PUJA_DAYS[PUJA_DAYS.length - 1].date + 'T23:59:59');
+
+  if (now < celebrationStart) {
+    const diffDays = Math.ceil((celebrationStart - now) / 86400000);
+    el.textContent = `${diffDays} day${diffDays === 1 ? '' : 's'} to go until Panchami`;
+  } else if (now > celebrationEnd) {
+    el.textContent = 'See you at next year\'s Durga Pujo!';
+  } else {
+    el.textContent = 'The celebration is underway!';
+  }
 }
 
 
@@ -28,7 +64,7 @@ async function submitPujaRsvp(event) {
   const name = form.name.value.trim();
   const phone = form.phone.value.trim();
   const numPeople = parseInt(form.num_people.value, 10);
-  const days = Array.from(document.querySelectorAll('.dp-day-chip.dp-day-selected')).map(c => c.dataset.day);
+  const days = Array.from(form.querySelectorAll('input[name="days"]:checked')).map(c => c.value);
 
   if (!name || !/^\d{10}$/.test(phone) || !numPeople || numPeople < 1) {
     statusEl.className = 'dp-msg error';
@@ -57,7 +93,6 @@ async function submitPujaRsvp(event) {
     statusEl.textContent = 'Thank you! Your RSVP has been recorded.';
     statusEl.style.display = 'block';
     form.reset();
-    document.querySelectorAll('.dp-day-chip.dp-day-selected').forEach(c => c.classList.remove('dp-day-selected'));
   } catch (err) {
     statusEl.className = 'dp-msg error';
     statusEl.textContent = 'Error: ' + err.message;
@@ -164,6 +199,5 @@ async function loadCulturalSchedule() {
 }
 
 
-window.toggleRsvpDay = toggleRsvpDay;
 window.submitPujaRsvp = submitPujaRsvp;
 window.submitPerformanceApplication = submitPerformanceApplication;
