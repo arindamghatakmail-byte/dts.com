@@ -26,6 +26,41 @@ document.addEventListener('app:init', function() {
   loadCulturalSchedule();
 });
 
+// Ambient falling petals — purely decorative, so it runs independently
+// of app:init (doesn't need Supabase) and skips entirely if the visitor
+// has requested reduced motion.
+createPujaPetals();
+
+function createPujaPetals() {
+  const container = document.getElementById('dpPetals');
+  if (!container) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const colors = ['var(--marigold)', 'var(--sindoor)', 'var(--gold-deep)'];
+  const PETAL_COUNT = 16;
+
+  for (let i = 0; i < PETAL_COUNT; i++) {
+    const petal = document.createElement('span');
+    petal.className = 'dp-petal';
+    const left = Math.random() * 100;
+    const duration = 9 + Math.random() * 7;      // 9s–16s fall
+    const delay = Math.random() * -16;             // stagger so they don't all start together
+    const drift = (Math.random() * 60 - 30).toFixed(0) + 'px';
+    const size = 8 + Math.round(Math.random() * 8); // 8px–16px
+    const color = colors[i % colors.length];
+
+    petal.style.left = left + 'vw';
+    petal.style.width = size + 'px';
+    petal.style.height = size + 'px';
+    petal.style.background = color;
+    petal.style.animationDuration = duration + 's';
+    petal.style.animationDelay = delay + 's';
+    petal.style.setProperty('--dp-drift', drift);
+
+    container.appendChild(petal);
+  }
+}
+
 
 function renderPujaCountdown() {
   const el = document.getElementById('dpCountdown');
