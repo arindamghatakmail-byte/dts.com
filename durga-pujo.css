@@ -24,10 +24,60 @@
 
 #page-durga-pujo > *{ position:relative; z-index:1; }
 
+/* Anchors used by the quick-nav; not visible, just scroll targets that
+   sit slightly above each section so the sticky bar doesn't cover it. */
+.dp-section-anchor{
+  position:relative;
+  top:-64px;
+  visibility:hidden;
+  height:0;
+}
+
+/* ===================================================================
+   QUICK-NAV — sticky strip so people can jump straight to what they
+   need (Timings, RSVP, Contacts) instead of scrolling the whole page.
+   =================================================================== */
+.dp-quicknav{
+  position:sticky;
+  top:0;
+  z-index:30;
+  background:var(--indigo);
+  box-shadow:0 2px 10px rgba(0,0,0,0.15);
+}
+.dp-quicknav-inner{
+  display:flex;
+  gap:6px;
+  overflow-x:auto;
+  padding:10px 0;
+  scrollbar-width:none;
+}
+.dp-quicknav-inner::-webkit-scrollbar{ display:none; }
+.dp-quicknav a{
+  flex:0 0 auto;
+  padding:6px 14px;
+  border-radius:20px;
+  font-size:12.5px;
+  font-weight:500;
+  color:rgba(247,241,227,0.85);
+  text-decoration:none !important;
+  border:1px solid rgba(247,241,227,0.25);
+  transition:background .15s ease, color .15s ease;
+}
+.dp-quicknav a:hover,
+.dp-quicknav a:focus-visible{
+  background:var(--marigold);
+  color:var(--indigo);
+  border-color:var(--marigold);
+}
+
+/* ===================================================================
+   HERO
+   =================================================================== */
 .dp-hero-band{
+  position:relative;
   background:linear-gradient(120deg, var(--sindoor), var(--gold-deep));
   border-radius:16px;
-  padding:32px 28px;
+  padding:32px 28px 40px;
   margin-bottom:28px;
   text-align:center;
   box-shadow:0 12px 30px -10px rgba(198,38,43,0.35);
@@ -43,6 +93,27 @@
   color:rgba(255,255,255,0.9);
   max-width:520px;
   margin:0 auto;
+}
+/* Marigold-garland bead trim along the bottom edge of the hero */
+.dp-hero-band::after{
+  content:"";
+  position:absolute; left:0; right:0; bottom:-6px; height:12px;
+  background-image:radial-gradient(circle, var(--marigold) 0 4px, transparent 5px);
+  background-size:16px 16px;
+  background-position:4px 0;
+}
+
+.dp-countdown{
+  display:inline-block;
+  margin-top:18px;
+  padding:8px 20px;
+  background:rgba(255,255,255,0.16);
+  border:1px solid rgba(255,255,255,0.35);
+  border-radius:24px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:13px;
+  color:#fff;
+  letter-spacing:.02em;
 }
 
 .dp-divider{
@@ -85,8 +156,50 @@
   font-weight:500;
 }
 
-/* RSVP day-selector chips */
+/* ===================================================================
+   TIMINGS & LOCATION — new card
+   =================================================================== */
+.dp-timings-card{ padding:18px 20px; }
+.dp-timing-row{
+  display:flex;
+  align-items:flex-start;
+  gap:14px;
+  padding:12px 0;
+  border-bottom:1px solid var(--line);
+}
+.dp-timing-row:last-child{ border-bottom:none; padding-bottom:0; }
+.dp-timing-row i{
+  width:32px; height:32px; flex:0 0 auto;
+  display:flex; align-items:center; justify-content:center;
+  border-radius:50%;
+  background:rgba(240,169,59,0.16);
+  color:var(--marigold);
+  font-size:14px;
+}
+.dp-timing-row strong{
+  display:block;
+  font-size:13.5px;
+  color:var(--indigo);
+  margin-bottom:2px;
+}
+.dp-timing-row span{
+  font-size:12.5px;
+  color:#7a7260;
+}
+.dp-timing-row a{ color:var(--sindoor); font-weight:600; }
+
+/* RSVP day-selector chips — real checkboxes, visually hidden, styled
+   via the label so the field stays accessible and keyboard-usable. */
+.dp-day-chip-group{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:6px;
+}
 .dp-day-chip{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
   padding:6px 14px;
   border:1.5px solid var(--indigo);
   border-radius:20px;
@@ -95,9 +208,20 @@
   cursor:pointer;
   user-select:none;
 }
-.dp-day-chip.dp-day-selected{
+.dp-day-chip input{
+  position:absolute;
+  opacity:0;
+  width:100%; height:100%;
+  margin:0;
+  cursor:pointer;
+}
+.dp-day-chip:has(input:checked){
   background:var(--indigo);
   color:#fff;
+}
+.dp-day-chip:has(input:focus-visible){
+  outline:2px solid var(--marigold);
+  outline-offset:2px;
 }
 
 /* Inline form status messages (RSVP + performance application) */
