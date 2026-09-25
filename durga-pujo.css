@@ -57,12 +57,12 @@
   .dp-petals{ display:none; }
   .dp-conch-wrap::before, .dp-conch-wrap::after{ animation:none; }
   .dp-durga-wrap{ animation:none; }
-  .dp-halo-rays{ animation:none; }
+  .dp-durga-wrap::before{ animation:none; }
 }
 
 /* ===================================================================
-   CONCH (SHANKHA) — pulsing sound-wave rings around a simple original
-   line-art conch icon, positioned in the top corner of the hero.
+   CONCH (SHANKHA) — pulsing sound-wave rings around your uploaded
+   conch graphic (background removed, blue starburst kept).
    =================================================================== */
 .dp-conch-wrap{
   position:absolute;
@@ -91,31 +91,46 @@
 .dp-conch-icon{
   position:relative;
   z-index:1;
-  filter:drop-shadow(0 2px 4px rgba(0,0,0,0.25));
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  filter:drop-shadow(0 2px 4px rgba(0,0,0,0.3));
 }
 
 /* ===================================================================
-   DURGA EMBLEM — original geometric/symbolic line art (not a copied
-   illustration), floating gently in the corner of the hero band.
+   DURGA IDOL PHOTO — framed with a rotating glow ring behind it,
+   floating gently in the corner of the hero band.
    =================================================================== */
 .dp-durga-wrap{
   position:absolute;
-  right:8px;
-  bottom:-14px;
-  width:104px;
-  opacity:0.92;
+  right:10px;
+  bottom:-20px;
+  width:130px;
+  height:170px;
   animation:dpDurgaFloat 4.5s ease-in-out infinite;
   pointer-events:none;
 }
-.dp-durga-art{
-  width:100%;
-  height:auto;
-  display:block;
-  filter:drop-shadow(0 6px 10px rgba(0,0,0,0.25));
+.dp-durga-wrap::before{
+  content:"";
+  position:absolute;
+  inset:-8px;
+  border-radius:16px;
+  background:conic-gradient(from 0deg, var(--marigold), transparent 30%, var(--marigold) 60%, transparent 90%);
+  opacity:0.55;
+  animation:dpHaloSpin 6s linear infinite;
+  z-index:0;
 }
-.dp-halo-rays{
-  transform-origin:100px 90px;
-  animation:dpHaloSpin 20s linear infinite;
+.dp-durga-art{
+  position:relative;
+  z-index:1;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:top center;
+  border-radius:14px;
+  border:3px solid var(--paper);
+  box-shadow:0 8px 20px rgba(0,0,0,0.35);
+  display:block;
 }
 @keyframes dpDurgaFloat{
   0%, 100%{ transform:translateY(0); }
@@ -124,6 +139,10 @@
 @keyframes dpHaloSpin{
   from{ transform:rotate(0deg); }
   to{ transform:rotate(360deg); }
+}
+@media (max-width:600px){
+  .dp-durga-wrap{ width:86px; height:112px; right:6px; bottom:-12px; }
+  .dp-conch-wrap{ width:42px; height:42px; top:8px; left:8px; }
 }
 
 /* Anchors used by the quick-nav; not visible, just scroll targets that
