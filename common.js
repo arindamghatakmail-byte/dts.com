@@ -605,14 +605,22 @@
   document.addEventListener("DOMContentLoaded", function() {
     if (window.__siteSettings) applyVersionBadge(window.__siteSettings);
 
-    const hash = window.location.hash.replace('#', '');
-    const validPages = ['home', 'aim', 'members', 'finances', 'events', 'activities', 'gallery', 'magazine', 'members-only', 'my-account', 'treasurer', 'admin', 'join', 'contact', 'emergency'];
+    // The block below drives the SPA's own #home/#aim/#members/... page
+    // router. It only makes sense on index.html, which has the SPA's
+    // page containers. Standalone pages like durga-pujo.html load
+    // common.js too, but use plain in-page anchors (e.g. #dpShareMomentCard)
+    // — without this guard, the "else" branch below would strip those
+    // fragments via replaceState before the browser can scroll to them.
+    if (document.getElementById('live-site-content')) {
+      const hash = window.location.hash.replace('#', '');
+      const validPages = ['home', 'aim', 'members', 'finances', 'events', 'activities', 'gallery', 'magazine', 'members-only', 'my-account', 'treasurer', 'admin', 'join', 'contact', 'emergency'];
 
-    if (hash && validPages.includes(hash)) {
-      showPage(hash, false); 
-      window.history.replaceState({ page: hash }, "", "#" + hash);
-    } else {
-      window.history.replaceState({ page: 'home' }, "", window.location.pathname + window.location.search);
+      if (hash && validPages.includes(hash)) {
+        showPage(hash, false); 
+        window.history.replaceState({ page: hash }, "", "#" + hash);
+      } else {
+        window.history.replaceState({ page: 'home' }, "", window.location.pathname + window.location.search);
+      }
     }
 
     loadNotices();
