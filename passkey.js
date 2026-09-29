@@ -56,8 +56,8 @@
       return false;
     }
 
-    gateClient.from('site_settings').select('*').eq('id', 1).single()
-      .then(({ data, error }) => {
+    gateClient.from('site_settings_public').select('*').eq('id', 1).single()
+      .then(async ({ data, error }) => {
         if (error || !data) { showMaintenance(); return; }
 
         window.__siteSettings = data;
@@ -66,13 +66,23 @@
         const urlParams = new URLSearchParams(window.location.search);
         const urlAccess = urlParams.get('access');
 
-        let unlocked = storedPass && data.access_password && storedPass === data.access_password;
+        // The real code is checked server-side via the check_preview_code
+        // RPC — it's never fetched to or compared in the browser, only a
+        // true/false result comes back.
+        let unlocked = false;
+        if (storedPass) {
+          const { data: ok } = await gateClient.rpc('check_preview_code', { attempt: storedPass });
+          unlocked = !!ok;
+        }
 
-        if (!unlocked && urlAccess && data.access_password && urlAccess === data.access_password) {
-          localStorage.setItem(LOCAL_UNLOCK_KEY, urlAccess);
-          unlocked = true;
-          const cleanUrl = window.location.pathname + window.location.hash;
-          window.history.replaceState({}, document.title, cleanUrl);
+        if (!unlocked && urlAccess) {
+          const { data: ok2 } = await gateClient.rpc('check_preview_code', { attempt: urlAccess });
+          if (ok2) {
+            localStorage.setItem(LOCAL_UNLOCK_KEY, urlAccess);
+            unlocked = true;
+            const cleanUrl = window.location.pathname + window.location.hash;
+            window.history.replaceState({}, document.title, cleanUrl);
+          }
         }
 
         localStorage.setItem(LOCAL_STATUS_CACHE_KEY, JSON.stringify({ maintenance_mode: data.maintenance_mode }));
