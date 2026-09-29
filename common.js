@@ -548,18 +548,36 @@
     const errorEl = document.getElementById('previewUnlockError');
     const btn = document.querySelector('.maint-unlock button');
 
-    function attempt(settings) {
+    async function attempt(settings) {
       if (!settings) {
         errorEl.textContent = "Couldn't reach the site's settings. In Supabase, confirm the site_settings table was created (see setup step) and that its row with id = 1 exists, then refresh this page and try again.";
         errorEl.style.display = 'block';
         return;
       }
-      if (val && val === settings.access_password) {
-        localStorage.setItem('dts_preview_pass_v1', val);
-        window.location.reload();
-      } else {
+      if (!val) {
         errorEl.textContent = 'Incorrect code.';
         errorEl.style.display = 'block';
+        return;
+      }
+
+      if (btn) btn.disabled = true;
+      try {
+        // Checked server-side via RPC — the real code is never fetched to
+        // or compared in the browser, only a true/false result comes back.
+        const { data: ok, error } = await supabaseClient.rpc('check_preview_code', { attempt: val });
+        if (error) throw error;
+        if (ok) {
+          localStorage.setItem('dts_preview_pass_v1', val);
+          window.location.reload();
+        } else {
+          errorEl.textContent = 'Incorrect code.';
+          errorEl.style.display = 'block';
+        }
+      } catch (err) {
+        errorEl.textContent = 'Error checking code: ' + err.message;
+        errorEl.style.display = 'block';
+      } finally {
+        if (btn) btn.disabled = false;
       }
     }
 
