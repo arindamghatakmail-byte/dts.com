@@ -437,7 +437,15 @@ async function loadMyAccountDues(memberName) {
   const defaultAmount = 25;
 
     try {
-    const { data, error } = await supabaseClient.from('member_donations').select('*').eq('fy_year', fyYear).order('id', { ascending: true });
+    // No fy_year filter here on purpose. treasurer.js already tolerates a
+    // blank/null fy_year by falling back to "2026-2027" only when
+    // DISPLAYING a record — it fetches every row with no filter. This
+    // function used to filter with .eq('fy_year', fyYear) instead, which
+    // silently excludes any record whose stored fy_year is blank or typed
+    // differently, making a real payment show as "Due" here even though
+    // Treasurer/Admin show it as paid. Fetching unfiltered and applying
+    // the same fallback keeps all three views in agreement.
+    const { data, error } = await supabaseClient.from('member_donations').select('*').order('id', { ascending: true });
     if (error) throw error;
 
     const normalize = (s) => (s || '').replace(/\s+/g, ' ').trim().toLowerCase();
@@ -445,7 +453,8 @@ async function loadMyAccountDues(memberName) {
 
     let paidMonthsMap = {};
     (data || []).forEach(d => {
-      if (normalize(d.member_name) === targetName && d.status && d.status.includes('Paid')) {
+      const recordFyYear = d.fy_year || fyYear;
+      if (recordFyYear === fyYear && normalize(d.member_name) === targetName && d.status && d.status.includes('Paid')) {
         paidMonthsMap[d.month] = d;
       }
     });
