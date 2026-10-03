@@ -427,6 +427,34 @@ async function downloadMyIdCard() {
 }
 
 
+// Asks for the UPI transaction ID (UTR) and files it as a payment claim
+// tied to the logged-in member's own session — the member never types
+// their own name/fy_year, so this can't be mis-filed the way a
+// Treasurer's manual entry from a bank statement can.
+async function submitPaymentClaim(month, fyYear, amount) {
+  const utr = (prompt(`Enter your UPI transaction ID (UTR) for ${month}'s ₹${amount} payment:`) || '').trim();
+  if (!utr) return;
+
+  try {
+    const { error } = await supabaseClient.rpc('submit_payment_claim', {
+      p_token: myAccountToken,
+      p_month: month,
+      p_fy_year: fyYear,
+      p_amount: amount,
+      p_utr: utr
+    });
+    if (error) throw error;
+    alert('Thanks! Your payment claim was submitted and is awaiting Treasurer confirmation.');
+    if (currentMyAccountMember) loadMyAccountDues(currentMyAccountMember.name);
+  } catch (err) {
+    alert('Error submitting your claim: ' + err.message);
+  }
+}
+function promptPaymentClaim(month, fyYear, amount) {
+  submitPaymentClaim(month, fyYear, amount);
+}
+
+
 // Dues table mirrors the public "Individual Member Status" lookup, but is
 // always scoped to the logged-in member's own name — never anyone else's.
 async function loadMyAccountDues(memberName) {
@@ -459,20 +487,40 @@ async function loadMyAccountDues(memberName) {
       }
     });
 
+    // Pending/claimed months, so a member can't submit the same month
+    // twice and sees "Verification Pending" instead of "Pay Online" again.
+    let claimedMonthsMap = {};
+    try {
+      const { data: claims } = await supabaseClient.rpc('get_my_payment_claims', { p_token: myAccountToken });
+      (claims || []).forEach(c => {
+        if ((c.fy_year || fyYear) === fyYear && c.status === 'Pending Verification') {
+          claimedMonthsMap[c.month] = c;
+        }
+      });
+    } catch (err) {
+      // Non-fatal — dues table still works, just without pending-claim awareness.
+    }
+
     let html = '<table class="gb-table"><thead><tr><th>FY Year</th><th>Month</th><th>Amount</th><th>Status</th><th>Action</th></tr></thead><tbody>';
     monthsList.forEach(m => {
       const record = paidMonthsMap[m];
       const isPaid = !!record;
+      const claim = claimedMonthsMap[m];
       const amount = record ? record.amount : defaultAmount;
-      const statusText = isPaid ? record.status : 'Due';
+      const statusText = isPaid ? record.status : (claim ? 'Verification Pending' : 'Due');
+      const statusColor = isPaid ? 'var(--leaf)' : (claim ? 'var(--marigold)' : 'var(--sindoor)');
+      const statusIcon = isPaid ? '✓' : (claim ? '⏳' : '⚠️');
       html += `<tr>
         <td><strong>${fyYear}</strong></td>
         <td>${m}</td>
         <td>₹${amount}</td>
-        <td><span style="color:${isPaid ? 'var(--leaf)' : 'var(--sindoor)'}; font-weight:bold;">${statusText} ${isPaid ? '✓' : '⚠️'}</span></td>
+        <td><span style="color:${statusColor}; font-weight:bold;">${statusText} ${statusIcon}</span></td>
         <td>${isPaid
           ? `<button onclick="downloadSinglePdfReceipt('${fyYear}', '${m}', '${escapeHtml(memberName)}', '${amount}')" style="padding:4px 10px; background:var(--marigold); color:var(--indigo); border:none; border-radius:4px; font-size:11px; cursor:pointer;"><i class="fas fa-file-pdf"></i> Receipt</button>`
-          : `<a href="upi://pay?pa=8972217940m@pnb&pn=Dihibaliharpur%20Tarun%20Sangha&cu=INR&am=${amount}&tn=Club%20Dues%20${m}" target="_blank" style="padding:4px 8px; background:#27ae60; color:#fff; border-radius:4px; font-size:10.5px; text-decoration:none;"><i class="fas fa-qrcode"></i> Pay Online</a>`
+          : claim
+            ? `<span style="font-size:11px; color:#7a7260;">UTR: ${escapeHtml(claim.utr)} — awaiting Treasurer confirmation</span>`
+            : `<a href="upi://pay?pa=8972217940m@pnb&pn=Dihibaliharpur%20Tarun%20Sangha&cu=INR&am=${amount}&tn=Club%20Dues%20${m}" target="_blank" style="padding:4px 8px; background:#27ae60; color:#fff; border-radius:4px; font-size:10.5px; text-decoration:none; margin-right:6px;"><i class="fas fa-qrcode"></i> Pay Online</a>
+               <button type="button" onclick="promptPaymentClaim('${m}', '${fyYear}', ${amount})" style="padding:4px 8px; background:var(--indigo); color:#fff; border:none; border-radius:4px; font-size:10.5px; cursor:pointer;"><i class="fas fa-check"></i> I've Paid</button>`
         }</td>
       </tr>`;
     });
@@ -611,3 +659,4 @@ window.switchMyAccountTab = switchMyAccountTab;
 window.myAccountLogout = myAccountLogout;
 window.downloadMyIdCard = downloadMyIdCard;
 window.uploadMyProfilePhoto = uploadMyProfilePhoto;
+window.promptPaymentClaim = promptPaymentClaim;
