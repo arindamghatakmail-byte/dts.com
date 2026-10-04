@@ -1,0 +1,199 @@
+/* =====================================================================
+   ADMIN-EMBOSS.CSS — Neumorphic "soft 3D" styling for the Admin login
+   gate and dashboard only. Scoped entirely under #adminLoginGate and
+   #adminContent (the exact ids admin.js already uses to show/hide these
+   sections), so it can never leak into Member, Treasurer, or the public
+   site. Built from the site's existing --paper/--indigo/--marigold
+   palette, not new colors, so it still feels like the same site.
+
+   How it works: every raised surface gets a pair of shadows — a light
+   one up-top-left, a dark one down-bottom-right, both soft and blurred
+   — which the eye reads as "this is puffing up out of the background."
+   Inputs get the same pair flipped inward (inset), which reads as
+   "pressed in." Buttons flip from raised to pressed on :active, which
+   is what actually sells the 3D illusion when you click something.
+   ===================================================================== */
+
+#adminLoginGate,
+#adminContent {
+  --emboss-bg: var(--paper, #F7F1E3);
+  --emboss-light: rgba(255,255,255,0.85);
+  --emboss-dark: rgba(60,50,30,0.22);
+  --emboss-dark-soft: rgba(60,50,30,0.12);
+  background: var(--emboss-bg);
+}
+
+/* ---------------------------------------------------------------------
+   LOGIN GATE
+   --------------------------------------------------------------------- */
+#adminLoginGate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  padding: 40px 20px;
+}
+
+#adminLoginGate .card,
+#adminLoginGate > div {
+  background: var(--emboss-bg);
+  border: none;
+  border-radius: 20px;
+  padding: 36px 32px;
+  max-width: 380px;
+  width: 100%;
+  box-shadow:
+    8px 8px 18px var(--emboss-dark),
+    -8px -8px 18px var(--emboss-light);
+}
+
+#adminLoginGate input[type="email"],
+#adminLoginGate input[type="password"],
+#adminLoginGate input[type="text"] {
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  background: var(--emboss-bg);
+  color: var(--indigo);
+  font-size: 14px;
+  box-shadow:
+    inset 4px 4px 8px var(--emboss-dark-soft),
+    inset -4px -4px 8px var(--emboss-light);
+  transition: box-shadow .15s ease;
+}
+#adminLoginGate input:focus {
+  outline: none;
+  box-shadow:
+    inset 4px 4px 8px var(--emboss-dark-soft),
+    inset -4px -4px 8px var(--emboss-light),
+    0 0 0 2px var(--marigold);
+}
+
+#adminLoginGate button {
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  padding: 14px;
+  background: var(--emboss-bg);
+  color: var(--indigo);
+  font-weight: 700;
+  font-size: 13.5px;
+  letter-spacing: .03em;
+  cursor: pointer;
+  box-shadow:
+    6px 6px 12px var(--emboss-dark),
+    -6px -6px 12px var(--emboss-light);
+  transition: box-shadow .12s ease, transform .12s ease;
+}
+#adminLoginGate button:hover:not(:disabled) {
+  color: var(--sindoor);
+}
+#adminLoginGate button:active:not(:disabled),
+#adminLoginGate button:disabled {
+  box-shadow:
+    inset 4px 4px 8px var(--emboss-dark-soft),
+    inset -4px -4px 8px var(--emboss-light);
+  transform: translateY(1px);
+}
+
+/* ---------------------------------------------------------------------
+   DASHBOARD (after login)
+   --------------------------------------------------------------------- */
+#adminContent {
+  padding: 20px;
+}
+
+#adminContent .card {
+  background: var(--emboss-bg);
+  border: none;
+  border-radius: 16px;
+  box-shadow:
+    6px 6px 14px var(--emboss-dark-soft),
+    -6px -6px 14px var(--emboss-light);
+}
+
+#adminContent .section-head {
+  background: var(--emboss-bg);
+  border-radius: 12px;
+  padding: 10px 16px;
+  box-shadow:
+    inset 3px 3px 6px var(--emboss-dark-soft),
+    inset -3px -3px 6px var(--emboss-light);
+}
+
+/* Tabs / nav pills, if admin.js uses the same .tag / pill classes as
+   elsewhere on the site — raised when idle, pressed-in when active. */
+#adminContent .admin-tab-btn,
+#adminContent .tag {
+  background: var(--emboss-bg);
+  border: none;
+  border-radius: 10px;
+  box-shadow:
+    4px 4px 8px var(--emboss-dark-soft),
+    -4px -4px 8px var(--emboss-light);
+}
+#adminContent .admin-tab-btn.active {
+  box-shadow:
+    inset 3px 3px 6px var(--emboss-dark-soft),
+    inset -3px -3px 6px var(--emboss-light);
+  color: var(--sindoor);
+}
+
+#adminContent input,
+#adminContent select,
+#adminContent textarea {
+  border: none;
+  border-radius: 10px;
+  background: var(--emboss-bg);
+  box-shadow:
+    inset 3px 3px 6px var(--emboss-dark-soft),
+    inset -3px -3px 6px var(--emboss-light);
+}
+#adminContent input:focus,
+#adminContent select:focus,
+#adminContent textarea:focus {
+  outline: none;
+  box-shadow:
+    inset 3px 3px 6px var(--emboss-dark-soft),
+    inset -3px -3px 6px var(--emboss-light),
+    0 0 0 2px var(--marigold);
+}
+
+#adminContent button:not(.dp-flip-nav button) {
+  border: none;
+  border-radius: 10px;
+  background: var(--emboss-bg);
+  box-shadow:
+    4px 4px 8px var(--emboss-dark-soft),
+    -4px -4px 8px var(--emboss-light);
+  transition: box-shadow .12s ease, transform .12s ease;
+}
+#adminContent button:not(.dp-flip-nav button):active {
+  box-shadow:
+    inset 3px 3px 6px var(--emboss-dark-soft),
+    inset -3px -3px 6px var(--emboss-light);
+  transform: translateY(1px);
+}
+
+/* Tables: a flat embossed "well" around the whole table reads better
+   than embossing every single row, which gets visually noisy fast. */
+#adminContent table.gb-table {
+  background: var(--emboss-bg);
+  border-radius: 12px;
+  box-shadow:
+    inset 3px 3px 6px var(--emboss-dark-soft),
+    inset -3px -3px 6px var(--emboss-light);
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+}
+
+/* Respect reduced motion for the press/hover transitions above. */
+@media (prefers-reduced-motion: reduce) {
+  #adminLoginGate button,
+  #adminContent button {
+    transition: none;
+  }
+}
