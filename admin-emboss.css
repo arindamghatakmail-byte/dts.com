@@ -24,27 +24,40 @@
 }
 
 /* ---------------------------------------------------------------------
-   LOGIN GATE
+   LOGIN GATE — dark navy-indigo neumorphic, matching the site's actual
+   brand navy (nav bar, admin menu) instead of a mismatched pale cream.
    --------------------------------------------------------------------- */
 #adminLoginGate {
+  --login-bg: var(--indigo, #1B2A4A);
+  --login-light: rgba(255,255,255,0.06);
+  --login-dark: rgba(0,0,0,0.55);
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 70vh;
   padding: 40px 20px;
+  background: var(--login-bg);
 }
 
 #adminLoginGate .card,
 #adminLoginGate > div {
-  background: var(--emboss-bg);
+  background: var(--login-bg);
   border: none;
   border-radius: 20px;
   padding: 36px 32px;
   max-width: 380px;
   width: 100%;
   box-shadow:
-    8px 8px 18px var(--emboss-dark),
-    -8px -8px 18px var(--emboss-light);
+    8px 8px 18px var(--login-dark),
+    -8px -8px 18px var(--login-light);
+}
+
+#adminLoginGate h1,
+#adminLoginGate h2,
+#adminLoginGate h3,
+#adminLoginGate p,
+#adminLoginGate label {
+  color: var(--paper, #F7F1E3);
 }
 
 #adminLoginGate input[type="email"],
@@ -55,19 +68,22 @@
   border-radius: 12px;
   padding: 14px 16px;
   margin-bottom: 16px;
-  background: var(--emboss-bg);
-  color: var(--indigo);
+  background: var(--login-bg);
+  color: var(--paper, #F7F1E3);
   font-size: 14px;
   box-shadow:
-    inset 4px 4px 8px var(--emboss-dark-soft),
-    inset -4px -4px 8px var(--emboss-light);
+    inset 4px 4px 8px var(--login-dark),
+    inset -4px -4px 8px var(--login-light);
   transition: box-shadow .15s ease;
+}
+#adminLoginGate input::placeholder {
+  color: rgba(247,241,227,0.45);
 }
 #adminLoginGate input:focus {
   outline: none;
   box-shadow:
-    inset 4px 4px 8px var(--emboss-dark-soft),
-    inset -4px -4px 8px var(--emboss-light),
+    inset 4px 4px 8px var(--login-dark),
+    inset -4px -4px 8px var(--login-light),
     0 0 0 2px var(--marigold);
 }
 
@@ -76,25 +92,25 @@
   border: none;
   border-radius: 12px;
   padding: 14px;
-  background: var(--emboss-bg);
-  color: var(--indigo);
+  background: var(--login-bg);
+  color: var(--marigold);
   font-weight: 700;
   font-size: 13.5px;
   letter-spacing: .03em;
   cursor: pointer;
   box-shadow:
-    6px 6px 12px var(--emboss-dark),
-    -6px -6px 12px var(--emboss-light);
+    6px 6px 12px var(--login-dark),
+    -6px -6px 12px var(--login-light);
   transition: box-shadow .12s ease, transform .12s ease;
 }
 #adminLoginGate button:hover:not(:disabled) {
-  color: var(--sindoor);
+  color: var(--sindoor, #C6262B);
 }
 #adminLoginGate button:active:not(:disabled),
 #adminLoginGate button:disabled {
   box-shadow:
-    inset 4px 4px 8px var(--emboss-dark-soft),
-    inset -4px -4px 8px var(--emboss-light);
+    inset 4px 4px 8px var(--login-dark),
+    inset -4px -4px 8px var(--login-light);
   transform: translateY(1px);
 }
 
