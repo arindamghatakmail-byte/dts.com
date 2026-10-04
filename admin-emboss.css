@@ -31,12 +31,17 @@
   --login-bg: var(--indigo, #1B2A4A);
   --login-light: rgba(255,255,255,0.06);
   --login-dark: rgba(0,0,0,0.55);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  max-width: none !important;
   min-height: 70vh;
+  margin: 0 !important;
   padding: 40px 20px;
   background: var(--login-bg);
+  box-sizing: border-box;
 }
 
 #adminLoginGate .card,
@@ -47,9 +52,22 @@
   padding: 36px 32px;
   max-width: 380px;
   width: 100%;
+  margin: 0 auto 16px;
   box-shadow:
     8px 8px 18px var(--login-dark),
     -8px -8px 18px var(--login-light);
+  box-sizing: border-box;
+}
+
+@media (max-width: 480px) {
+  #adminLoginGate {
+    padding: 24px 14px;
+  }
+  #adminLoginGate .card,
+  #adminLoginGate > div {
+    padding: 26px 22px;
+    border-radius: 16px;
+  }
 }
 
 #adminLoginGate h1,
@@ -112,6 +130,37 @@
     inset 4px 4px 8px var(--login-dark),
     inset -4px -4px 8px var(--login-light);
   transform: translateY(1px);
+}
+
+/* ---------------------------------------------------------------------
+   ADMIN NAV DROPDOWN — confirmed via inspect: a real <select id=
+   "adminNavSelect" class="modern-select"> inside <div class=
+   "dashboard-nav-wrapper">. !important here for the same reason as the
+   login gate above: styles.css already has its own rule for these
+   classes, and this file needs to win that specific override.
+   --------------------------------------------------------------------- */
+#adminContent .dashboard-nav-wrapper {
+  background: var(--indigo, #1B2A4A) !important;
+  border-radius: 14px !important;
+  box-shadow:
+    6px 6px 14px var(--emboss-dark),
+    -6px -6px 14px var(--emboss-light) !important;
+  padding: 4px 10px !important;
+  margin-bottom: 20px;
+}
+#adminContent .dashboard-nav-wrapper label {
+  color: var(--paper, #F7F1E3) !important;
+}
+#adminContent #adminNavSelect.modern-select {
+  background: transparent !important;
+  color: var(--paper, #F7F1E3) !important;
+  border: none !important;
+  box-shadow: none !important;
+  font-weight: 600;
+}
+#adminContent #adminNavSelect.modern-select option {
+  background: var(--indigo, #1B2A4A);
+  color: var(--paper, #F7F1E3);
 }
 
 /* ---------------------------------------------------------------------
@@ -204,6 +253,15 @@
   border-collapse: separate;
   border-spacing: 0;
   overflow: hidden;
+}
+
+@media (max-width: 480px) {
+  #adminContent {
+    padding: 12px;
+  }
+  #adminContent .card {
+    padding: 14px;
+  }
 }
 
 /* Respect reduced motion for the press/hover transitions above. */
