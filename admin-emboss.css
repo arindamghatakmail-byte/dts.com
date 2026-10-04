@@ -31,7 +31,13 @@
   --login-bg: var(--indigo, #1B2A4A);
   --login-light: rgba(255,255,255,0.06);
   --login-dark: rgba(0,0,0,0.55);
-  display: flex !important;
+  /* No !important on display: admin.js sets this element's inline
+     display:none on successful login (checkAdminPassword), and an
+     !important rule here would override that and keep the login gate
+     visibly stacked on top of the dashboard after logging in. The
+     properties below don't get touched by JS, so !important on them
+     is safe and still wins the centering fight against styles.css. */
+  display: flex;
   align-items: center !important;
   justify-content: center !important;
   flex-direction: column !important;
@@ -133,34 +139,63 @@
 }
 
 /* ---------------------------------------------------------------------
-   ADMIN NAV DROPDOWN — confirmed via inspect: a real <select id=
-   "adminNavSelect" class="modern-select"> inside <div class=
-   "dashboard-nav-wrapper">. !important here for the same reason as the
-   login gate above: styles.css already has its own rule for these
-   classes, and this file needs to win that specific override.
+   ADMIN NAV GRID — replaces the native <select> dropdown with embossed
+   button tiles. Pairs with the HTML snippet + adminNavClick() script
+   given in chat, which replaces the old .dashboard-nav-wrapper block.
    --------------------------------------------------------------------- */
-#adminContent .dashboard-nav-wrapper {
-  background: var(--indigo, #1B2A4A) !important;
-  border-radius: 14px !important;
-  box-shadow:
-    6px 6px 14px var(--emboss-dark),
-    -6px -6px 14px var(--emboss-light) !important;
-  padding: 4px 10px !important;
-  margin-bottom: 20px;
+#adminContent .admin-nav-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+  margin-bottom: 24px;
 }
-#adminContent .dashboard-nav-wrapper label {
-  color: var(--paper, #F7F1E3) !important;
-}
-#adminContent #adminNavSelect.modern-select {
-  background: transparent !important;
-  color: var(--paper, #F7F1E3) !important;
-  border: none !important;
-  box-shadow: none !important;
-  font-weight: 600;
-}
-#adminContent #adminNavSelect.modern-select option {
+#adminContent .admin-nav-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 10px;
   background: var(--indigo, #1B2A4A);
   color: var(--paper, #F7F1E3);
+  border: none;
+  border-radius: 14px;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.3;
+  cursor: pointer;
+  box-shadow:
+    6px 6px 12px var(--emboss-dark),
+    -6px -6px 12px var(--emboss-light);
+  transition: box-shadow .12s ease, transform .12s ease, color .12s ease;
+}
+#adminContent .admin-nav-btn i {
+  font-size: 20px;
+  color: var(--marigold);
+}
+#adminContent .admin-nav-btn:hover {
+  transform: translateY(-2px);
+}
+#adminContent .admin-nav-btn.active {
+  color: var(--marigold);
+  box-shadow:
+    inset 4px 4px 8px var(--emboss-dark),
+    inset -4px -4px 8px var(--emboss-light);
+  transform: none;
+}
+#adminContent .admin-nav-btn.active i {
+  color: var(--sindoor, #C6262B);
+}
+
+@media (max-width: 480px) {
+  #adminContent .admin-nav-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 8px;
+  }
+  #adminContent .admin-nav-btn {
+    padding: 12px 6px;
+    font-size: 11px;
+  }
 }
 
 /* ---------------------------------------------------------------------
