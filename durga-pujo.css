@@ -488,3 +488,6 @@
   background:var(--marigold);
   color:var(--indigo);
 }
+#dpPerformCard {
+  scroll-margin-top: 64px;
+}
